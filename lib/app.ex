@@ -1,2 +1,0 @@
-defmodule ExShopify do
-end

@@ -14,7 +14,8 @@ defmodule ExShopify.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:httpoison, :logger]]
+    [mod: {ExShopify, []},
+     applications: [:httpoison, :logger]]
   end
 
   # Dependencies can be Hex packages:
