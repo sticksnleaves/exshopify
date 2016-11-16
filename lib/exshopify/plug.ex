@@ -9,7 +9,7 @@ defmodule ExShopify.Plug do
     cond do
       opts[:strategy] == :oauth ->
         verify_oauth(conn, opts)
-      opts[:strategy] == :webhooks ->
+      opts[:strategy] == :webhook ->
         verify_webhooks(conn, opts)
     end
   end
@@ -49,6 +49,10 @@ defmodule ExShopify.Plug do
   end
 
   defp verify_webhooks(conn, opts) do
+    {:ok, body, _} = read_body(conn)
+    hmac = conn |> get_req_header("x-shopify-hmac-sha256") |> Enum.at(0)
+    verified = verify_hmac(shared_secret(opts), body, hmac)
 
+    assign(conn, :shopify_hmac_verified, verified)
   end
 end

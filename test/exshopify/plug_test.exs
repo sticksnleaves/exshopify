@@ -60,4 +60,38 @@ defmodule ExShopifyTest do
       assert(conn.assigns[:shopify_hmac_verified] == false)
     end
   end
+
+  describe ":webhook strategy" do
+    test "should assign \"shopify_hmac_verified\" to \"true\" if HMAC is valid" do
+      opts = %{
+        shared_secret: "hush",
+        strategy: :webhook
+      }
+
+      body = "code=0907a61c0c8d55e99db179b68161bc00&shop=some-shop.myshopify.com&timestamp=1337178173"
+
+      conn =
+        conn(:get, "/", body)
+        |> put_req_header("x-shopify-hmac-sha256", "4712bf92ffc2917d15a2f5a273e39f0116667419aa4b6ac0b3baaf26fa3c4d20")
+        |> ExShopify.Plug.call(opts)
+
+      assert(conn.assigns[:shopify_hmac_verified] == true)
+    end
+
+    test "should assign \"shopify_hmac_verified\" to \"false\" if HMAC is invalid" do
+      opts = %{
+        shared_secret: "invalid",
+        strategy: :webhook
+      }
+
+      body = "code=0907a61c0c8d55e99db179b68161bc00&shop=some-shop.myshopify.com&timestamp=1337178173"
+
+      conn =
+        conn(:get, "/", body)
+        |> put_req_header("x-shopify-hmac-sha256", "4712bf92ffc2917d15a2f5a273e39f0116667419aa4b6ac0b3baaf26fa3c4d20")
+        |> ExShopify.Plug.call(opts)
+
+      assert(conn.assigns[:shopify_hmac_verified] == false)
+    end
+  end
 end
