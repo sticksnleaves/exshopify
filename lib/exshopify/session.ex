@@ -1,6 +1,21 @@
 defmodule ExShopify.Session do
+  @moduledoc """
+  Module for managing API credentials.
+
+  Possible values:
+    * `:access_token`
+    * `:api_key`
+    * `:secret`
+    * `:shop_name`
+    * `:shop_url`
+  """
+
+  @doc """
+  Generate session data.
+  """
+  @spec create(map) :: map
   def create(config \\ %{}) do
-    keys = [:access_token, :api_key, :shared_secret, :shop_name, :shop_url]
+    keys = [:access_token, :api_key, :secret, :shop_name, :shop_url]
 
     Enum.reduce(keys, %{}, fn(key, acc) ->
       value = config[key] || Application.get_env(:exshopify, key)

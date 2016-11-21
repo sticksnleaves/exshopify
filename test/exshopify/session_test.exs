@@ -18,12 +18,12 @@ defmodule ExShopify.Session.Test do
       assert value == Application.get_env(:exshopify, :api_key)
     end
 
-    test ":shared_secret returns application config" do
-      Application.put_env(:exshopify, :shared_secret, "shared_secret")
+    test ":secret returns application config" do
+      Application.put_env(:exshopify, :secret, "shared_secret")
 
-      value = ExShopify.Session.create()[:shared_secret]
+      value = ExShopify.Session.create()[:secret]
 
-      assert value == Application.get_env(:exshopify, :shared_secret)
+      assert value == Application.get_env(:exshopify, :secret)
     end
 
     test ":shop_name returns application config" do
@@ -56,10 +56,10 @@ defmodule ExShopify.Session.Test do
       assert ExShopify.Session.create(api_key: value)[:api_key] == value
     end
 
-    test ":shared_secret returns provided value" do
+    test ":secret returns provided value" do
       value = "shared_secret"
 
-      assert ExShopify.Session.create(shared_secret: value)[:shared_secret] == value
+      assert ExShopify.Session.create(shared_secret: value)[:secret] == value
     end
 
     test ":shop_name returns provided value" do
