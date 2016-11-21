@@ -31,6 +31,8 @@ defmodule ExShopify.Mixfile do
     [{:httpoison, "~> 0.10.0"},
      {:poison, "~> 3.0.0"},
      # dev
-     {:ex_doc, ">= 0.0.0", only: :dev}]
+     {:ex_doc, ">= 0.0.0", only: :dev},
+     #test
+     {:bypass, "~> 0.5.1", git: "https://github.com/PSPDFKit-labs/bypass", only: :test}]
   end
 end
