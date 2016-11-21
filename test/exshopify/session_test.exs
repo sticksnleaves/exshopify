@@ -18,8 +18,32 @@ defmodule ExShopify.Session.Test do
       assert value == Application.get_env(:exshopify, :api_key)
     end
 
+    test ":domain returns application config" do
+      Application.put_env(:exshopify, :domain, "domain")
+
+      value = ExShopify.Session.create()[:domain]
+
+      assert value == Application.get_env(:exshopify, :domain)
+    end
+
+    test ":port returns application config" do
+      Application.put_env(:exshopify, :port, "port")
+
+      value = ExShopify.Session.create()[:port]
+
+      assert value == Application.get_env(:exshopify, :port)
+    end
+
+    test ":protocol returns application config" do
+      Application.put_env(:exshopify, :protocol, "protocol")
+
+      value = ExShopify.Session.create()[:protocol]
+
+      assert value == Application.get_env(:exshopify, :protocol)
+    end
+
     test ":secret returns application config" do
-      Application.put_env(:exshopify, :secret, "shared_secret")
+      Application.put_env(:exshopify, :secret, "secret")
 
       value = ExShopify.Session.create()[:secret]
 
@@ -56,10 +80,28 @@ defmodule ExShopify.Session.Test do
       assert ExShopify.Session.create(api_key: value)[:api_key] == value
     end
 
-    test ":secret returns provided value" do
-      value = "shared_secret"
+    test ":domain returns provided value" do
+      value = "domain"
 
-      assert ExShopify.Session.create(shared_secret: value)[:secret] == value
+      assert ExShopify.Session.create(domain: value)[:domain] == value
+    end
+
+    test ":port returns provided value" do
+      value = "port"
+
+      assert ExShopify.Session.create(port: value)[:port] == value
+    end
+
+    test ":protocol returns provided value" do
+      value = "protocol"
+
+      assert ExShopify.Session.create(protocol: value)[:protocol] == value
+    end
+
+    test ":secret returns provided value" do
+      value = "secret"
+
+      assert ExShopify.Session.create(secret: value)[:secret] == value
     end
 
     test ":shop_name returns provided value" do
