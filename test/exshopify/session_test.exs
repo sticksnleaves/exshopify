@@ -1,5 +1,12 @@
 defmodule ExShopify.Session.Test do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
+
+  setup do
+    Application.stop(:exshopify)
+    Application.start(:exshopify)
+  end
+
+  @moduletag :capture_log
 
   describe "ExShopify.Session.create/0" do
     test ":access_token returns application config" do
