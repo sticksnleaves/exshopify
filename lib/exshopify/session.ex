@@ -1,34 +1,23 @@
 defmodule ExShopify.Session do
-  @moduledoc """
-  Module for managing information pertaining to making API requests
+  defstruct access_token: nil, api_key: nil, domain: "myshopify.com", port: nil,
+            protocol: "https", secret: nil, shop_name: nil, shop_url: nil
 
-  Possible values:
-    * `:access_token`
-    * `:api_key`
-    * `:domain`
-    * `:port`
-    * `:protocol`
-    * `:secret`
-    * `:shop_name`
-    * `:shop_url`
-  """
+  def new(config \\ %{}) do
+    keys =
+      Map.keys(%__MODULE__{})
+      |> List.delete(:__struct__)
 
-  @doc """
-  Generate session data.
-  """
-  @spec create(map) :: map
-  def create(config \\ %{}) do
-    keys = [:access_token, :api_key, :domain, :port, :protocol, :secret,
-            :shop_name, :shop_url]
+    map =
+      Enum.reduce(keys, %{}, fn(key, acc) ->
+        value = config[key] || Application.get_env(:exshopify, key)
 
-    Enum.reduce(keys, %{}, fn(key, acc) ->
-      value = config[key] || Application.get_env(:exshopify, key)
+        if value do
+          Map.put(acc, key, value)
+        else
+          acc
+        end
+      end)
 
-      if value do
-        Map.put(acc, key, value)
-      else
-        acc
-      end
-    end)
+    struct(__MODULE__, map)
   end
 end
