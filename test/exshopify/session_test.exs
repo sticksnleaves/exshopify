@@ -8,7 +8,7 @@ defmodule ExShopify.Session.Test do
 
   @moduletag :capture_log
 
-  describe "ExShopify.Session.create/0" do
+  describe "ExShopify.Session.new/0" do
     test ":access_token returns application config" do
       Application.put_env(:exshopify, :access_token, "access_token")
 
@@ -74,7 +74,7 @@ defmodule ExShopify.Session.Test do
     end
   end
 
-  describe "ExShopify.Session.create/1" do
+  describe "ExShopify.Session.new/1" do
     test ":access_token returns provided value" do
       value = "access_token"
 
