@@ -23,13 +23,14 @@ defmodule ExShopify.Resource do
 
   @spec serialize_resource({:ok, %HTTPoison.Response{}}, fun) :: success | error
   def serialize_resource({:ok, response}, serializer) do
-    body        = Poison.decode!(response.body)
+    body        = response.body
     status_code = response.status_code
 
     cond do
       status_code in 200..399 ->
         {:ok, serializer.(body), build_meta(response.headers)}
-      status_code in 400..599 ->
+      status_code in 400..599 -> {}
+        body = Poison.Parser.parse(response.body)
         {:error, @response_errors[status_code].new(body["errors"])}
     end
   end
