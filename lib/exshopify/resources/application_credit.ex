@@ -1,6 +1,6 @@
 defmodule ExShopify.ApplicationCredit do
   @moduledoc """
-  A one-time charge to a shop.
+  A credit for a shop.
   """
 
   import ExShopify.API
