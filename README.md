@@ -1,5 +1,7 @@
 # ExShopify
 
+[![Build Status](https://travis-ci.org/sticksnleaves/exshopify.svg?branch=master)](https://travis-ci.org/sticksnleaves/exshopify)
+
 **TODO: Add description**
 
 ## Installation
