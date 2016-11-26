@@ -4,7 +4,6 @@ defmodule ExShopify.Resource do
   """
 
   @type error :: {:error, struct}
-
   @type success :: {:ok, struct, %ExShopify.Meta{}}
 
   @response_errors %{

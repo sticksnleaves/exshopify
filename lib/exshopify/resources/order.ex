@@ -10,7 +10,6 @@ defmodule ExShopify.Order do
   import ExShopify.Resource
 
   @type order_resource :: {:ok, %ExShopify.Order{}, %ExShopify.Meta{}}
-
   @type order_count :: {:ok, integer, %ExShopify.Meta{}}
 
   defstruct [:billing_address, :browser_ip, :buyer_accepts_marketing,
