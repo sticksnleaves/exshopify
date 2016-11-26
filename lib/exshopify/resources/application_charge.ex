@@ -14,6 +14,7 @@ defmodule ExShopify.ApplicationCharge do
   @doc """
   Activate a previously accepted one-time application charge.
   """
+  @spec activate(%ExShopify.Session{}, integer | String.t, map) :: application_charge_resource | ExShopify.Resource.error
   def activate(session \\ nil, id, params) do
     request(:post, "/application_charges/#{id}/activate.json", params, session)
     |> serialize_resource(&serialize_single/1)
