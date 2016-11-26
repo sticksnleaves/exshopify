@@ -1,4 +1,9 @@
 defmodule ExShopify.AbandonedCheckout do
+  @moduledoc """
+  A checkout where acustomer has entered their billing & shipping info, but has
+  yet to complete the purchase.
+  """
+
   import ExShopify.API
   import ExShopify.Resource
 
