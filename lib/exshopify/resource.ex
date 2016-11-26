@@ -30,7 +30,7 @@ defmodule ExShopify.Resource do
       status_code in 200..399 ->
         {:ok, serializer.(body), build_meta(response.headers)}
       status_code in 400..599 -> {}
-        body = Poison.Parser.parse(response.body)
+        body = Poison.Parser.parse!(response.body)
         {:error, @response_errors[status_code].new(body["errors"])}
     end
   end
