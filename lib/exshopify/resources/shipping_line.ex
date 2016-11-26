@@ -1,4 +1,4 @@
-defmodule ExShopify.Order.ShippingLine do
+defmodule ExShopify.ShippingLine do
   @moduledoc """
   Details the shipping methods used.
   """
@@ -8,8 +8,8 @@ defmodule ExShopify.Order.ShippingLine do
 
   @doc false
   def response_mapping do
-    %ExShopify.Order.ShippingLine{
-      tax_lines: [%ExShopify.Order.TaxLine{}]
+    %ExShopify.ShippingLine{
+      tax_lines: [%ExShopify.TaxLine{}]
     }
   end
 end

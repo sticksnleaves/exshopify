@@ -1,4 +1,4 @@
-defmodule ExShopify.Order.DiscountCode do
+defmodule ExShopify.DiscountCode do
   @moduledoc """
   Applicable discount codes that can be applied to the order.
   """

@@ -1,4 +1,4 @@
-defmodule ExShopify.Order.LineItem do
+defmodule ExShopify.LineItem do
   @moduledoc """
   A list of line item objects, each one containing information about an item in
   the order.
@@ -11,9 +11,9 @@ defmodule ExShopify.Order.LineItem do
 
   @doc false
   def response_mapping do
-    %ExShopify.Order.LineItem{
+    %ExShopify.LineItem{
       properties: [%ExShopify.Property{}],
-      tax_lines: [%ExShopify.Order.TaxLine{}]
+      tax_lines: [%ExShopify.TaxLine{}]
     }
   end
 end

@@ -1,4 +1,4 @@
-defmodule ExShopify.Order.ClientDetails do
+defmodule ExShopify.ClientDetails do
   @moduledoc """
   Information about the client.
   """

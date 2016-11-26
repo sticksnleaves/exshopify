@@ -8,7 +8,7 @@ defmodule ExShopify.Refund.RefundLineItem do
   @doc false
   def response_mapping do
     %ExShopify.Refund.RefundLineItem{
-      line_item: ExShopify.Order.LineItem.response_mapping
+      line_item: ExShopify.LineItem.response_mapping
     }
   end
 end

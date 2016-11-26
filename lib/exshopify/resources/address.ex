@@ -1,7 +1,7 @@
-defmodule ExShopify.Order.Address do
+defmodule ExShopify.Address do
   @moduledoc """
-  The mailing address associated with the payment method. This address is an
-  optional field that will not be available on orders that do not require one.
+  The mailing address associated with the payment method or where the order will
+  be shipped.
   """
 
   defstruct [:address1, :address2, :city, :company, :country, :country_code,

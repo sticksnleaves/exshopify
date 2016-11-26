@@ -110,16 +110,16 @@ defmodule ExShopify.Order do
   @doc false
   def response_mapping do
     %ExShopify.Order{
-      billing_address: %ExShopify.Order.Address{},
-      client_details: %ExShopify.Order.ClientDetails{},
-      customer: %ExShopify.Order.Customer{},
-      discount_codes: [%ExShopify.Order.DiscountCode{}],
-      fulfillments: [ExShopify.Order.Fulfillment.response_mapping],
-      line_items: [ExShopify.Order.LineItem.response_mapping],
+      billing_address: %ExShopify.Address{},
+      client_details: %ExShopify.ClientDetails{},
+      customer: %ExShopify.Customer{},
+      discount_codes: [%ExShopify.DiscountCode{}],
+      fulfillments: [ExShopify.Fulfillment.response_mapping],
+      line_items: [ExShopify.LineItem.response_mapping],
       refunds: [ExShopify.Refund.response_mapping],
-      shipping_address: %ExShopify.Order.Address{},
-      shipping_lines: [ExShopify.Order.ShippingLine.response_mapping],
-      tax_lines: [%ExShopify.Order.TaxLine{}],
+      shipping_address: %ExShopify.Address{},
+      shipping_lines: [ExShopify.ShippingLine.response_mapping],
+      tax_lines: [%ExShopify.TaxLine{}],
       transactions: [ExShopify.Transaction.response_mapping]
     }
   end
