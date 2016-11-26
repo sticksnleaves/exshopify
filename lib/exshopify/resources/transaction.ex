@@ -10,7 +10,7 @@ defmodule ExShopify.Transaction do
   @doc false
   def response_mapping do
     %ExShopify.Transaction{
-      payment_details: %ExShopify.Transaction.PaymentDetail{}
+      payment_details: %ExShopify.PaymentDetail{}
     }
   end
 end

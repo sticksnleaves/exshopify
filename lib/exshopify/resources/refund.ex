@@ -10,7 +10,7 @@ defmodule ExShopify.Refund do
   @doc false
   def response_mapping do
     %ExShopify.Refund{
-      refund_line_items: [ExShopify.Refund.RefundLineItem.response_mapping],
+      refund_line_items: [ExShopify.RefundLineItem.response_mapping],
       transactions: [ExShopify.Transaction.response_mapping]
     }
   end

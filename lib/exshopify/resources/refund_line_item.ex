@@ -1,4 +1,4 @@
-defmodule ExShopify.Refund.RefundLineItem do
+defmodule ExShopify.RefundLineItem do
   @moduledoc """
   Details about one returned/refunded item.
   """
@@ -7,7 +7,7 @@ defmodule ExShopify.Refund.RefundLineItem do
 
   @doc false
   def response_mapping do
-    %ExShopify.Refund.RefundLineItem{
+    %ExShopify.RefundLineItem{
       line_item: ExShopify.LineItem.response_mapping
     }
   end
