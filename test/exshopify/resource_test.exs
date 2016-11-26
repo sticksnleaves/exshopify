@@ -22,7 +22,7 @@ defmodule ExShopify.Resource.Test do
         end)
 
       assert result == :ok
-      assert body == %{}
+      assert body == "{}"
       assert meta.api_call_limit == "1/40"
     end
   end
