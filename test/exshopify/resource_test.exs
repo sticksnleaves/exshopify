@@ -1,3 +1,16 @@
+defmodule ExShopifyTest.SampleResource do
+  use ExShopify.Resource
+
+  @plural "resources"
+  @singular "resource"
+
+  defstruct [:field1]
+
+  def response_mapping do
+    %__MODULE__{}
+  end
+end
+
 defmodule ExShopifyTest.Resource do
   use ExUnit.Case, async: true
 
@@ -42,18 +55,5 @@ defmodule ExShopifyTest.Resource do
       assert result == :error
       assert is_map(body)
     end
-  end
-end
-
-defmodule ExShopifyTest.SampleResource do
-  use ExShopify.Resource
-
-  @plural "resources"
-  @singular "resource"
-
-  defstruct [:field1]
-
-  def response_mapping do
-    %__MODULE__{}
   end
 end
