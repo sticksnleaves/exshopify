@@ -60,7 +60,7 @@ defmodule ExShopify.API do
     url = url <> path
 
     case method do
-      :get -> url <> "?#{URI.encode_query(params)}"
+      :get -> url <> "?#{ExShopify.URI.encode_query(params)}"
       _    -> url
     end
   end
