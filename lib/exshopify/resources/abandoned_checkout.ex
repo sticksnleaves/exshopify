@@ -7,7 +7,7 @@ defmodule ExShopify.AbandonedCheckout do
   use ExShopify.Resource
   import ExShopify.API
 
-  @type abandoned_checkout_resource :: {:ok, %ExShopify.AbandonedCheckout{}, %ExShopify.Meta{}}
+  @type abandoned_checkout_plural :: {:ok, [%ExShopify.AbandonedCheckout{}], %ExShopify.Meta{}}
   @type abandoned_checkout_count :: {:ok, integer, %ExShopify.Meta{}}
 
   @plural "checkouts"
@@ -24,20 +24,40 @@ defmodule ExShopify.AbandonedCheckout do
 
   @doc """
   Get a count of checkouts.
+
+  ## Examples
+
+      iex> ExShopify.AbandonedCheckout.count(session)
+      {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: abandoned_checkout_resource | ExShopify.Resource.error
-  def count(session \\ nil, params \\ %{}) do
+  @spec count(%ExShopify.Session{}, map) :: abandoned_checkout_count | error
+  def count(session, params) do
     request(:get, "/checkouts/count.json", params, session)
     |> decode(&decode_count/1)
   end
 
+  @spec count(%ExShopify.Session{}) :: abandoned_checkout_count | error
+  def count(session) do
+    count(session, %{})
+  end
+
   @doc """
   Retrieve a list of checkouts.
+
+  ## Examples
+
+      iex> ExShopify.AbandonedCheckout.list(session)
+      {:ok, checkouts, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: [abandoned_checkout_resource] | ExShopify.Resource.error
-  def list(session \\ nil, params \\ %{}) do
+  @spec list(%ExShopify.Session{}, map) :: abandoned_checkout_plural | error
+  def list(session, params) do
     request(:get, "/checkouts.json", params, session)
     |> decode(&decode_plural/1)
+  end
+
+  @spec list(%ExShopify.Session{}) :: abandoned_checkout_plural | error
+  def list(session) do
+    list(session, %{})
   end
 
   @doc false

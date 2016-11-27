@@ -9,7 +9,8 @@ defmodule ExShopify.Order do
   use ExShopify.Resource
   import ExShopify.API
 
-  @type order_resource :: {:ok, %ExShopify.Order{}, %ExShopify.Meta{}}
+  @type order_plural :: {:ok, [%ExShopify.Order{}], %ExShopify.Meta{}}
+  @type order_singular :: {:ok, %ExShopify.Order{}, %ExShopify.Meta{}}
   @type order_count :: {:ok, integer, %ExShopify.Meta{}}
 
   @plural "orders"
@@ -31,26 +32,36 @@ defmodule ExShopify.Order do
   @doc """
   Cancel an order.
   """
-  @spec cancel(%ExShopify.Session{}, integer | String.t, map) :: order_resource | ExShopify.Resource.error
-  def cancel(session \\ nil, id, params \\ %{}) do
+  @spec cancel(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
+  def cancel(session, id, params) do
     request(:post, "/orders/#{id}/cancel.json", params, session)
     |> decode(&decode_singular/1)
+  end
+
+  @spec cancel(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
+  def cancel(session, id) do
+    cancel(session, id, %{})
   end
 
   @doc """
   Retrieve a count of all the orders.
   """
   @spec count(%ExShopify.Session{}, map) :: order_count | ExShopify.Resource.error
-  def count(session \\ nil, params \\ %{}) do
+  def count(session, params) do
     request(:get, "/orders/count.json", params, session)
     |> decode(&decode_count/1)
+  end
+
+  @spec count(%ExShopify.Session{}) :: order_count | ExShopify.Resource.error
+  def count(session) do
+    count(session, %{})
   end
 
   @doc """
   Close an order.
   """
-  @spec close(%ExShopify.Session{}, integer | String.t) :: order_resource | ExShopify.Resource.error
-  def close(session \\ nil, id) do
+  @spec close(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
+  def close(session, id) do
     request(:post, "/orders/#{id}/close.json", %{}, session)
     |> decode(&decode_singular/1)
   end
@@ -58,17 +69,17 @@ defmodule ExShopify.Order do
   @doc """
   Create a new order.
   """
-  @spec close(%ExShopify.Session{}, map) :: order_resource | ExShopify.Resource.error
-  def create(session \\ nil, params) do
-    request(:post, "/orders.json", params, session)
+  @spec create(%ExShopify.Session{}, map) :: order_singular | ExShopify.Resource.error
+  def create(session, params) do
+    request(:post, "/orders.json", wrap_singular(params), session)
     |> decode(&decode_singular/1)
   end
 
   @doc """
   Delete an order.
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: order_resource | ExShopify.Resource.error
-  def delete(session \\ nil, id) do
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
+  def delete(session, id) do
     request(:delete, "/orders/#{id}.json", %{}, session)
     |> decode(&decode_singular/1)
   end
@@ -76,26 +87,36 @@ defmodule ExShopify.Order do
   @doc """
   Retrieve a specific order.
   """
-  @spec find(%ExShopify.Session{}, integer | String.t, map) :: order_resource | ExShopify.Resource.error
-  def find(session \\ nil, id, params \\ %{}) do
+  @spec find(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
+  def find(session, id, params) do
     request(:get, "/orders/#{id}.json", params, session)
     |> decode(&decode_singular/1)
+  end
+
+  @spec find(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
+  def find(session, id) do
+    find(session, id, %{})
   end
 
   @doc """
   Retrieve a list of orders.
   """
-  @spec list(%ExShopify.Session{}, map) :: order_resource | ExShopify.Resource.error
-  def list(session \\ nil, params \\ %{}) do
+  @spec list(%ExShopify.Session{}, map) :: order_plural | ExShopify.Resource.error
+  def list(session, params) do
     request(:get, "/orders.json", params, session)
     |> decode(&decode_plural/1)
+  end
+
+  @spec list(%ExShopify.Session{}) :: order_plural | ExShopify.Resource.error
+  def list(session) do
+    list(session, %{})
   end
 
   @doc """
   Re-open a closed order.
   """
-  @spec open(%ExShopify.Session{}, map) :: order_resource | ExShopify.Resource.error
-  def open(session \\ nil, id) do
+  @spec open(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
+  def open(session, id) do
     request(:post, "/orders/#{id}/open.json", %{}, session)
     |> decode(&decode_singular/1)
   end
@@ -103,9 +124,9 @@ defmodule ExShopify.Order do
   @doc """
   Update an order.
   """
-  @spec update(%ExShopify.Session{}, integer | String.t, map) :: order_resource | ExShopify.Resource.error
-  def update(session \\ nil, id, params) do
-    request(:put, "/orders/#{id}.json", params, session)
+  @spec update(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
+  def update(session, id, params) do
+    request(:put, "/orders/#{id}.json", wrap_singular(params), session)
     |> decode(&decode_singular/1)
   end
 

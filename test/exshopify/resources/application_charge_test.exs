@@ -17,7 +17,7 @@ defmodule ExShopifyTest.ApplicationCharge do
         Plug.Conn.resp(conn, 200, "{\"application_charge\": {}}")
       end)
 
-      ExShopify.ApplicationCharge.activate(session, 1, %{})
+      ExShopify.ApplicationCharge.activate(session, 1)
     end
   end
 

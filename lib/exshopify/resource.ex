@@ -8,16 +8,20 @@ defmodule ExShopify.Resource do
 
   defmacro __before_compile__(_env) do
     quote do
-      def decode_count(body) do
+      defp decode_count(body) do
         Poison.Parser.parse!(body)["count"]
       end
 
-      def decode_plural(body) do
+      defp decode_plural(body) do
         Poison.decode!(body, as: %{@plural => [response_mapping]})[@plural]
       end
 
-      def decode_singular(body) do
+      defp decode_singular(body) do
         Poison.decode!(body, as: %{@singular => response_mapping})[@singular]
+      end
+
+      defp wrap_singular(map) do
+        Map.put(%{}, @singular, map)
       end
     end
   end
@@ -43,6 +47,7 @@ defmodule ExShopify.Resource do
         503 => ExShopify.HTTP.ServiceUnavailable
       }
 
+      @doc false
       @spec decode({:ok, %HTTPoison.Response{}}, fun) :: success | error
       def decode({:ok, response}, decoder) do
         body        = response.body
@@ -57,6 +62,7 @@ defmodule ExShopify.Resource do
         end
       end
 
+      @doc false
       @spec decode({:error, %HTTPoison.Error{}}, fun) :: error
       def decode(error = {:error, _}, decoder) do
         error
