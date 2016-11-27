@@ -6,11 +6,14 @@ defmodule ExShopify.Order do
   payment information.
   """
 
+  use ExShopify.Resource
   import ExShopify.API
-  import ExShopify.Resource
 
   @type order_resource :: {:ok, %ExShopify.Order{}, %ExShopify.Meta{}}
   @type order_count :: {:ok, integer, %ExShopify.Meta{}}
+
+  @plural "orders"
+  @singular "order"
 
   defstruct [:billing_address, :browser_ip, :buyer_accepts_marketing,
              :cancel_reason, :cancelled_at, :cart_token, :client_details,
@@ -26,12 +29,12 @@ defmodule ExShopify.Order do
              :order_status_url]
 
   @doc """
-  Cancel an Order.
+  Cancel an order.
   """
   @spec cancel(%ExShopify.Session{}, integer | String.t, map) :: order_resource | ExShopify.Resource.error
   def cancel(session \\ nil, id, params \\ %{}) do
     request(:post, "/orders/#{id}/cancel.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -40,7 +43,7 @@ defmodule ExShopify.Order do
   @spec count(%ExShopify.Session{}, map) :: order_count | ExShopify.Resource.error
   def count(session \\ nil, params \\ %{}) do
     request(:get, "/orders/count.json", params, session)
-    |> serialize_resource(&serialize_count/1)
+    |> decode(&decode_count/1)
   end
 
   @doc """
@@ -49,7 +52,7 @@ defmodule ExShopify.Order do
   @spec close(%ExShopify.Session{}, integer | String.t) :: order_resource | ExShopify.Resource.error
   def close(session \\ nil, id) do
     request(:post, "/orders/#{id}/close.json", %{}, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -58,7 +61,7 @@ defmodule ExShopify.Order do
   @spec close(%ExShopify.Session{}, map) :: order_resource | ExShopify.Resource.error
   def create(session \\ nil, params) do
     request(:post, "/orders.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -67,7 +70,7 @@ defmodule ExShopify.Order do
   @spec delete(%ExShopify.Session{}, integer | String.t) :: order_resource | ExShopify.Resource.error
   def delete(session \\ nil, id) do
     request(:delete, "/orders/#{id}.json", %{}, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -76,25 +79,25 @@ defmodule ExShopify.Order do
   @spec find(%ExShopify.Session{}, integer | String.t, map) :: order_resource | ExShopify.Resource.error
   def find(session \\ nil, id, params \\ %{}) do
     request(:get, "/orders/#{id}.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
-  Retrieve a list of Orders.
+  Retrieve a list of orders.
   """
-  @spec list(%ExShopify.Session{}, map) :: [order_resource] | ExShopify.Resource.error
+  @spec list(%ExShopify.Session{}, map) :: order_resource | ExShopify.Resource.error
   def list(session \\ nil, params \\ %{}) do
     request(:get, "/orders.json", params, session)
-    |> serialize_resource(&serialize_multi/1)
+    |> decode(&decode_plural/1)
   end
 
   @doc """
-  Re-open a closed Order.
+  Re-open a closed order.
   """
   @spec open(%ExShopify.Session{}, map) :: order_resource | ExShopify.Resource.error
   def open(session \\ nil, id) do
     request(:post, "/orders/#{id}/open.json", %{}, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -103,7 +106,7 @@ defmodule ExShopify.Order do
   @spec update(%ExShopify.Session{}, integer | String.t, map) :: order_resource | ExShopify.Resource.error
   def update(session \\ nil, id, params) do
     request(:put, "/orders/#{id}.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc false
@@ -121,19 +124,5 @@ defmodule ExShopify.Order do
       tax_lines: [%ExShopify.TaxLine{}],
       transactions: [ExShopify.Transaction.response_mapping]
     }
-  end
-
-  # private
-
-  defp serialize_count(body) do
-    Poison.Parser.parse!(body)["count"]
-  end
-
-  defp serialize_single(body) do
-    Poison.decode!(body, as: %{"order" => response_mapping})["order"]
-  end
-
-  defp serialize_multi(body) do
-    Poison.decode!(body, as: %{"orders" => [response_mapping]})["orders"]
   end
 end

@@ -4,11 +4,14 @@ defmodule ExShopify.AbandonedCheckout do
   yet to complete the purchase.
   """
 
+  use ExShopify.Resource
   import ExShopify.API
-  import ExShopify.Resource
 
   @type abandoned_checkout_resource :: {:ok, %ExShopify.AbandonedCheckout{}, %ExShopify.Meta{}}
   @type abandoned_checkout_count :: {:ok, integer, %ExShopify.Meta{}}
+
+  @plural "checkouts"
+  @singular "checkout"
 
   defstruct [:abandoned_checkout_url, :billing_address,
              :buyer_accepts_marketing, :cancel_reason, :cart_token, :closed_at,
@@ -25,16 +28,16 @@ defmodule ExShopify.AbandonedCheckout do
   @spec count(%ExShopify.Session{}, map) :: abandoned_checkout_resource | ExShopify.Resource.error
   def count(session \\ nil, params \\ %{}) do
     request(:get, "/checkouts/count.json", params, session)
-    |> serialize_resource(&serialize_count/1)
+    |> decode(&decode_count/1)
   end
 
   @doc """
   Retrieve a list of checkouts.
   """
-  @spec count(%ExShopify.Session{}, map) :: [abandoned_checkout_resource] | ExShopify.Resource.error
+  @spec list(%ExShopify.Session{}, map) :: [abandoned_checkout_resource] | ExShopify.Resource.error
   def list(session \\ nil, params \\ %{}) do
     request(:get, "/checkouts.json", params, session)
-    |> serialize_resource(&serialize_multi/1)
+    |> decode(&decode_plural/1)
   end
 
   @doc false
@@ -48,15 +51,5 @@ defmodule ExShopify.AbandonedCheckout do
       shipping_lines: [ExShopify.ShippingLine.response_mapping],
       tax_lines: [%ExShopify.TaxLine{}]
     }
-  end
-
-  # private
-
-  defp serialize_count(body) do
-    Poison.Parser.parse!(body)["count"]
-  end
-
-  defp serialize_multi(body) do
-    Poison.decode!(body, as: %{"checkouts" => [response_mapping]})["checkouts"]
   end
 end

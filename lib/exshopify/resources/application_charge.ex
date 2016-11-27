@@ -3,10 +3,13 @@ defmodule ExShopify.ApplicationCharge do
   A one-time charge to a shop.
   """
 
+  use ExShopify.Resource
   import ExShopify.API
-  import ExShopify.Resource
 
   @type application_charge_resource :: {:ok, %ExShopify.ApplicationCharge{}, %ExShopify.Meta{}}
+
+  @plural "application_charges"
+  @singular "application_charge"
 
   defstruct [:confirmation_url, :created_at, :id, :name, :price, :return_url,
              :status, :test, :updated_at]
@@ -17,7 +20,7 @@ defmodule ExShopify.ApplicationCharge do
   @spec activate(%ExShopify.Session{}, integer | String.t, map) :: application_charge_resource | ExShopify.Resource.error
   def activate(session \\ nil, id, params) do
     request(:post, "/application_charges/#{id}/activate.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -26,7 +29,7 @@ defmodule ExShopify.ApplicationCharge do
   @spec create(%ExShopify.Session{}, map) :: application_charge_resource | ExShopify.Resource.error
   def create(session \\ nil, params) do
     request(:post, "/application_charges.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -35,7 +38,7 @@ defmodule ExShopify.ApplicationCharge do
   @spec find(%ExShopify.Session{}, integer | String.t, map) :: application_charge_resource | ExShopify.Resource.error
   def find(session \\ nil, id, params \\ %{}) do
     request(:get, "/application_charges/#{id}.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -44,21 +47,11 @@ defmodule ExShopify.ApplicationCharge do
   @spec list(%ExShopify.Session{}, map) :: [application_charge_resource] | ExShopify.Resource.error
   def list(session \\ nil, params \\ %{}) do
     request(:get, "/application_charges.json", params, session)
-    |> serialize_resource(&serialize_multi/1)
+    |> decode(&decode_plural/1)
   end
 
   @doc false
   def response_mapping do
     %ExShopify.ApplicationCharge{}
-  end
-
-  # private
-
-  defp serialize_single(body) do
-    Poison.decode!(body, as: %{"application_charge" => response_mapping})["application_charge"]
-  end
-
-  defp serialize_multi(body) do
-    Poison.decode!(body, as: %{"application_charges" => [response_mapping]})["application_charges"]
   end
 end

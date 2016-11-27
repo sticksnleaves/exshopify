@@ -3,10 +3,13 @@ defmodule ExShopify.ApplicationCredit do
   A credit for a shop.
   """
 
+  use ExShopify.Resource
   import ExShopify.API
-  import ExShopify.Resource
 
   @type application_credit_resource :: {:ok, %ExShopify.ApplicationCredit{}, %ExShopify.Meta{}}
+
+  @plural "application_credits"
+  @singular "application_credit"
 
   defstruct [:amount, :description, :id, :test]
 
@@ -16,7 +19,7 @@ defmodule ExShopify.ApplicationCredit do
   @spec create(%ExShopify.Session{}, map) :: application_credit_resource | ExShopify.Resource.error
   def create(session \\ nil, params) do
     request(:post, "/application_credits.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -25,7 +28,7 @@ defmodule ExShopify.ApplicationCredit do
   @spec find(%ExShopify.Session{}, integer | String.t, map) :: application_credit_resource | ExShopify.Resource.error
   def find(session \\ nil, id, params \\ %{}) do
     request(:get, "/application_credits/#{id}.json", params, session)
-    |> serialize_resource(&serialize_single/1)
+    |> decode(&decode_singular/1)
   end
 
   @doc """
@@ -34,21 +37,11 @@ defmodule ExShopify.ApplicationCredit do
   @spec list(%ExShopify.Session{}, map) :: application_credit_resource | ExShopify.Resource.error
   def list(session \\ nil, params \\ %{}) do
     request(:get, "/application_credits.json", params, session)
-    |> serialize_resource(&serialize_multi/1)
+    |> decode(&decode_plural/1)
   end
 
   @doc false
   def response_mapping do
     %ExShopify.ApplicationCredit{}
-  end
-
-  # private
-
-  defp serialize_single(body) do
-    Poison.decode!(body, as: %{"application_credit" => response_mapping})["application_credit"]
-  end
-
-  defp serialize_multi(body) do
-    Poison.decode!(body, as: %{"application_credits" => [response_mapping]})["application_credits"]
   end
 end

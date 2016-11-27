@@ -17,7 +17,7 @@ defmodule ExShopify.Resource.Test do
 
       {result, body, meta} =
         ExShopify.API.request(:get, "/endpoint", %{}, session)
-        |> ExShopify.Resource.serialize_resource(fn (body) ->
+        |> ExShopify.Resource.Test.SampleResource.decode(fn (body) ->
           body
         end)
 
@@ -35,12 +35,25 @@ defmodule ExShopify.Resource.Test do
 
       {result, body} =
         ExShopify.API.request(:get, "/endpoint", %{}, session)
-        |> ExShopify.Resource.serialize_resource(fn (body) ->
+        |> ExShopify.Resource.Test.SampleResource.decode(fn (body) ->
           body
         end)
 
       assert result == :error
       assert is_map(body)
     end
+  end
+end
+
+defmodule ExShopify.Resource.Test.SampleResource do
+  use ExShopify.Resource
+
+  @plural "resources"
+  @singular "resource"
+
+  defstruct [:field1]
+
+  def response_mapping do
+    %__MODULE__{}
   end
 end
