@@ -21,6 +21,20 @@ defmodule ExShopifyTest.Asset do
     end
   end
 
+  describe "delete" do
+    test "endpoint", %{bypass: bypass, session: session} do
+      Bypass.expect(bypass, fn(conn) ->
+        assert conn.method == "DELETE"
+        assert conn.request_path == "/admin/themes/1/assets.json"
+        assert conn.query_string == "asset[key]=templates%2F404.liquid"
+
+        Plug.Conn.resp(conn, 200, "{\"asset\": {}}")
+      end)
+
+      ExShopify.Asset.delete(session, 1, %{asset: %{key: "templates/404.liquid"}})
+    end
+  end
+
   describe "find" do
     test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->

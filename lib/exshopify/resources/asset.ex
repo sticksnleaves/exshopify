@@ -19,6 +19,20 @@ defmodule ExShopify.Asset do
   defdelegate create(session, theme_id, params), to: __MODULE__, as: :update
 
   @doc """
+  Remove theme assets from a shop.
+
+  ## Examples
+
+      iex> ExShopify.Asset.delete(session, 828155753, %{asset: %{key: "assets/bg-body.gif"}})
+      {:ok, asset, meta}
+  """
+  @spec delete(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
+  def delete(session, theme_id, params) do
+    request(:delete, "/themes/#{theme_id}/assets.json", params, session)
+    |> decode(&decode_singular/1)
+  end
+
+  @doc """
   Find a specific asset within a theme.
 
   ## Examples
