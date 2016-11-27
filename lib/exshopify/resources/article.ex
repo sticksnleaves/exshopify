@@ -82,7 +82,7 @@ defmodule ExShopify.Article do
       ...>   body_html: "<h1>I like articles</h1>\\n<p><strong>Yea</strong>, I like posting them through <span class="caps">REST</span>.</p>",
       ...>   published_at: "Thu Mar 24 15:45:47 UTC 2016",
       ...>   image: {
-      ...>     attachment: "http://example.com/elixir_logo.gif"
+      ...>     attachment: Base.encode64(File.read("path/to/image.png"))
       ...>   }
       ...> }
 
