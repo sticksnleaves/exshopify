@@ -1,4 +1,4 @@
-defmodule ExShopify.ApplicationCredit.Test do
+defmodule ExShopifyTest.ApplicationCredit do
   use ExUnit.Case, async: true
 
   setup do

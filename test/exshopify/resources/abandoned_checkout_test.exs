@@ -1,4 +1,4 @@
-defmodule ExShopify.AbandonedCheckout.Test do
+defmodule ExShopifyTest.AbandonedCheckout do
   use ExUnit.Case, async: true
 
   setup do

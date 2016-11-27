@@ -1,4 +1,4 @@
-defmodule ExShopify.ApplicationCharge.Test do
+defmodule ExShopifyTest.ApplicationCharge do
   use ExUnit.Case, async: true
 
   setup do

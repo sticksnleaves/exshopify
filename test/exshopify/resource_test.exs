@@ -1,4 +1,4 @@
-defmodule ExShopify.Resource.Test do
+defmodule ExShopifyTest.Resource do
   use ExUnit.Case, async: true
 
   setup do
@@ -17,7 +17,7 @@ defmodule ExShopify.Resource.Test do
 
       {result, body, meta} =
         ExShopify.API.request(:get, "/endpoint", %{}, session)
-        |> ExShopify.Resource.Test.SampleResource.decode(fn (body) ->
+        |> ExShopifyTest.SampleResource.decode(fn (body) ->
           body
         end)
 
@@ -35,7 +35,7 @@ defmodule ExShopify.Resource.Test do
 
       {result, body} =
         ExShopify.API.request(:get, "/endpoint", %{}, session)
-        |> ExShopify.Resource.Test.SampleResource.decode(fn (body) ->
+        |> ExShopifyTest.SampleResource.decode(fn (body) ->
           body
         end)
 
@@ -45,7 +45,7 @@ defmodule ExShopify.Resource.Test do
   end
 end
 
-defmodule ExShopify.Resource.Test.SampleResource do
+defmodule ExShopifyTest.SampleResource do
   use ExShopify.Resource
 
   @plural "resources"

@@ -1,4 +1,4 @@
-defmodule ExShopify.Session.Test do
+defmodule ExShopifyTest.Session do
   use ExUnit.Case
 
   setup do

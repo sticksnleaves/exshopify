@@ -1,4 +1,4 @@
-defmodule ExShopify.HMAC.Test do
+defmodule ExShopifyTest.HMAC do
   use ExUnit.Case, async: true
 
   test "should return {:ok, digest} if HMAC is valid" do

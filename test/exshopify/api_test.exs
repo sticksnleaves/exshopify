@@ -1,4 +1,4 @@
-defmodule ExShopify.API.Test do
+defmodule ExShopifyTest.API do
   use ExUnit.Case, async: true
 
   setup do

@@ -1,4 +1,4 @@
-defmodule ExShopify.Order.Test do
+defmodule ExShopifyTest.Order do
   use ExUnit.Case, async: true
 
   setup do
