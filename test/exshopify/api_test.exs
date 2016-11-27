@@ -34,7 +34,7 @@ defmodule ExShopifyTest.API do
     ExShopify.API.request(:get, "/endpoint", %{}, Map.merge(session, %{shop_url: "http://localhost:#{bypass.port}/notadmin"}))
   end
 
-  test "query encoding", %{bypass: bypass, session: session} do
+  test "GET query encoding", %{bypass: bypass, session: session} do
     Bypass.expect(bypass, fn(conn) ->
       assert conn.query_string == "a=b"
 
@@ -42,6 +42,16 @@ defmodule ExShopifyTest.API do
     end)
 
     ExShopify.API.request(:get, "/endpoint", %{a: "b"}, session)
+  end
+
+  test "DELETE query encoding", %{bypass: bypass, session: session} do
+    Bypass.expect(bypass, fn(conn) ->
+      assert conn.query_string == "a=b"
+
+      Plug.Conn.resp(conn, 200, "{}")
+    end)
+
+    ExShopify.API.request(:delete, "/endpoint", %{a: "b"}, session)
   end
 
   test "body parsing", %{bypass: bypass, session: session} do

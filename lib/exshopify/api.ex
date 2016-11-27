@@ -59,9 +59,9 @@ defmodule ExShopify.API do
 
     url = url <> path
 
-    case method do
-      :get -> url <> "?#{ExShopify.URI.encode_query(params)}"
-      _    -> url
+    cond do
+      method in [:delete, :get] -> url <> "?#{ExShopify.URI.encode_query(params)}"
+      true                      -> url
     end
   end
 end
