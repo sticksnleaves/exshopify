@@ -73,7 +73,7 @@ defmodule ExShopify.Blog do
   ## Examples
 
       iex > ExShopify.Blog.delete(session, 241253187)
-      {:ok, blog, meta}
+      {:ok, nil, meta}
   """
   @spec delete(%ExShopify.Session{}, integer | String.t) :: blog_singular | error
   def delete(session, id) do
