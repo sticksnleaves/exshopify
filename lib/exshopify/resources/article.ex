@@ -127,7 +127,7 @@ defmodule ExShopify.Article do
   @spec delete(%ExShopify.Session{}, integer | String.t, integer | String.t) :: article_singular | error
   def delete(session, id, blog_id) do
     request(:delete, "/blogs/#{blog_id}/articles/#{id}.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(&decode_nothing/1)
   end
 
   @doc """

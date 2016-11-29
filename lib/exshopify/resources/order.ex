@@ -81,7 +81,7 @@ defmodule ExShopify.Order do
   @spec delete(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/orders/#{id}.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(&decode_nothing/1)
   end
 
   @doc """

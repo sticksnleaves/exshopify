@@ -12,6 +12,10 @@ defmodule ExShopify.Resource do
         Poison.Parser.parse!(body)["count"]
       end
 
+      defp decode_nothing(body) do
+        nil
+      end
+
       defp decode_plural(body) do
         Poison.decode!(body, as: %{@plural => [response_mapping]})[@plural]
       end

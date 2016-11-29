@@ -29,7 +29,7 @@ defmodule ExShopify.Asset do
   @spec delete(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
   def delete(session, theme_id, params) do
     request(:delete, "/themes/#{theme_id}/assets.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(&decode_nothing/1)
   end
 
   @doc """
