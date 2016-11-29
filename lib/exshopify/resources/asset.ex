@@ -99,7 +99,7 @@ defmodule ExShopify.Asset do
   """
   @spec update(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
   def update(session, theme_id, params) do
-    request(:put, "/themes/#{theme_id}/assets.json", wrap_singular(params), session)
+    request(:put, "/themes/#{theme_id}/assets.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 

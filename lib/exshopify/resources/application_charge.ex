@@ -45,7 +45,7 @@ defmodule ExShopify.ApplicationCharge do
   """
   @spec create(%ExShopify.Session{}, map) :: application_charge_singular | error
   def create(session, params) do
-    request(:post, "/application_charges.json", wrap_singular(params), session)
+    request(:post, "/application_charges.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 

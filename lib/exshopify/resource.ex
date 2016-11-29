@@ -20,8 +20,8 @@ defmodule ExShopify.Resource do
         Poison.decode!(body, as: %{@singular => response_mapping})[@singular]
       end
 
-      defp wrap_singular(map) do
-        Map.put(%{}, @singular, map)
+      defp wrap_in_object(map, object) do
+        Map.put(%{}, object, map)
       end
     end
   end

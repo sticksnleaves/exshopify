@@ -112,7 +112,7 @@ defmodule ExShopify.Article do
   """
   @spec create(%ExShopify.Session{}, integer | String.t, map) :: article_singular | error
   def create(session, blog_id, params) do
-    request(:post, "/blogs/#{blog_id}/articles.json", wrap_singular(params), session)
+    request(:post, "/blogs/#{blog_id}/articles.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 
@@ -233,7 +233,7 @@ defmodule ExShopify.Article do
   """
   @spec update(%ExShopify.Session{}, integer | String.t, integer | String.t, map) :: article_singular | error
   def update(session, id, blog_id, params) do
-    request(:put, "/blogs/#{blog_id}/articles/#{id}.json", wrap_singular(params), session)
+    request(:put, "/blogs/#{blog_id}/articles/#{id}.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 

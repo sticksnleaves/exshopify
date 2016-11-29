@@ -42,7 +42,7 @@ defmodule ExShopify.ApplicationCredit do
   """
   @spec create(%ExShopify.Session{}, map) :: application_credit_singular | error
   def create(session, params) do
-    request(:post, "/application_credits.json", wrap_singular(params), session)
+    request(:post, "/application_credits.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 

@@ -71,7 +71,7 @@ defmodule ExShopify.Order do
   """
   @spec create(%ExShopify.Session{}, map) :: order_singular | ExShopify.Resource.error
   def create(session, params) do
-    request(:post, "/orders.json", wrap_singular(params), session)
+    request(:post, "/orders.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 
@@ -126,7 +126,7 @@ defmodule ExShopify.Order do
   """
   @spec update(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def update(session, id, params) do
-    request(:put, "/orders/#{id}.json", wrap_singular(params), session)
+    request(:put, "/orders/#{id}.json", wrap_in_object(params, @singular), session)
     |> decode(&decode_singular/1)
   end
 
