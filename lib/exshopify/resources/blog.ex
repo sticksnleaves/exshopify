@@ -20,7 +20,7 @@ defmodule ExShopify.Blog do
   @doc """
   Get a count of all blogs
 
-  ### Examples
+  ## Examples
 
       iex> ExShopify.Blog.count(session)
       {:ok, count, meta}
