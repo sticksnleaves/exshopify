@@ -242,7 +242,7 @@ defmodule ExShopify.Customer do
   @doc """
   Update a customer.
 
-  ### Examples
+  ## Examples
 
       iex> ExShopify.Customer.update(session, 207119551, %{tags: "New Customer, Repeat Customer"})
       {:ok, customer, meta}
