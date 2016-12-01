@@ -12,7 +12,7 @@ defmodule ExShopify.Resource do
         Poison.Parser.parse!(body)["count"]
       end
 
-      defp decode_nothing(body) do
+      defp decode_nothing(_body) do
         nil
       end
 
