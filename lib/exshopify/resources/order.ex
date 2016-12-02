@@ -136,7 +136,7 @@ defmodule ExShopify.Order do
       client_details: %ExShopify.ClientDetails{},
       customer: %ExShopify.Customer{},
       discount_codes: [%ExShopify.DiscountCode{}],
-      fulfillments: [ExShopify.Fulfillment.response_mapping],
+      fulfillments: [ExShopify.OrderFulfillment.response_mapping],
       line_items: [ExShopify.LineItem.response_mapping],
       refunds: [ExShopify.Refund.response_mapping],
       shipping_address: %ExShopify.Address{},
