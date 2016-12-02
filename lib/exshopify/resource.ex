@@ -23,7 +23,7 @@ defmodule ExShopify.Resource do
   }
 
   @doc false
-  @spec decode({:ok, %HTTPoison.Response{}}, fun) :: success | ExShopify.Resource.error
+  @spec decode({:ok, %HTTPoison.Response{}}, fun) :: success | error
   def decode({:ok, response}, decoder) do
     body        = response.body
     status_code = response.status_code
