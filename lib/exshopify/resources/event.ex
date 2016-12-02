@@ -18,7 +18,7 @@ defmodule ExShopify.Event do
              :subject_id, :subject_type, :verb]
 
   @doc """
-  Count all the events.
+  Receive a count of all events.
 
   ## Examples
 
@@ -37,7 +37,7 @@ defmodule ExShopify.Event do
   end
 
   @doc """
-  Retrieve an event.
+  Receive a single event.
 
   ## Examples
 
@@ -56,7 +56,7 @@ defmodule ExShopify.Event do
   end
 
   @doc """
-  List events.
+  Receive a list of all events.
 
   ## Examples
 
