@@ -69,7 +69,7 @@ defmodule ExShopify.Collect do
       iex> ExShopify.Collect.delete(session, 841564295)
       {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: collect_singular | ExShopify.Resource.error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.delete | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/collects/#{id}.json", %{}, session)
     |> decode(nil)

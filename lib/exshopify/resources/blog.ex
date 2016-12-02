@@ -75,7 +75,7 @@ defmodule ExShopify.Blog do
       iex > ExShopify.Blog.delete(session, 241253187)
       {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: blog_singular | ExShopify.Resource.error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.delete | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/blogs/#{id}.json", %{}, session)
     |> decode(nil)

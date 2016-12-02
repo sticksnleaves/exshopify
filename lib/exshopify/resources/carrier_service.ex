@@ -43,7 +43,7 @@ defmodule ExShopify.CarrierService do
       iex> ExShopify.CarrierService.delete(session, 1006327370)
       {:ok, meta}
   """
-  @spec create(%ExShopify.Session{}, integer | String.t) :: carrier_service_singular | ExShopify.Resource.error
+  @spec create(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.delete | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/carrier_services/#{id}.json", %{}, session)
     |> decode(nil)

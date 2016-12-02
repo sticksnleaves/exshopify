@@ -174,7 +174,7 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.delete(session, 207119551)
       {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: customer_singular | ExShopify.Resource.error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.delete | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/customers/#{id}.json", %{}, session)
     |> decode(nil)
