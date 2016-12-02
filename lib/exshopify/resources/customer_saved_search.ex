@@ -99,7 +99,7 @@ defmodule ExShopify.CustomerSavedSearch do
       iex> ExShopify.CustomerSavedSearch.delete(session, 789629109)
       {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.delete | ExShopify.Resource.error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.only_meta | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/customer_saved_searches/#{id}.json", %{}, session)
     |> decode(nil)

@@ -26,7 +26,7 @@ defmodule ExShopify.Asset do
       iex> ExShopify.Asset.delete(session, 828155753, %{asset: %{key: "assets/bg-body.gif"}})
       {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t, map) :: ExShopify.Resource.delete | ExShopify.Resource.error
+  @spec delete(%ExShopify.Session{}, integer | String.t, map) :: ExShopify.Resource.only_meta | ExShopify.Resource.error
   def delete(session, theme_id, params) do
     request(:delete, "/themes/#{theme_id}/assets.json", params, session)
     |> decode(nil)

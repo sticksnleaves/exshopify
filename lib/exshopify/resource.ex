@@ -4,8 +4,8 @@ defmodule ExShopify.Resource do
   """
 
   @type count :: {:ok, integer, %ExShopify.Meta{}}
-  @type delete :: {:ok, %ExShopify.Meta{}}
   @type error :: {:error, struct}
+  @type only_meta :: {:ok, %ExShopify.Meta{}}
   @type success :: {:ok, struct, %ExShopify.Meta{}}
 
   @response_errors %{

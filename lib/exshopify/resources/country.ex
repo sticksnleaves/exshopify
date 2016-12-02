@@ -61,7 +61,7 @@ defmodule ExShopify.Country do
       iex> ExShopify.Country.delete(session, 879921427)
       {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.delete | ExShopify.Resource.error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.only_meta | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/countries/#{id}.json", %{}, session)
     |> decode(nil)
