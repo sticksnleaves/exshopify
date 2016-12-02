@@ -4,8 +4,8 @@ defmodule ExShopify.AbandonedCheckout do
   yet to complete the purchase.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type abandoned_checkout_plural :: {:ok, [%ExShopify.AbandonedCheckout{}], %ExShopify.Meta{}}
   @type abandoned_checkout_count :: {:ok, integer, %ExShopify.Meta{}}
@@ -30,13 +30,13 @@ defmodule ExShopify.AbandonedCheckout do
       iex> ExShopify.AbandonedCheckout.count(session)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: abandoned_checkout_count | error
+  @spec count(%ExShopify.Session{}, map) :: abandoned_checkout_count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/checkouts/count.json", params, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: abandoned_checkout_count | error
+  @spec count(%ExShopify.Session{}) :: abandoned_checkout_count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end
@@ -49,13 +49,13 @@ defmodule ExShopify.AbandonedCheckout do
       iex> ExShopify.AbandonedCheckout.list(session)
       {:ok, checkouts, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: abandoned_checkout_plural | error
+  @spec list(%ExShopify.Session{}, map) :: abandoned_checkout_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/checkouts.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: abandoned_checkout_plural | error
+  @spec list(%ExShopify.Session{}) :: abandoned_checkout_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end

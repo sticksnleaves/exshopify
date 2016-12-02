@@ -1,16 +1,3 @@
-defmodule ExShopifyTest.SampleResource do
-  use ExShopify.Resource
-
-  @plural "resources"
-  @singular "resource"
-
-  defstruct [:field1]
-
-  def response_mapping do
-    %__MODULE__{}
-  end
-end
-
 defmodule ExShopifyTest.Resource do
   use ExUnit.Case, async: true
 
@@ -30,7 +17,7 @@ defmodule ExShopifyTest.Resource do
 
       {result, body, meta} =
         ExShopify.API.request(:get, "/endpoint", %{}, session)
-        |> ExShopifyTest.SampleResource.decode(fn (body) ->
+        |> ExShopify.Resource.decode(fn (body) ->
           body
         end)
 
@@ -48,7 +35,7 @@ defmodule ExShopifyTest.Resource do
 
       {result, body} =
         ExShopify.API.request(:get, "/endpoint", %{}, session)
-        |> ExShopifyTest.SampleResource.decode(fn (body) ->
+        |> ExShopify.Resource.decode(fn (body) ->
           body
         end)
 

@@ -3,8 +3,8 @@ defmodule ExShopify.Comment do
   Reader's response to an article in a blog.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type comment_count :: {:ok, integer, %ExShopify.Meta{}}
   @type comment_plural :: {:ok, [%ExShopify.Comment{}], %ExShopify.Meta{}}
@@ -24,10 +24,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.approve(session, 653537639)
       {:ok, comment, meta}
   """
-  @spec approve(%ExShopify.Session{}, integer | String.t) :: comment_singular | error
+  @spec approve(%ExShopify.Session{}, integer | String.t) :: comment_singular | ExShopify.Resource.error
   def approve(session, id) do
     request(:post, "/comments/#{id}/approve.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -45,13 +45,13 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.count(session, %{blog_id: 241253187, article_id: 134645308})
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: comment_count | error
+  @spec count(%ExShopify.Session{}, map) :: comment_count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/comments/count.json", params, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: comment_count | error
+  @spec count(%ExShopify.Session{}) :: comment_count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end
@@ -72,10 +72,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.create(session, params)
       {:ok, comment, meta}
   """
-  @spec create(%ExShopify.Comment{}, map) :: comment_singular | error
+  @spec create(%ExShopify.Comment{}, map) :: comment_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/comments.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -86,10 +86,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.find(session, 118373535)
       {:ok, comment, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t) :: comment_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t) :: comment_singular | ExShopify.Resource.error
   def find(session, id) do
     request(:get, "/comments/#{id}.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -111,13 +111,13 @@ defmodule ExShopify.Comment do
 
       iex> ExShopify.Comment.list(session, %{blog_id: 241253187, article_id: 134645308})
   """
-  @spec list(%ExShopify.Session{}, map) :: comment_plural | error
+  @spec list(%ExShopify.Session{}, map) :: comment_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/comments.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: comment_plural | error
+  @spec list(%ExShopify.Session{}) :: comment_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end
@@ -130,10 +130,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.mark_as_span(session, 653537639)
       {:ok, comment, meta}
   """
-  @spec mark_as_spam(%ExShopify.Session{}, integer | String.t) :: comment_singular | error
+  @spec mark_as_spam(%ExShopify.Session{}, integer | String.t) :: comment_singular | ExShopify.Resource.error
   def mark_as_spam(session, id) do
     request(:post, "/comments/#{id}/spam.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -144,10 +144,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.mark_as_not_spam(session, 653537639)
       {:ok, comment, meta}
   """
-  @spec mark_as_not_spam(%ExShopify.Session{}, integer | String.t) :: comment_singular | error
+  @spec mark_as_not_spam(%ExShopify.Session{}, integer | String.t) :: comment_singular | ExShopify.Resource.error
   def mark_as_not_spam(session, id) do
     request(:post, "/comments/#{id}/not_spam.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -158,10 +158,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.remove(session, 653537639)
       {:ok, comment, meta}
   """
-  @spec remove(%ExShopify.Session{}, integer | String.t) :: comment_singular | error
+  @spec remove(%ExShopify.Session{}, integer | String.t) :: comment_singular | ExShopify.Resource.error
   def remove(session, id) do
     request(:post, "/comments/#{id}/remove.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -172,10 +172,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.restore(session, 653537639)
       {:ok, comment, meta}
   """
-  @spec restore(%ExShopify.Session{}, integer | String.t) :: comment_singular | error
+  @spec restore(%ExShopify.Session{}, integer | String.t) :: comment_singular | ExShopify.Resource.error
   def restore(session, id) do
     request(:post, "/comments/#{id}/restore.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -193,10 +193,10 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.update(session, 118373535, params)
       {:ok, comment, meta}
   """
-  @spec update(%ExShopify.Session{}, integer | String.t, %{}) :: comment_singular | error
+  @spec update(%ExShopify.Session{}, integer | String.t, %{}) :: comment_singular | ExShopify.Resource.error
   def update(session, id, params) do
     request(:put, "/comments/#{id}.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   def response_mapping do

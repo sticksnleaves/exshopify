@@ -3,8 +3,8 @@ defmodule ExShopify.Customer do
   Information about the customer.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type customer_account_activation_url :: {:ok, String.t, %ExShopify.Meta{}}
   @type customer_count :: {:ok, integer, %ExShopify.Meta{}}
@@ -28,7 +28,7 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.account_activation_url(session, 207119551)
       {:ok, account_activation_url, meta}
   """
-  @spec account_activation_url(%ExShopify.Session{}, integer | String.t) :: customer_account_activation_url | error
+  @spec account_activation_url(%ExShopify.Session{}, integer | String.t) :: customer_account_activation_url | ExShopify.Resource.error
   def account_activation_url(session, id) do
     request(:post, "/customers/#{id}/account_activation_url.json", %{}, session)
     |> decode(&decode_account_activation_url/1)
@@ -42,10 +42,10 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.count(session)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}) :: customer_count | error
+  @spec count(%ExShopify.Session{}) :: customer_count | ExShopify.Resource.error
   def count(session) do
     request(:get, "/customers/count.json", %{}, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
   @doc """
@@ -161,10 +161,10 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.create(session ,params)
       {:ok, customer, meta}
   """
-  @spec create(%ExShopify.Session{}, map) :: customer_singular | error
+  @spec create(%ExShopify.Session{}, map) :: customer_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/customers.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -173,12 +173,12 @@ defmodule ExShopify.Customer do
   ## Examples
 
       iex> ExShopify.Customer.delete(session, 207119551)
-      {:ok, nil, meta}
+      {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: customer_singular | error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: customer_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/customers/#{id}.json", %{}, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -189,13 +189,13 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.find(session, 207119551)
       {:ok, customer, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t, map) :: customer_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t, map) :: customer_singular | ExShopify.Resource.error
   def find(session, id, params) do
     request(:get, "/customers/#{id}.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
-  @spec find(%ExShopify.Session{}, integer | String.t) :: customer_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t) :: customer_singular | ExShopify.Resource.error
   def find(session, id) do
     find(session, id, %{})
   end
@@ -215,13 +215,13 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.list(session, %{ids: [207119551, 1073339468]})
       {:ok, customers, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: customer_plural | error
+  @spec list(%ExShopify.Session{}, map) :: customer_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/customers.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: customer_plural | error
+  @spec list(%ExShopify.Session{}) :: customer_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end
@@ -233,10 +233,10 @@ defmodule ExShopify.Customer do
 
       iex> ExShopify.Customer.search(session, "Bob country:United States")
   """
-  @spec search(%ExShopify.Session{}, String.t) :: customer_plural | error
+  @spec search(%ExShopify.Session{}, String.t) :: customer_plural | ExShopify.Resource.error
   def search(session, query) do
     request(:get, "/customers/search.json", %{query: query}, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
   @doc """
@@ -247,10 +247,10 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.update(session, 207119551, %{tags: "New Customer, Repeat Customer"})
       {:ok, customer, meta}
   """
-  @spec update(%ExShopify.Session{}, integer | String.t, map) :: customer_singular | error
+  @spec update(%ExShopify.Session{}, integer | String.t, map) :: customer_singular | ExShopify.Resource.error
   def update(session, id, params) do
     request(:put, "/customers/#{id}.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc false

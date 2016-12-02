@@ -6,8 +6,8 @@ defmodule ExShopify.Order do
   payment information.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type order_plural :: {:ok, [%ExShopify.Order{}], %ExShopify.Meta{}}
   @type order_singular :: {:ok, %ExShopify.Order{}, %ExShopify.Meta{}}
@@ -35,7 +35,7 @@ defmodule ExShopify.Order do
   @spec cancel(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def cancel(session, id, params) do
     request(:post, "/orders/#{id}/cancel.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @spec cancel(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
@@ -49,7 +49,7 @@ defmodule ExShopify.Order do
   @spec count(%ExShopify.Session{}, map) :: order_count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/orders/count.json", params, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
   @spec count(%ExShopify.Session{}) :: order_count | ExShopify.Resource.error
@@ -63,7 +63,7 @@ defmodule ExShopify.Order do
   @spec close(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
   def close(session, id) do
     request(:post, "/orders/#{id}/close.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -72,7 +72,7 @@ defmodule ExShopify.Order do
   @spec create(%ExShopify.Session{}, map) :: order_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/orders.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -81,7 +81,7 @@ defmodule ExShopify.Order do
   @spec delete(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/orders/#{id}.json", %{}, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -90,7 +90,7 @@ defmodule ExShopify.Order do
   @spec find(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def find(session, id, params) do
     request(:get, "/orders/#{id}.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @spec find(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
@@ -104,7 +104,7 @@ defmodule ExShopify.Order do
   @spec list(%ExShopify.Session{}, map) :: order_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/orders.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
   @spec list(%ExShopify.Session{}) :: order_plural | ExShopify.Resource.error
@@ -118,7 +118,7 @@ defmodule ExShopify.Order do
   @spec open(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
   def open(session, id) do
     request(:post, "/orders/#{id}/open.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -127,7 +127,7 @@ defmodule ExShopify.Order do
   @spec update(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def update(session, id, params) do
     request(:put, "/orders/#{id}.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc false

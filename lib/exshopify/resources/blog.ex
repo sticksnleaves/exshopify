@@ -3,8 +3,8 @@ defmodule ExShopify.Blog do
   Shopify's blogging engine.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type blog_count :: {:ok, integer, %ExShopify.Meta{}}
   @type blog_plural :: {:ok, [%ExShopify.Blog{}], %ExShopify.Meta{}}
@@ -25,10 +25,10 @@ defmodule ExShopify.Blog do
       iex> ExShopify.Blog.count(session)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}) :: blog_count | error
+  @spec count(%ExShopify.Session{}) :: blog_count | ExShopify.Resource.error
   def count(session) do
     request(:get, "/blogs/count.json", %{}, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
   @doc """
@@ -62,10 +62,10 @@ defmodule ExShopify.Blog do
       iex> ExShopify.Blog.create(session, params)
       {:ok, blog, meta}
   """
-  @spec create(%ExShopify.Session{}, map) :: blog_singular | error
+  @spec create(%ExShopify.Session{}, map) :: blog_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/blogs.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -74,12 +74,12 @@ defmodule ExShopify.Blog do
   ## Examples
 
       iex > ExShopify.Blog.delete(session, 241253187)
-      {:ok, nil, meta}
+      {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: blog_singular | error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: blog_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/blogs/#{id}.json", %{}, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -92,13 +92,13 @@ defmodule ExShopify.Blog do
       iex> ExShopify.Blog.find(session, 241253187)
       {:ok, blog, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t, map) :: blog_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t, map) :: blog_singular | ExShopify.Resource.error
   def find(session, id, params) do
     request(:get, "/blogs/#{id}.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
-  @spec find(%ExShopify.Session{}, integer | String.t) :: blog_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t) :: blog_singular | ExShopify.Resource.error
   def find(session, id) do
     find(session, id, %{})
   end
@@ -118,13 +118,13 @@ defmodule ExShopify.Blog do
       iex> ExShopify.Blog.list(session, %{since_id: 241253187})
       {:ok, blogs, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: blog_plural | error
+  @spec list(%ExShopify.Session{}, map) :: blog_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/blogs.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: blog_plural | error
+  @spec list(%ExShopify.Session{}) :: blog_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end
@@ -143,10 +143,10 @@ defmodule ExShopify.Blog do
       iex> ExShopify.Blog.update(session, 241253187, params)
       {:ok, blog, meta}
   """
-  @spec update(%ExShopify.Session{}, integer | String.t, map) :: blog_singular | error
+  @spec update(%ExShopify.Session{}, integer | String.t, map) :: blog_singular | ExShopify.Resource.error
   def update(session, id, params) do
     request(:put, "/blogs/#{id}.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   def response_mapping do

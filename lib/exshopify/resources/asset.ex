@@ -3,8 +3,8 @@ defmodule ExShopify.Asset do
   Individual files that make up a shop's theme.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type asset_plural :: {:ok, [%ExShopify.Asset{}], %ExShopify.Meta{}}
   @type asset_singular :: {:ok, %ExShopify.Asset{}, %ExShopify.Meta{}}
@@ -15,7 +15,7 @@ defmodule ExShopify.Asset do
   defstruct [:attachment, :content_type, :created_at, :key, :public_url, :size,
              :source_key, :src, :theme_id, :updated_at, :value]
 
-  @spec create(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
+  @spec create(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | ExShopify.Resource.error
   defdelegate create(session, theme_id, params), to: __MODULE__, as: :update
 
   @doc """
@@ -24,12 +24,12 @@ defmodule ExShopify.Asset do
   ## Examples
 
       iex> ExShopify.Asset.delete(session, 828155753, %{asset: %{key: "assets/bg-body.gif"}})
-      {:ok, nil, meta}
+      {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
+  @spec delete(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | ExShopify.Resource.error
   def delete(session, theme_id, params) do
     request(:delete, "/themes/#{theme_id}/assets.json", params, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -47,10 +47,10 @@ defmodule ExShopify.Asset do
       iex> ExShopify.Asset.find(session, 828155753, %{asset: %{key: "assets/bg-body.gif"}})
       {:ok, asset, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | ExShopify.Resource.error
   def find(session, theme_id, params) do
     request(:get, "/themes/#{theme_id}/assets.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -61,13 +61,13 @@ defmodule ExShopify.Asset do
       iex> ExShopify.Asset.list(session, 828155753)
       {:ok, assets, meta}
   """
-  @spec list(%ExShopify.Session{}, integer | String.t, map) :: asset_plural | error
+  @spec list(%ExShopify.Session{}, integer | String.t, map) :: asset_plural | ExShopify.Resource.error
   def list(session, theme_id, params) do
     request(:get, "/themes/#{theme_id}/assets.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}, integer | String.t) :: asset_plural | error
+  @spec list(%ExShopify.Session{}, integer | String.t) :: asset_plural | ExShopify.Resource.error
   def list(session, theme_id) do
     list(session, theme_id, %{})
   end
@@ -97,10 +97,10 @@ defmodule ExShopify.Asset do
       iex> ExShopify.Asset.update(session, 828155753, params)
       {:ok, asset, meta}
   """
-  @spec update(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | error
+  @spec update(%ExShopify.Session{}, integer | String.t, map) :: asset_singular | ExShopify.Resource.error
   def update(session, theme_id, params) do
     request(:put, "/themes/#{theme_id}/assets.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc false

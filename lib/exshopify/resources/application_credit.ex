@@ -3,8 +3,8 @@ defmodule ExShopify.ApplicationCredit do
   A credit for a shop.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type application_credit_singular :: {:ok, %ExShopify.ApplicationCredit{}, %ExShopify.Meta{}}
   @type application_credit_plural :: {:ok, [%ExShopify.ApplicationCredit{}], %ExShopify.Meta{}}
@@ -40,10 +40,10 @@ defmodule ExShopify.ApplicationCredit do
       iex> ExShopify.ApplicationCredit.create(session, params)
       {:ok, application_credit, meta}
   """
-  @spec create(%ExShopify.Session{}, map) :: application_credit_singular | error
+  @spec create(%ExShopify.Session{}, map) :: application_credit_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/application_credits.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -54,13 +54,13 @@ defmodule ExShopify.ApplicationCredit do
       iex> ExShopify.ApplicationCharge.find(session, 445365009)
       {:ok, application_charge, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t, map) :: application_credit_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t, map) :: application_credit_singular | ExShopify.Resource.error
   def find(session, id, params) do
     request(:get, "/application_credits/#{id}.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
-  @spec find(%ExShopify.Session{}, integer | String.t) :: application_credit_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t) :: application_credit_singular | ExShopify.Resource.error
   def find(session, id) do
     find(session, id, %{})
   end
@@ -73,13 +73,13 @@ defmodule ExShopify.ApplicationCredit do
       iex> ExShopify.ApplicationCharge.list(session)
       {:ok, application_charges, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: application_credit_plural | error
+  @spec list(%ExShopify.Session{}, map) :: application_credit_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/application_credits.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: application_credit_plural | error
+  @spec list(%ExShopify.Session{}) :: application_credit_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end

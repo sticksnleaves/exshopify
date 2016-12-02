@@ -3,8 +3,8 @@ defmodule ExShopify.CarrierService do
   Provide real-time shipping rates to Shopify.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type carrier_service_plural :: {:ok, [%ExShopify.CarrierService{}], %ExShopify.Meta{}}
   @type carrier_service_singular :: {:ok, %ExShopify.CarrierService{}, %ExShopify.Meta{}}
@@ -29,10 +29,10 @@ defmodule ExShopify.CarrierService do
       iex> ExShopify.CarrierService.create(session, params)
       {:ok, carrier_service, meta}
   """
-  @spec create(%ExShopify.Session{}, map) :: carrier_service_singular | error
+  @spec create(%ExShopify.Session{}, map) :: carrier_service_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/carrier_services.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -41,12 +41,12 @@ defmodule ExShopify.CarrierService do
   ## Examples
 
       iex> ExShopify.CarrierService.delete(session, 1006327370)
-      {:ok, nil, meta}
+      {:ok, meta}
   """
-  @spec create(%ExShopify.Session{}, integer | String.t) :: carrier_service_singular | error
+  @spec create(%ExShopify.Session{}, integer | String.t) :: carrier_service_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/carrier_services/#{id}.json", %{}, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -59,7 +59,7 @@ defmodule ExShopify.CarrierService do
   """
   def find(session, id) do
     request(:get, "/carrier_services/#{id}.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -72,7 +72,7 @@ defmodule ExShopify.CarrierService do
   """
   def list(session) do
     request(:get, "/carrier_services.json", %{}, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
   @doc """
@@ -92,7 +92,7 @@ defmodule ExShopify.CarrierService do
   """
   def update(session, id, params) do
     request(:put, "/carrier_services/#{id}.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc false

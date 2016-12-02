@@ -3,8 +3,8 @@ defmodule ExShopify.Collect do
   Connects a product to a custom collection.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type collect_count :: {:ok, integer, %ExShopify.Meta{}}
   @type collect_plural :: {:ok, [%ExShopify.Collect{}], %ExShopify.Meta{}}
@@ -32,13 +32,13 @@ defmodule ExShopify.Collect do
       iex> ExShopify.Collect.count(session, %{collection_id: 841564295})
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: collect_count | error
+  @spec count(%ExShopify.Session{}, map) :: collect_count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/collects/count.json", params, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: collect_count | error
+  @spec count(%ExShopify.Session{}) :: collect_count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end
@@ -56,10 +56,10 @@ defmodule ExShopify.Collect do
       iex> ExShopify.Collect.create(session, params)
       {:ok, collect, meta}
   """
-  @spec create(%ExShopify.Session{}, map) :: collect_singular | error
+  @spec create(%ExShopify.Session{}, map) :: collect_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/collects.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -68,12 +68,12 @@ defmodule ExShopify.Collect do
   ## Examples
 
       iex> ExShopify.Collect.delete(session, 841564295)
-      {:ok, nil, meta}
+      {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: collect_singular | error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: collect_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/collects/#{id}.json", %{}, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -84,10 +84,10 @@ defmodule ExShopify.Collect do
       iex> ExShopify.Collect.find(session, 841564295)
       {:ok, collect, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t) :: collect_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t) :: collect_singular | ExShopify.Resource.error
   def find(session, id) do
     request(:get, "/collects/#{id}.json", %{}, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -105,13 +105,13 @@ defmodule ExShopify.Collect do
       iex> ExShopify.Collect.list(session, %{product_id: 632910392})
       {:ok, collects, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: collect_plural | error
+  @spec list(%ExShopify.Session{}, map) :: collect_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/collects.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: collect_plural | error
+  @spec list(%ExShopify.Session{}) :: collect_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end

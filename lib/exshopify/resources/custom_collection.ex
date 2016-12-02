@@ -3,8 +3,8 @@ defmodule ExShopify.CustomCollection do
   Reader's response to an article in a blog.
   """
 
-  use ExShopify.Resource
   import ExShopify.API
+  import ExShopify.Resource
 
   @type custom_collection_count :: {:ok, integer, %ExShopify.Meta{}}
   @type custom_collection_plural :: {:ok, [%ExShopify.CustomCollection{}], %ExShopify.Meta{}}
@@ -32,13 +32,13 @@ defmodule ExShopify.CustomCollection do
       iex> ExShopify.CustomCollection.count(session, %{product_id: 632910392})
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: custom_collection_count | error
+  @spec count(%ExShopify.Session{}, map) :: custom_collection_count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/custom_collections/count.json", params, session)
-    |> decode(&decode_count/1)
+    |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: custom_collection_count | error
+  @spec count(%ExShopify.Session{}) :: custom_collection_count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end
@@ -118,10 +118,10 @@ defmodule ExShopify.CustomCollection do
       iex> ExShopify.CustomCollection.create(session, params)
       {:ok, custom_collection, meta}
   """
-  @spec create(%ExShopify.Session{}, map) :: custom_collection_singular | error
+  @spec create(%ExShopify.Session{}, map) :: custom_collection_singular | ExShopify.Resource.error
   def create(session, params) do
     request(:post, "/custom_collections.json", wrap_in_object(params, @singular), session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc """
@@ -130,12 +130,12 @@ defmodule ExShopify.CustomCollection do
   ## Examples
 
       iex> ExShopify.CustomCollection.delete(session, 841564295)
-      {:ok, nil, meta}
+      {:ok, meta}
   """
-  @spec delete(%ExShopify.Session{}, integer | String.t) :: custom_collection_singular | error
+  @spec delete(%ExShopify.Session{}, integer | String.t) :: custom_collection_singular | ExShopify.Resource.error
   def delete(session, id) do
     request(:delete, "/custom_collections/#{id}.json", %{}, session)
-    |> decode(&decode_nothing/1)
+    |> decode(nil)
   end
 
   @doc """
@@ -146,13 +146,13 @@ defmodule ExShopify.CustomCollection do
       iex> ExShopify.CustomCollection.find(session, 841564295)
       {:ok, custom_collection, meta}
   """
-  @spec find(%ExShopify.Session{}, integer | String.t, map) :: custom_collection_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t, map) :: custom_collection_singular | ExShopify.Resource.error
   def find(session, id, params) do
     request(:get, "/custom_collections/#{id}.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
-  @spec find(%ExShopify.Session{}, integer | String.t) :: custom_collection_singular | error
+  @spec find(%ExShopify.Session{}, integer | String.t) :: custom_collection_singular | ExShopify.Resource.error
   def find(session, id) do
     find(session, id, %{})
   end
@@ -177,13 +177,13 @@ defmodule ExShopify.CustomCollection do
       iex> ExShopify.CustomCollection.list(session, %{ids: [395646240, 691652237, 841564295]})
       {:ok, custom_collections, meta}
   """
-  @spec list(%ExShopify.Session{}, map) :: custom_collection_plural | error
+  @spec list(%ExShopify.Session{}, map) :: custom_collection_plural | ExShopify.Resource.error
   def list(session, params) do
     request(:get, "/custom_collections.json", params, session)
-    |> decode(&decode_plural/1)
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
-  @spec list(%ExShopify.Session{}) :: custom_collection_plural | error
+  @spec list(%ExShopify.Session{}) :: custom_collection_plural | ExShopify.Resource.error
   def list(session) do
     list(session, %{})
   end
@@ -221,10 +221,10 @@ defmodule ExShopify.CustomCollection do
       iex> ExShopify.CustomCollection.update(session, 841564295, params)
       {:ok, custom_collection, meta}
   """
-  @spec update(%ExShopify.Session{}, integer | String.t, map) :: custom_collection_singular | error
+  @spec update(%ExShopify.Session{}, integer | String.t, map) :: custom_collection_singular | ExShopify.Resource.error
   def update(session, id, params) do
     request(:put, "/custom_collections/#{id}.json", params, session)
-    |> decode(&decode_singular/1)
+    |> decode(decoder(@singular, response_mapping))
   end
 
   @doc false
