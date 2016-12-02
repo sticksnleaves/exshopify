@@ -6,7 +6,6 @@ defmodule ExShopify.CustomCollection do
   import ExShopify.API
   import ExShopify.Resource
 
-  @type custom_collection_count :: {:ok, integer, %ExShopify.Meta{}}
   @type custom_collection_plural :: {:ok, [%ExShopify.CustomCollection{}], %ExShopify.Meta{}}
   @type custom_collection_singular :: {:ok, %ExShopify.CustomCollection{}, %ExShopify.Meta{}}
 
@@ -32,13 +31,13 @@ defmodule ExShopify.CustomCollection do
       iex> ExShopify.CustomCollection.count(session, %{product_id: 632910392})
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: custom_collection_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}, map) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/custom_collections/count.json", params, session)
     |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: custom_collection_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end

@@ -3,6 +3,8 @@ defmodule ExShopify.Resource do
   Module for building resources.
   """
 
+  @type count :: {:ok, integer, %ExShopify.Meta{}}
+  @type delete :: {:ok, %ExShopify.Meta{}}
   @type error :: {:error, struct}
   @type success :: {:ok, struct, %ExShopify.Meta{}}
 
@@ -39,7 +41,7 @@ defmodule ExShopify.Resource do
 
   @doc false
   @spec decode({:error, %HTTPoison.Error{}}, fun) :: error
-  def decode(error = {:error, _}, decoder) do
+  def decode(error = {:error, _response}, _decoder) do
     error
   end
 

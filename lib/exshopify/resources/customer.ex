@@ -7,7 +7,6 @@ defmodule ExShopify.Customer do
   import ExShopify.Resource
 
   @type customer_account_activation_url :: {:ok, String.t, %ExShopify.Meta{}}
-  @type customer_count :: {:ok, integer, %ExShopify.Meta{}}
   @type customer_plural :: {:ok, [%ExShopify.Customer{}], %ExShopify.Meta{}}
   @type customer_singular :: {:ok, %ExShopify.Customer{}, %ExShopify.Meta{}}
 
@@ -42,7 +41,7 @@ defmodule ExShopify.Customer do
       iex> ExShopify.Customer.count(session)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}) :: customer_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     request(:get, "/customers/count.json", %{}, session)
     |> decode(decoder("count"))

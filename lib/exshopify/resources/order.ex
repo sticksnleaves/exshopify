@@ -11,7 +11,6 @@ defmodule ExShopify.Order do
 
   @type order_plural :: {:ok, [%ExShopify.Order{}], %ExShopify.Meta{}}
   @type order_singular :: {:ok, %ExShopify.Order{}, %ExShopify.Meta{}}
-  @type order_count :: {:ok, integer, %ExShopify.Meta{}}
 
   @plural "orders"
   @singular "order"
@@ -46,13 +45,13 @@ defmodule ExShopify.Order do
   @doc """
   Retrieve a count of all the orders.
   """
-  @spec count(%ExShopify.Session{}, map) :: order_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}, map) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/orders/count.json", params, session)
     |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: order_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end

@@ -6,7 +6,6 @@ defmodule ExShopify.Blog do
   import ExShopify.API
   import ExShopify.Resource
 
-  @type blog_count :: {:ok, integer, %ExShopify.Meta{}}
   @type blog_plural :: {:ok, [%ExShopify.Blog{}], %ExShopify.Meta{}}
   @type blog_singular :: {:ok, %ExShopify.Blog{}, %ExShopify.Meta{}}
 
@@ -25,7 +24,7 @@ defmodule ExShopify.Blog do
       iex> ExShopify.Blog.count(session)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}) :: blog_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     request(:get, "/blogs/count.json", %{}, session)
     |> decode(decoder("count"))

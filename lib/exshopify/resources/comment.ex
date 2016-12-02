@@ -6,7 +6,6 @@ defmodule ExShopify.Comment do
   import ExShopify.API
   import ExShopify.Resource
 
-  @type comment_count :: {:ok, integer, %ExShopify.Meta{}}
   @type comment_plural :: {:ok, [%ExShopify.Comment{}], %ExShopify.Meta{}}
   @type comment_singular :: {:ok, %ExShopify.Comment{}, %ExShopify.Meta{}}
 
@@ -45,13 +44,13 @@ defmodule ExShopify.Comment do
       iex> ExShopify.Comment.count(session, %{blog_id: 241253187, article_id: 134645308})
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: comment_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}, map) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/comments/count.json", params, session)
     |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: comment_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end

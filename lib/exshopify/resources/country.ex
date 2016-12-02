@@ -6,7 +6,6 @@ defmodule ExShopify.Country do
   import ExShopify.API
   import ExShopify.Resource
 
-  @type country_count :: {:ok, integer, %ExShopify.Meta{}}
   @type country_plural :: {:ok, [%ExShopify.Country{}], %ExShopify.Meta{}}
   @type country_singular :: {:ok, %ExShopify.Country{}, %ExShopify.Meta{}}
 
@@ -23,7 +22,7 @@ defmodule ExShopify.Country do
       iex> ExShopify.Country.count(session)
       {:ok, country, meta}
   """
-  @spec count(%ExShopify.Session{}) :: country_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     request(:get, "/countries/count.json", %{}, session)
     |> decode(decoder("count"))

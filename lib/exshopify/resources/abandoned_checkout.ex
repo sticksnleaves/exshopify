@@ -8,7 +8,6 @@ defmodule ExShopify.AbandonedCheckout do
   import ExShopify.Resource
 
   @type abandoned_checkout_plural :: {:ok, [%ExShopify.AbandonedCheckout{}], %ExShopify.Meta{}}
-  @type abandoned_checkout_count :: {:ok, integer, %ExShopify.Meta{}}
 
   @plural "checkouts"
   @singular "checkout"
@@ -30,13 +29,13 @@ defmodule ExShopify.AbandonedCheckout do
       iex> ExShopify.AbandonedCheckout.count(session)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, map) :: abandoned_checkout_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}, map) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, params) do
     request(:get, "/checkouts/count.json", params, session)
     |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}) :: abandoned_checkout_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session) do
     count(session, %{})
   end

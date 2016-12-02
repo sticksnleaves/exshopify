@@ -9,7 +9,6 @@ defmodule ExShopify.Article do
   @type author_plural :: {:ok, [String.t], %ExShopify.Meta{}}
   @type article_plural :: {:ok, [%ExShopify.Article{}], %ExShopify.Meta{}}
   @type article_singular :: {:ok, %ExShopify.Article{}, %ExShopify.Meta{}}
-  @type article_count :: {:ok, integer, %ExShopify.Meta{}}
   @type tag_plural :: {:ok, [String.t], %ExShopify.Meta{}}
 
   @plural "articles"
@@ -41,13 +40,13 @@ defmodule ExShopify.Article do
       iex> ExShopify.Article.count(session, 241253187)
       {:ok, count, meta}
   """
-  @spec count(%ExShopify.Session{}, integer | String.t, map) :: article_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}, integer | String.t, map) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, blog_id, params) do
     request(:get, "/blogs/#{blog_id}/articles/count.json", params, session)
     |> decode(decoder("count"))
   end
 
-  @spec count(%ExShopify.Session{}, integer | String.t) :: article_count | ExShopify.Resource.error
+  @spec count(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, blog_id) do
     count(session, blog_id, %{})
   end
