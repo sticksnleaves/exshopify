@@ -8,8 +8,8 @@ defmodule ExShopifyTest.Event do
     {:ok, bypass: bypass, session: session}
   end
 
-  describe "find" do
-    test "count", %{bypass: bypass, session: session} do
+  describe "count" do
+    test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
         assert conn.method == "GET"
         assert conn.request_path == "/admin/events/count.json"
