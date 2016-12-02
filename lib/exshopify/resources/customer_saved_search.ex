@@ -77,8 +77,8 @@ defmodule ExShopify.CustomerSavedSearch do
 
   ## Examples
 
-  iex> ExShopify.CustomerSavedSearch.customers(session, 789629109)
-  {:ok, customers, meta}
+      iex> ExShopify.CustomerSavedSearch.customers(session, 789629109)
+      {:ok, customers, meta}
   """
   @spec customers(%ExShopify.Session{}, integer | String.t, map) :: ExShopify.Customer.customer_plural | ExShopify.Resource.error
   def customers(session, customer_saved_search_id, params) do
