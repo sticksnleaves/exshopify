@@ -168,7 +168,7 @@ defmodule ExShopify.Fulfillment do
 
   @doc false
   def response_mapping do
-    %ExShopify.OrderFulfillment{
+    %ExShopify.Fulfillment{
       line_items: [ExShopify.LineItem.response_mapping]
     }
   end

@@ -76,8 +76,6 @@ defmodule ExShopify.FulfillmentEvent do
 
   @doc false
   def response_mapping do
-    %ExShopify.OrderFulfillment{
-      line_items: [ExShopify.LineItem.response_mapping]
-    }
+    %__MODULE__{}
   end
 end
