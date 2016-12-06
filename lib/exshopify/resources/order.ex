@@ -30,6 +30,45 @@ defmodule ExShopify.Order do
 
   @doc """
   Cancel an order.
+
+  ## Examples
+
+  ### Canceling an order
+
+      iex> ExShopify.Order.cancel(session, 450789469)
+      {:ok, order, meta}
+
+  ### Canceling and refunding an order using the refund parameter
+
+      iex> params = %{
+      ...>   refund: %{
+      ...>     restock: true,
+      ...>     note: "Broke in shipping",
+      ...>     shipping: %{
+      ...>       full_refund: true
+      ...>     },
+      ...>     refund_line_items: [
+      ...>       %{line_item_id: 466157049, quantity: 1}
+      ...>     ],
+      ...>     transactions: [
+      ...>       %{
+      ...>          parent_id: 1068278472,
+      ...>          amount: "10.00",
+      ...>          kind: "refund",
+      ...>          gateway: "bogus"
+      ...>        },
+      ...>       %{
+      ...>          parent_id: 1068278473,
+      ...>          amount: "100.00",
+      ...>          kind: "refund",
+      ...>          gateway: "bogus"
+      ...>        }
+      ...>     ]
+      ...>   }
+      ...> }
+
+      iex> ExShopify.Order.cancel(session, 450789469, params)
+      {:ok, order, meta}
   """
   @spec cancel(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def cancel(session, id, params) do
@@ -44,6 +83,11 @@ defmodule ExShopify.Order do
 
   @doc """
   Retrieve a count of all the orders.
+
+  ## Examples
+
+      iex> ExShopify.Order.count(session)
+      {:ok, order, meta}
   """
   @spec count(%ExShopify.Session{}, map) :: ExShopify.Resource.count | ExShopify.Resource.error
   def count(session, params) do
@@ -58,6 +102,11 @@ defmodule ExShopify.Order do
 
   @doc """
   Close an order.
+
+  ## Examples
+
+      iex> ExShopify.Order.close(session, 450789469)
+      {:ok, order, meta}
   """
   @spec close(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
   def close(session, id) do
@@ -67,6 +116,62 @@ defmodule ExShopify.Order do
 
   @doc """
   Create a new order.
+
+  ## Examples
+
+  ### Create a simple order without sending order/fulfillment receipt
+
+      iex> params = %ExShopify.Order {
+      ...>   email: "foo@example.com",
+      ...>   fulfillment_status: "fulfilled",
+      ...>   line_items: [
+      ...>     %{
+      ...>       variant_id: 447654529,
+      ...>       quantity: 1
+      ...>     }
+      ...>   ]
+      ...> }
+
+      iex> ExShopify.Order.create(session, params)
+      {:ok, order, meta}
+
+  ### Create a partially paid order with a new customer and addresses
+
+      iex> params = %ExShopify.Order {
+      ...>   line_items: [
+      ...>     %{
+      ...>       variant_id: 447654529,
+      ...>       quantity: 1
+      ...>     }
+      ...>   ],
+      ...>   customer: %{
+      ...>     first_name: "Paul",
+      ...>     last_name: "Norman",
+      ...>     email: "paul.norman@example.com"
+      ...>   },
+      ...>   billing_address: %{
+      ...>     first_name: "John",
+      ...>     last_name: "Smith",
+      ...>     address1: "123 Fake Street",
+      ...>     phone: "777-777-7777",
+      ...>     city: "Fakecity",
+      ...>     province: "Ontario",
+      ...>     country: "Canada",
+      ...>     zip: "K2P 1L4"
+      ...>   },
+      ...>   email: "jane@example.com",
+      ...>   transactions: [
+      ...>     %{
+      ...>       kind: "authorization",
+      ...>       status: "success",
+      ...>       amount: 50.0
+      ...>     }
+      ...>   ],
+      ...>   financial_status: "partially_paid"
+      ...> }
+
+      iex> ExShopify.Order.create(session, params)
+      {:ok, order, meta}
   """
   @spec create(%ExShopify.Session{}, map) :: order_singular | ExShopify.Resource.error
   def create(session, params) do
@@ -76,6 +181,11 @@ defmodule ExShopify.Order do
 
   @doc """
   Delete an order.
+
+  ## Examples
+
+      iex> ExShopify.Order.delete(session, 450789469)
+      {:ok, meta}
   """
   @spec delete(%ExShopify.Session{}, integer | String.t) :: ExShopify.Resource.only_meta | ExShopify.Resource.error
   def delete(session, id) do
@@ -85,6 +195,9 @@ defmodule ExShopify.Order do
 
   @doc """
   Retrieve a specific order.
+
+      iex> ExShopify.Order.find(session, 450789469)
+      {:ok, order, meta}
   """
   @spec find(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def find(session, id, params) do
@@ -99,6 +212,11 @@ defmodule ExShopify.Order do
 
   @doc """
   Retrieve a list of orders.
+
+  ## Examples
+
+      iex> ExShopify.Order.list(session)
+      {:ok, orders, meta}
   """
   @spec list(%ExShopify.Session{}, map) :: order_plural | ExShopify.Resource.error
   def list(session, params) do
@@ -113,6 +231,11 @@ defmodule ExShopify.Order do
 
   @doc """
   Re-open a closed order.
+
+  ## Examples
+
+      iex> ExShopify.Order.open(session, 450789469)
+      {:ok, order, meta}
   """
   @spec open(%ExShopify.Session{}, integer | String.t) :: order_singular | ExShopify.Resource.error
   def open(session, id) do
@@ -122,6 +245,15 @@ defmodule ExShopify.Order do
 
   @doc """
   Update an order.
+
+  ## Examples
+
+      iex> params = %{
+      ...>   email: "a-different@email.com"
+      ...> }
+
+      iex> ExShopify.Order.update(session, params)
+      {:ok, order, meta}
   """
   @spec update(%ExShopify.Session{}, integer | String.t, map) :: order_singular | ExShopify.Resource.error
   def update(session, id, params) do
