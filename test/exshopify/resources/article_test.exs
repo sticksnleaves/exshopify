@@ -47,8 +47,11 @@ defmodule ExShopifyTest.Article do
   describe "create" do
     test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
+        conn = Plug.Parsers.call(conn, parsers: [Plug.Parsers.JSON], json_decoder: Poison)
+
         assert conn.method == "POST"
         assert conn.request_path == "/admin/blogs/1/articles.json"
+        assert conn.params == %{"article" => %{}}
 
         Plug.Conn.resp(conn, 200, "{\"articles\": {}}")
       end)
@@ -63,7 +66,7 @@ defmodule ExShopifyTest.Article do
         assert conn.method == "DELETE"
         assert conn.request_path == "/admin/blogs/2/articles/1.json"
 
-        Plug.Conn.resp(conn, 200, "{\"articles\": {}}")
+        Plug.Conn.resp(conn, 200, "{}")
       end)
 
       ExShopify.Article.delete(session, 1, 2)
@@ -133,10 +136,13 @@ defmodule ExShopifyTest.Article do
   describe "update" do
     test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
+        conn = Plug.Parsers.call(conn, parsers: [Plug.Parsers.JSON], json_decoder: Poison)
+
         assert conn.method == "PUT"
         assert conn.request_path == "/admin/blogs/2/articles/1.json"
+        assert conn.params == %{"article" => %{}}
 
-        Plug.Conn.resp(conn, 200, "{\"articles\": [{}]}")
+        Plug.Conn.resp(conn, 200, "{\"article\": {}}")
       end)
 
       ExShopify.Article.update(session, 1, 2, %{})
