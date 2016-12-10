@@ -59,7 +59,7 @@ defmodule ExShopify.Province do
   @spec list(%ExShopify.Session{}, integer | String.t, map) :: province_plural | ExShopify.Resource.error
   def list(session, country_id, params) do
     request(:get, "/countries/#{country_id}/provinces.json", params, session)
-    |> decode(decoder(@singular, response_mapping))
+    |> decode(decoder(@plural, [response_mapping]))
   end
 
   @spec list(%ExShopify.Session{}, integer | String.t) :: province_plural | ExShopify.Resource.error
