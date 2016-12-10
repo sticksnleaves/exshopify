@@ -12,7 +12,7 @@ defmodule ExShopify.Country do
   @plural "countries"
   @singular "country"
 
-  defstruct [:code, :id, :name, :provinces, :tax]
+  defstruct [:code, :id, :name, :provinces, :tax, :tax_name]
 
   @doc """
   Get a count of all countries.
