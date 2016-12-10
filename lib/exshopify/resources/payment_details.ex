@@ -1,4 +1,4 @@
-defmodule ExShopify.PaymentDetail do
+defmodule ExShopify.PaymentDetails do
   @moduledoc """
   Information about the credit card used for this transaction.
   """
