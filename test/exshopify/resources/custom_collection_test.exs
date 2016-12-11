@@ -11,6 +11,8 @@ defmodule ExShopifyTest.CustomCollection do
   describe "count" do
     test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
+        conn = Plug.Parsers.call(conn, parsers: [Plug.Parsers.JSON], json_decoder: Poison)
+
         assert conn.method == "GET"
         assert conn.request_path == "/admin/custom_collections/count.json"
 
@@ -24,8 +26,11 @@ defmodule ExShopifyTest.CustomCollection do
   describe "create" do
     test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
+        conn = Plug.Parsers.call(conn, parsers: [Plug.Parsers.JSON], json_decoder: Poison)
+
         assert conn.method == "POST"
         assert conn.request_path == "/admin/custom_collections.json"
+        assert conn.params == %{"custom_collection" => %{}}
 
         Plug.Conn.resp(conn, 200, "{\"custom_collection\": {}}")
       end)
@@ -76,8 +81,11 @@ defmodule ExShopifyTest.CustomCollection do
   describe "update" do
     test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
+        conn = Plug.Parsers.call(conn, parsers: [Plug.Parsers.JSON], json_decoder: Poison)
+
         assert conn.method == "PUT"
         assert conn.request_path == "/admin/custom_collections/1.json"
+        assert conn.params == %{"custom_collection" => %{}}
 
         Plug.Conn.resp(conn, 200, "{\"custom_collection\": {}}")
       end)
