@@ -3,7 +3,10 @@ defmodule ExShopify.Mixfile do
 
   def project do
     [app: :exshopify,
+     name: "ExShopify",
+     description: "Elixir client for the Shopify API",
      version: "0.1.0",
+     package: package,
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -39,5 +42,11 @@ defmodule ExShopify.Mixfile do
      #test
      {:bypass, "~> 0.5.1", git: "https://github.com/PSPDFKit-labs/bypass", only: :test},
      {:excoveralls, "~> 0.5.7", only: :test}]
+  end
+
+  defp package do
+    [maintainers: ["Anthony Smith"],
+     licenses: ["MIT"],
+     links: %{github: "https://github.com/sticksnleaves/exshopify"}]
   end
 end
