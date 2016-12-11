@@ -229,6 +229,7 @@ defmodule ExShopify.CustomCollection do
   @doc false
   def response_mapping do
     %ExShopify.CustomCollection{
+      image: %ExShopify.Image{},
       metafields: [%ExShopify.Metafield{}]
     }
   end
