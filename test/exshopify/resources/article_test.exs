@@ -110,7 +110,7 @@ defmodule ExShopifyTest.Article do
       assert tags == ["Announcing", "Mystery"]
     end
 
-    test "endpoint without blog_id", %{bypass: bypass, session: session} do
+    test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
         assert conn.method == "GET"
         assert conn.request_path == "/admin/articles/tags.json"
@@ -120,8 +120,10 @@ defmodule ExShopifyTest.Article do
 
       ExShopify.Article.tags(session)
     end
+  end
 
-    test "endpoint with blog_id", %{bypass: bypass, session: session} do
+  describe "tags_from_blog" do
+    test "endpoint", %{bypass: bypass, session: session} do
       Bypass.expect(bypass, fn(conn) ->
         assert conn.method == "GET"
         assert conn.request_path == "/admin/blogs/1/articles/tags.json"
@@ -129,7 +131,7 @@ defmodule ExShopifyTest.Article do
         Plug.Conn.resp(conn, 200, "{\"tags\": []}")
       end)
 
-      ExShopify.Article.tags(session, 1, %{})
+      ExShopify.Article.tags_from_blog(session, 1)
     end
   end
 

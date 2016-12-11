@@ -191,7 +191,38 @@ defmodule ExShopify.Article do
 
   ### Get a list of all tags from a specific blog
 
-      iex> ExShopify.Article.tags(session, 134645308, %{})
+      iex> ExShopify.Article.tags(session, %{})
+      {:ok, tags, meta}
+
+  ### Get a list of the most popular tags
+
+      iex> ExShopify.Article.tags(session, %{limit: 1, popular: 1})
+      {:ok, tags, meta}
+  """
+  @spec tags(%ExShopify.Session{}, map) :: tag_plural
+  def tags(session, params) do
+    request(:get, "/articles/tags.json", params, session)
+    |> decode(decoder("tags"))
+  end
+
+  @spec tags(%ExShopify.Session{}) :: tag_plural
+  def tags(session) do
+    tags(session, %{})
+  end
+
+  @doc """
+  Get a list of all the tags of articles for a specific blog.
+
+  ## Examples
+
+  ### Get a list of all tags of articles
+
+      iex> ExShopify.Article.tags_from_blog(session, 134645308)
+      {:ok, tags, meta}
+
+  ### Get a list of the most popular tags
+
+      iex> ExShopify.Article.tags_from_blog(session, 134645308, %{limit: 1, popular: 1})
       {:ok, tags, meta}
 
   ### Get a list of the most popular tags
@@ -199,27 +230,15 @@ defmodule ExShopify.Article do
       iex> ExShopify.Article.tags(session, 134645308, %{limit: 1, popular: 1})
       {:ok, tags, meta}
   """
-  @spec tags(%ExShopify.Session{}, integer | String.t, map) :: tag_plural
-  def tags(session, blog_id, params) do
-    endpoint =
-      case blog_id do
-        nil -> "/articles/tags.json"
-        _   -> "/blogs/#{blog_id}/articles/tags.json"
-
-      end
-
-    request(:get, endpoint, params, session)
+  @spec tags_from_blog(%ExShopify.Session{}, integer | String.t, map) :: tag_plural
+  def tags_from_blog(session, blog_id, params) do
+    request(:get, "/blogs/#{blog_id}/articles/tags.json", params, session)
     |> decode(decoder("tags"))
   end
 
-  @spec tags(%ExShopify.Session{}, map) :: tag_plural
-  def tags(session, params) do
-    tags(session, nil, params)
-  end
-
-  @spec tags(%ExShopify.Session{}) :: tag_plural
-  def tags(session) do
-    tags(session, nil, %{})
+  @spec tags_from_blog(%ExShopify.Session{}, integer | String.t) :: tag_plural
+  def tags_from_blog(session, blog_id) do
+    tags_from_blog(session, blog_id, %{})
   end
 
   @doc """
