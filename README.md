@@ -87,6 +87,17 @@ config :exconfig, shop_url: "https://#{api_key}:#{password}@#{shop_name}.myshopi
 
 ### Partner Applications
 
-Partner applications need to go through the
-[Shopify OAuth flow](https://help.shopify.com/api/guides/authentication/oauth)
-in order to authenticate a session to shop.
+Partner applications need to go through the Shopify OAuth flow in order to
+obtain an access token that will grant access to a shop's API.
+
+Please see steps 1 and 2 as part of the
+[Shopify OAuth documentation](https://help.shopify.com/api/guides/authentication/oauth).
+
+To complete `Step 3: Confirming installation` you will need to trade an
+authorization code for an access token.
+
+```elixir
+{:ok, access_token, meta} = ExShopify.AccessToken.create(session, authorization_code)
+```
+
+Please note that `session` must have values for both `api_key` and `secret`.
