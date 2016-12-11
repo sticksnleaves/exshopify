@@ -12,8 +12,8 @@ defmodule ExShopify.SmartCollection do
   @plural "smart_collections"
   @singular "smart_collection"
 
-  defstruct [:body_html, :disjunctive, :handle, :image, :id, :metafields,
-             :published, :published_at, :published_scope, :rules, :sort_order,
+  defstruct [:body_html, :disjunctive, :handle, :image, :id, :published,
+             :published_at, :published_scope, :rules, :sort_order,
              :template_suffix, :title, :updated_at]
 
   @doc """
@@ -195,7 +195,7 @@ defmodule ExShopify.SmartCollection do
   def response_mapping do
     %ExShopify.SmartCollection{
       image: %ExShopify.Image{},
-      metafields: [%ExShopify.Metafield{}]
+      rules: [%ExShopify.SmartCollectionRule{}]
     }
   end
 end
