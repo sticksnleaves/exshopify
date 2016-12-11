@@ -105,4 +105,5 @@ Please note that `session` must have values for both `api_key` and `secret`.
 ## Additional Resources
 
 API documentation: http://docs.shopify.com/api
+
 Ask questions on the forums: http://ecommerce.shopify.com/c/shopify-apis-and-technology
