@@ -25,7 +25,7 @@ defmodule ExShopify.Order do
              :referring_site, :refunds, :shipping_address, :shipping_lines,
              :source_name, :subtotal_price, :tax_lines, :taxes_included, :token,
              :total_discounts, :total_line_items_price, :total_price,
-             :total_tax, :total_weight, :transactions, :updated_at, :user_id,
+             :total_tax, :total_weight, :updated_at, :user_id,
              :order_status_url]
 
   @doc """
@@ -273,8 +273,7 @@ defmodule ExShopify.Order do
       refunds: [ExShopify.Refund.response_mapping],
       shipping_address: %ExShopify.Address{},
       shipping_lines: [ExShopify.ShippingLine.response_mapping],
-      tax_lines: [%ExShopify.TaxLine{}],
-      transactions: [ExShopify.Transaction.response_mapping]
+      tax_lines: [%ExShopify.TaxLine{}]
     }
   end
 end
