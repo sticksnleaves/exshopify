@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sticksnleaves/exshopify.svg?branch=master)](https://travis-ci.org/sticksnleaves/exshopify)
 
-Exlixir client for accessing the Shopify admin REST web services.
+Elixir client for accessing the Shopify admin REST web services.
 
 ## Installation
 
@@ -78,7 +78,7 @@ To configure ExShopify for use with a private application all you will need
 to do is provide a `shop_url` to the session.
 
 ```elixir
-config :exconfig, shop_url: "https://#{api_key}:#{password}@#{shop_name}.myshopify.com/admin")
+config :exshopify, shop_url: "https://#{api_key}:#{password}@#{shop_name}.myshopify.com/admin")
 
 ...
 
