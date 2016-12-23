@@ -14,7 +14,7 @@ The package can be installed as:
 
     ```elixir
     def deps do
-      [{:exshopify, "~> 1.0.0"}]
+      [{:exshopify, "~> 0.2.0"}]
     end
     ```
 
