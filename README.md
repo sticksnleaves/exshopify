@@ -4,6 +4,8 @@
 
 Elixir client for accessing the Shopify admin REST web services.
 
+ExShopify API documentation: https://hexdocs.pm/exshopify/api-reference.html
+
 ## Installation
 
 The package can be installed as:
