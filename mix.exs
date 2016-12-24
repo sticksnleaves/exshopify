@@ -5,7 +5,7 @@ defmodule ExShopify.Mixfile do
     [app: :exshopify,
      name: "ExShopify",
      description: "Elixir client for the Shopify API",
-     version: "0.2.0",
+     version: "0.3.0",
      package: package,
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
