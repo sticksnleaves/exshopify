@@ -7,7 +7,10 @@ defmodule Exshopify.MixProject do
       version: "0.4.0",
       elixir: "~> 1.4",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      xref: [
+        exclude: [Shopify.Client.Hackney]
+      ]
     ]
   end
 
