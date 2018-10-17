@@ -35,6 +35,8 @@ defmodule Shopify.MixProject do
     [
       {:hackney, "~> 1.14", optional: true},
       {:jason, "~> 1.1", optional: true},
+      # dev
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       # test
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
       # dev/test
