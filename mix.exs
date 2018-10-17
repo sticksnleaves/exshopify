@@ -8,6 +8,7 @@ defmodule Shopify.MixProject do
       elixir: "~> 1.4",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      dialyzer: [plt_add_apps: [:hackney]],
       preferred_cli_env: [
        coveralls: :test,
        "coveralls.detail": :test,
