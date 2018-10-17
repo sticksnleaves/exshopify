@@ -4,7 +4,7 @@ defmodule Shopify.Client.Hackney do
   @behaviour Shopify.Client
 
   def request(method, url, headers, body, client_opts) do
-    opts = client_opts || [] ++ [:with_body]
+    opts = (client_opts || []) ++ [:with_body]
 
     case :hackney.request(method, url, headers, body, opts) do
       {:ok, status_code, _headers} ->
