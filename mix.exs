@@ -24,6 +24,9 @@ defmodule Exshopify.MixProject do
     [
       {:hackney, "~> 1.14", optional: true},
       {:jason, "~> 1.1", optional: true},
+      # test
+      {:excoveralls, "~> 0.10", only: :test, runtime: false},
+      # dev/test
       {:dialyxir, "~> 1.0.0-rc", only: [:dev, :test], runtime: false}
     ]
   end
