@@ -19,7 +19,7 @@ defmodule Exshopify.MixProject do
 
   defp deps do
     [
-      {:hackney, "~> 1.14"},
+      {:hackney, "~> 1.14", optional: true},
       {:dialyxir, "~> 1.0.0-rc", only: [:dev, :test], runtime: false}
     ]
   end
