@@ -1,4 +1,4 @@
-defmodule Exshopify.MixProject do
+defmodule Shopify.MixProject do
   use Mix.Project
 
   def project do
@@ -8,6 +8,16 @@ defmodule Exshopify.MixProject do
       elixir: "~> 1.4",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      preferred_cli_env: [
+       coveralls: :test,
+       "coveralls.detail": :test,
+       "coveralls.html": :test,
+       "coveralls.post": :test,
+       "coveralls.travis": :test
+      ],
+      test_coverage: [
+        tool: ExCoveralls
+      ],
       xref: [
         exclude: [Shopify.Client.Hackney]
       ]
