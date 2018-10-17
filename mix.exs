@@ -10,11 +10,11 @@ defmodule Shopify.MixProject do
       deps: deps(),
       dialyzer: [plt_add_apps: [:hackney]],
       preferred_cli_env: [
-       coveralls: :test,
-       "coveralls.detail": :test,
-       "coveralls.html": :test,
-       "coveralls.post": :test,
-       "coveralls.travis": :test
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        "coveralls.post": :test,
+        "coveralls.travis": :test
       ],
       test_coverage: [
         tool: ExCoveralls
