@@ -6,11 +6,9 @@ defmodule Shopify.Client do
   be coerced into complying with this module's specification.
   """
 
-  @type http_method_t :: :get | :post | :put | :delete
-
   @callback request(
-              method :: http_method_t,
-              url :: String.t(),
+              method :: atom,
+              url :: binary,
               headers :: [{binary, binary}],
               req_body :: binary,
               client_opts :: term
