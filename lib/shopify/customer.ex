@@ -64,6 +64,17 @@ defmodule Shopify.Customer do
   end
 
   @doc """
+  Retrieve all orders belonging to a customers.
+  """
+  @spec get_orders(binary) :: Shopify.Operation.t()
+  def get_orders(customer_id) do
+    %Shopify.Operation{
+      http_method: :get,
+      path: "admin/customers/#{customer_id}.json"
+    }
+  end
+
+  @doc """
   Retrieve a list of customers.
   """
   @spec list(map) :: Shopify.Operation.t()
@@ -72,17 +83,6 @@ defmodule Shopify.Customer do
       http_method: :get,
       params: params,
       path: "admin/customers.json"
-    }
-  end
-
-  @doc """
-  Retrieve all orders belonging to a customers.
-  """
-  @spec orders(binary) :: Shopify.Operation.t()
-  def orders(customer_id) do
-    %Shopify.Operation{
-      http_method: :get,
-      path: "admin/customers/#{customer_id}.json"
     }
   end
 
