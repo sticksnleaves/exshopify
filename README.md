@@ -18,8 +18,23 @@ def deps do
 end
 ```
 
-`ExShopify` works with `hackney` (HTTP client) and `jason` (JSON codec) out of
-the box. You may supply your own HTTP client or JSON codec.
+`ExShopify` allows you to use the HTTP client and JSON codec of your choice.
+However, we support `hackney` and `jason` out of the box. If you would like to
+use a different HTTP client or JSON codec please see
+**(link to something here)**.
+
+## Authentication
+
+Shopify provides two authentication strategies when making API requests: public
+and private.
+
+Public apps allow you to interact with the Shopify API on behalf of multiple
+stores. Private apps, on the other handle, allow you to make requests on behalf
+of only a single store.
+
+`ExShopify` handles this distinction using something we call "sessions". A
+session contains all the information necessary to make requests to the Shopify
+API as either a public app or a private app.
 
 ## Supported Endpoints
 - [x] Customer
