@@ -62,7 +62,7 @@ defmodule Shopify.CustomerAddress do
   end
 
   @doc """
-  Sets the default address for the customer.
+  Sets the default address for a customer.
   """
   @spec set_default(binary, binary) :: Shopify.Operation.t()
   def set_default(customer_id, address_id) do
