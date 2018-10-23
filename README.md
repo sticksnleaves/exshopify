@@ -22,8 +22,8 @@ end
 the box. You may supply your own HTTP client or JSON codec.
 
 ## Supported Endpoints
-[x] - Customer
-[x] - CustomerAddress
-[x] - CustomerSavedSearch
-[x] - OAuth
-[x] - Webhook
+- [x] Customer
+- [x] CustomerAddress
+- [x] CustomerSavedSearch
+- [x] OAuth
+- [x] Webhook
