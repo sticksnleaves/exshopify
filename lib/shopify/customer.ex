@@ -7,9 +7,10 @@ defmodule Shopify.Customer do
   Retrieve a count of all customers.
   """
   @spec count :: Shopify.Operation.t()
-  def count do
+  def count(params \\ %{}) do
     %Shopify.Operation{
       http_method: :get,
+      params: params,
       path: "admin/customers/count.json"
     }
   end
