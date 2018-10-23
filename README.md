@@ -41,6 +41,17 @@ API as either a public app or a private app.
 * [Authentication - Public apps](https://help.shopify.com/en/api/getting-started/authentication/public-authentication)
 * [Authentication - Private apps](https://help.shopify.com/en/api/getting-started/authentication/private-authentication)
 
+## Private Sessions
+
+You can make API requests as a private app using a private session. A private
+session can be created using the `Shopify.new_private_session/3` function. This
+function takes shop name, api key and password as arguments.
+
+**Example**
+```elixir
+session = Shopify.new_private_session("johns-apparel", "4478eb7ac138a136852babd861956c19", "3e5a6edec71eab039422c6444d02659d")
+```
+
 ## Supported Endpoints
 - [x] Customer
 - [x] CustomerAddress
