@@ -36,6 +36,11 @@ of only a single store.
 session contains all the information necessary to make requests to the Shopify
 API as either a public app or a private app.
 
+**Additional Reading**
+
+* [Authentication - Public apps](https://help.shopify.com/en/api/getting-started/authentication/public-authentication)
+* [Authentication - Private apps](https://help.shopify.com/en/api/getting-started/authentication/private-authentication)
+
 ## Supported Endpoints
 - [x] Customer
 - [x] CustomerAddress
