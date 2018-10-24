@@ -12,14 +12,14 @@ defmodule Shopify.Client.Hackney do
   end
 
   defp serialize_response({:ok, status_code, headers}) do
-    %Shopify.Response{
+    %Shopify.Client.Response{
       headers: headers,
       status_code: status_code
     }
   end
 
   defp serialize_response({:ok, status_code, headers, body}) do
-    %Shopify.Response{
+    %Shopify.Client.Response{
       body: body,
       headers: headers,
       status_code: status_code

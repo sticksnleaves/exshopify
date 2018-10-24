@@ -1,4 +1,4 @@
-defmodule Shopify.Response do
+defmodule Shopify.Client.Response do
   @type t :: %__MODULE__{
     body: binary,
     headers: [{binary, binary}],
