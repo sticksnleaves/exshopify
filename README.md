@@ -40,6 +40,7 @@ API as either a public app or a private app.
 
 * [Authentication - Public apps](https://help.shopify.com/en/api/getting-started/authentication/public-authentication)
 * [Authentication - Private apps](https://help.shopify.com/en/api/getting-started/authentication/private-authentication)
+* [Authentication - OAuth](https://help.shopify.com/en/api/getting-started/authentication/oauth)
 
 ## Private Sessions
 
@@ -48,8 +49,44 @@ session can be created using the `Shopify.new_private_session/3` function. This
 function takes shop name, api key and password as arguments.
 
 **Example**
+
 ```elixir
 session = Shopify.new_private_session("johns-apparel", "4478eb7ac138a136852babd861956c19", "3e5a6edec71eab039422c6444d02659d")
+```
+
+## Public Sessions
+
+You can make API requests as a public app using a public session. Public
+sessions are also used when obtaining an OAuth access token. You can create a
+public sessions using the `Shopify.new_public_sessions/2` function. This
+function takes a shop name and an optional access token as arguments.
+
+**Example**
+
+```elixir
+session = Shopify.new_public_session("johns-apparel", "f85632530bf277ec9ac6f649fc327f17")
+```
+
+## OAuth
+
+For a detailed explanation of the Shopify OAuth authorization process please
+see the [Shopify OAuth documentation](https://help.shopify.com/en/api/getting-started/authentication/oauth).
+
+You can obtain an access token using the `Shopify.OAuth.get_access_token/1`
+function.
+
+**Example**
+
+```elixir
+session = Shopify.new_public_session("johns-apparel")
+
+%{
+  client_id: "43f41262ce65cd5d4e8a4081649208e3",
+  client_secret: "2240ab28b61f42e6c8bfc0adcbfc5ac2",
+  code: "18djf91ufv0vkr938z7b69v810v710v7"
+}
+|> Shopify.OAuth.get_access_token()
+|> Shopify.request(session)
 ```
 
 ## Supported Endpoints
