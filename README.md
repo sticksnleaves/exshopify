@@ -148,6 +148,6 @@ session = Shopify.new_public_session("johns-apparel")
 * Products
   - [ ] Collect
   - [ ] CustomCollection
-  - [ ] Product
+  - [x] Product
   - [ ] ProductImage
   - [ ] SmartCollection
