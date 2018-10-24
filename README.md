@@ -80,11 +80,7 @@ function.
 ```elixir
 session = Shopify.new_public_session("johns-apparel")
 
-%{
-  client_id: "43f41262ce65cd5d4e8a4081649208e3",
-  client_secret: "2240ab28b61f42e6c8bfc0adcbfc5ac2",
-  code: "18djf91ufv0vkr938z7b69v810v710v7"
-}
+%{client_id: "43f41262ce65cd5d4e8a4081649208e3", client_secret: "2240ab28b61f42e6c8bfc0adcbfc5ac2", code: "18djf91ufv0vkr938z7b69v810v710v7"}
 |> Shopify.OAuth.get_access_token()
 |> Shopify.request(session)
 ```
