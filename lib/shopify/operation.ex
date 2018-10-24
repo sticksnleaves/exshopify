@@ -81,16 +81,30 @@ defmodule Shopify.Operation do
     config.json_codec.encode!(operation.params)
   end
 
+  defp build_meta(headers) do
+    Enum.reduce(headers, %Shopify.Meta{}, fn({k, v}, acc) ->
+      IO.inspect k
+      case k do
+        "X-Shopify-Shop-Api-Call-Limit" ->
+          Map.put(acc, :api_call_limit, v)
+        _otherwise ->
+          acc
+      end
+    end)
+  end
+
   defp parse({:ok, %{status_code: status_code} = response}, config)
          when status_code >= 200 and status_code < 400
   do
     body = response.body
 
+    meta = build_meta(response[:headers])
+
     case config.json_codec.decode(body) do
       {:error, _reason} ->
-        {:ok, %{}}
-      otherwise ->
-        otherwise
+        {:ok, %{}, meta}
+      {:ok, decoded_body} ->
+        {:ok, decoded_body, meta}
     end
   end
 

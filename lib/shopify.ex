@@ -1,5 +1,5 @@
 defmodule Shopify do
-  @type response_t :: {:ok, map} | {:error, any}
+  @type response_t :: {:ok, map, Shopify.Meta.t()} | {:error, any}
 
   @type session_t :: Shopify.Session.Private.t() | Shopify.Session.Public.t()
 
