@@ -6,11 +6,6 @@ defmodule Shopify.Client do
   be coerced into complying with this module's specification.
   """
 
-  @callback request(
-              method :: atom,
-              url :: binary,
-              headers :: [{binary, binary}],
-              req_body :: binary,
-              client_opts :: term
-            ) :: {:ok, Shopify.Client.Response.t()} | {:error, reason :: binary}
+  @callback request(request :: Shopify.Request.t(), client_opts :: term) ::
+              {:ok, Shopify.Client.Response.t()} | {:error, reason :: binary}
 end
