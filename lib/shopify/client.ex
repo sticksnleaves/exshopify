@@ -12,7 +12,5 @@ defmodule Shopify.Client do
               headers :: [{binary, binary}],
               req_body :: binary,
               client_opts :: term
-            ) ::
-              {:ok, %{body: binary, headers: [{binary, binary}], status_code: pos_integer}}
-              | {:error, reason :: binary}
+            ) :: {:ok, Shopify.Response.t()} | {:error, reason :: binary}
 end
