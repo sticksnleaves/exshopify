@@ -23,6 +23,58 @@ However, we support `hackney` and `jason` out of the box. If you would like to
 use a different HTTP client or JSON codec please see
 **(link to something here)**.
 
+## Making Requests
+
+Making requests to the API is done using the `Shopify.request/3` function. You
+pass an operation, a session (more on sessions below) and an optional
+config as arguments.
+
+An operation is a struct that describes the HTTP request to be executed. You can
+create an operation manually but typically you would use one of the resource
+modules to create one for you.
+
+**Example**
+
+```elixir
+Shopify.Customer.list() |> Shopify.request(session)
+```
+
+You can see which resource modules have been implemented under
+[Supported Endpoints](#supported-endpoints). If we have not added support for an
+endpoint you need you can still make a request by constructing an operation
+manually.
+
+**Example**
+
+```elixir
+%Shopify.Operation{http_method: :get, path: "admin/customers.json"} |> Shopify.request(session)
+```
+
+Opening issues and PR's for unsupported endpoints is always appreciated.
+
+## Configuration
+
+When making a request you can pass an optional config as the third argument.
+
+**Example**
+
+```elixir
+config = %Shopify.Config{http_client: {MyHttpClient, []}}
+
+Shopify.Customer.list() |> Shopify.request(session, config)
+```
+
+### Configuration Options
+
+* `:host` - HTTP host to make requests to. Defaults to `myshopify.com`.
+* `:http_client` - the HTTP client used to make requests. Takes a tuple
+                   containing the module implementing the client and config to
+                   be passed to the client when making requests. Defaults to
+                   `{Shopify.Client.Hackney, []}`.
+* `:json_codec` - the JSON encoder and decoder. Defaults to `Jason`.
+* `:port` - the HTTP port used when making requests
+* `:scheme` - the HTTP scheme used when making requests. Defaults to `https`.
+
 ## Authentication
 
 Shopify provides two authentication strategies when making API requests: public
