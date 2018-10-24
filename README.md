@@ -138,8 +138,10 @@ session = Shopify.new_public_session("johns-apparel")
 ```
 
 ## Supported Endpoints
-- [x] Customer
-- [x] CustomerAddress
-- [x] CustomerSavedSearch
-- [x] OAuth
-- [x] Webhook
+* Customers
+  - [x] Customer
+  - [x] CustomerAddress
+  - [x] CustomerSavedSearch
+* Events
+  - [x] OAuth
+  - [x] Webhook
