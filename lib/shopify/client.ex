@@ -13,6 +13,6 @@ defmodule Shopify.Client do
               req_body :: binary,
               client_opts :: term
             ) ::
-              {:ok, %{body: binary, status_code: pos_integer}}
+              {:ok, %{body: binary, headers: [{binary, binary}], status_code: pos_integer}}
               | {:error, reason :: binary}
 end
