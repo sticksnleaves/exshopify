@@ -9,6 +9,7 @@ defmodule Shopify.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: [plt_add_apps: [:hackney]],
+      package: package(),
       preferred_cli_env: [
         coveralls: :test,
         "coveralls.detail": :test,
@@ -41,6 +42,17 @@ defmodule Shopify.MixProject do
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
       # dev/test
       {:dialyxir, "~> 1.0.0-rc", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp package do
+    [
+      description: "Elixir client for the Shopify REST API",
+      maintainers: ["Anthony Smith"],
+      licenses: ["MIT"],
+      links: %{
+        GitHub: "https://github.com/sticksnleaves/exshopify"
+      }
     ]
   end
 end
