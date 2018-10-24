@@ -145,3 +145,9 @@ session = Shopify.new_public_session("johns-apparel")
 * Events
   - [x] OAuth
   - [x] Webhook
+* Products
+  - [ ] Collect
+  - [ ] CustomCollection
+  - [ ] Product
+  - [ ] ProductImage
+  - [ ] SmartCollection
