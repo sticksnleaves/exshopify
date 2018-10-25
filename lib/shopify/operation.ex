@@ -26,13 +26,27 @@ defmodule Shopify.Operation do
   defp handle_response(%{status_code: status_code} = response, config)
        when status_code >= 200 and status_code < 400
   do
-    {:ok, parse_body(response.body, config), build_meta(response.headers)}
+    response =
+      %Shopify.Response{
+        body: parse_body(response.body, config),
+        headers: response.headers,
+        status_code: status_code
+      }
+
+    {:ok, response}
   end
 
   defp handle_response(%{status_code: status_code} = response, config)
        when status_code >= 400
   do
-    {:error, parse_body(response.body, config)}
+    response =
+      %Shopify.Response{
+        body: parse_body(response.body, config),
+        headers: response.headers,
+        status_code: status_code
+      }
+
+    {:error, response}
   end
 
   defp parse_body(raw_body, config) do
@@ -42,28 +56,5 @@ defmodule Shopify.Operation do
       {:error, _reason} ->
         %{}
     end
-  end
-
-  defp build_meta(headers) do
-    Enum.reduce(headers, %Shopify.Meta{}, fn({k, v}, acc) ->
-      case String.downcase(k) do
-        "x-shopify-shop-api-call-limit" ->
-          parts = String.split(v, "/")
-
-          count =
-            parts
-            |> Enum.at(0)
-            |> String.to_integer()
-
-          limit =
-            parts
-            |> Enum.at(1)
-            |> String.to_integer()
-
-          Map.put(acc, :api_call_limit, {count, limit})
-        _otherwise ->
-          acc
-      end
-    end)
   end
 end
