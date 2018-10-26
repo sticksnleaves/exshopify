@@ -20,8 +20,6 @@ defmodule Shopify.RateLimiter.Partition do
     spec = {__MODULE__, server: server, partition: partition}
 
     RateLimiter.PartitionSupervisor.start_child(spec)
-
-    RateLimiter.PartitionMonitor.keep_partition_alive(server, partition)
   end
 
   def close(server, partition) do

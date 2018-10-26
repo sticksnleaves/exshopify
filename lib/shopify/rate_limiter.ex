@@ -13,10 +13,12 @@ defmodule Shopify.RateLimiter do
     Supervisor.start_link(__MODULE__, opts, name: opts[:name])
   end
 
-  def make_request(server, request, _opts) do
+  def make_request(server, request, opts) do
     partition = Map.fetch!(URI.parse(request.url), :host)
 
     RateLimiter.Partition.open(server, partition)
+
+    RateLimiter.Producer.queue_request(server, partition, request, opts)
   end
 
   #
