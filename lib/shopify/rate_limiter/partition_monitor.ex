@@ -17,10 +17,10 @@ defmodule Shopify.RateLimiter.PartitionMonitor do
     GenServer.start_link(__MODULE__, %{}, name: name)
   end
 
-  def monitor(server, partition) do
+  def keep_partition_alive(server, partition) do
     name = name(server)
 
-    GenServer.call(name, {:monitor, {server, partition}})
+    GenServer.call(name, {:keep_partition_alive, {server, partition}})
   end
 
   #
@@ -33,7 +33,7 @@ defmodule Shopify.RateLimiter.PartitionMonitor do
     {:ok, state}
   end
 
-  def handle_call({:monitor, id}, _from, %{timers: timers} = state) do
+  def handle_call({:keep_partition_alive, id}, _from, %{timers: timers} = state) do
     cancel_shutdown(Map.get(timers, id))
 
     timer = Process.send_after(self(), {:shutdown, id}, @default_timeout)

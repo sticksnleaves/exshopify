@@ -19,13 +19,15 @@ defmodule Shopify.RateLimiter.Partition do
   def open(server, partition) do
     spec = {__MODULE__, server: server, partition: partition}
 
-    {:ok, _pid} = RateLimiter.PartitionSupervisor.start_child(spec)
+    RateLimiter.PartitionSupervisor.start_child(spec)
 
-    :ok = RateLimiter.PartitionMonitor.monitor(server, partition)
+    RateLimiter.PartitionMonitor.keep_partition_alive(server, partition)
   end
 
   def close(server, partition) do
+    name = name(server, partition)
 
+    Supervisor.stop(name, :normal)
   end
 
   #
@@ -43,7 +45,10 @@ defmodule Shopify.RateLimiter.Partition do
   def children(opts) do
     child_opts = Keyword.take(opts, [:server, :partition])
 
-    []
+    [
+      {RateLimiter.Producer, child_opts},
+      {RateLimiter.ConsumerSupervisor, child_opts}
+    ]
   end
 
   defp name(server, partition) do
