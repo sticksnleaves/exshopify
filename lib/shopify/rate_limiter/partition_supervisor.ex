@@ -12,8 +12,6 @@ defmodule Shopify.RateLimiter.PartitionSupervisor do
   def start_link(opts) do
     server = Keyword.fetch!(opts, :server)
 
-    IO.inspect server
-
     name = name(server)
 
     DynamicSupervisor.start_link(__MODULE__, :ok, name: name)
