@@ -214,7 +214,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
 * Orders
   - [x] AbandonedCheckout
   - [x] DraftOrder
-  - [ ] Order
+  - [x] Order
   - [ ] OrderRisk
   - [ ] Refund
   - [ ] Transaction
