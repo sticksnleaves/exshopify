@@ -198,7 +198,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] Webhook
 * Inventory
   - [x] InventoryItem
-  - [ ] InventoryLevel
+  - [x] InventoryLevel
   - [ ] Location
 - [ ] MarketingEvent
 - [ ] Metafield
