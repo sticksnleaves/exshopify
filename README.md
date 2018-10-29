@@ -171,13 +171,37 @@ Shopify.Product.list() |> Shopify.request(session, config)
 ```
 
 ## Supported Endpoints
+
+* Shopify Payments
+  - [ ] Balance
+  - [ ] Payouts
+  - [ ] Transactions
+* Access
+  - [ ] AccessScope
+  - [ ] StorefrontAccessToken
+* Analytics
+  - [ ] Report
+* Billing
+  - [ ] ApplicationCharge
+  - [ ] ApplicationCredit
+  - [ ] RecurringApplicationCharge
+  - [ ] UsageCharge
 * Customers
   - [x] Customer
   - [x] CustomerAddress
   - [x] CustomerSavedSearch
+* Discounts
+  - [ ] DiscountCode
+  - [ ] PriceRule
 * Events
-  - [x] OAuth
+  - [ ] Event
   - [x] Webhook
+* Inventory
+  - [ ] InventoryItem
+  - [ ] InventoryLevel
+  - [ ] Location
+- [ ] MarketingEvent
+- [ ] Metafield
 * Products
   - [ ] Collect
   - [ ] CustomCollection
