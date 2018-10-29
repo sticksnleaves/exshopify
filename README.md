@@ -237,7 +237,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
 * Shipping and Fulfillment
   - [x] CarrierService
   - [x] Fulfillment
-  - [ ] FulfillmentEvent
+  - [x] FulfillmentEvent
   - [ ] FulfillmentService
 * Store Properties
   - [x] Country
