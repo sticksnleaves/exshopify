@@ -202,9 +202,48 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] Location
 - [ ] MarketingEvent
 - [ ] Metafield
+* Online Store
+  - [ ] Asset
+  - [ ] Blog
+  - [ ] BlogArticle
+  - [ ] Comment
+  - [ ] Page
+  - [ ] Redirect
+  - [ ] ScriptTag
+  - [ ] Theme
+* Orders
+  - [ ] AbandonedCheckouts
+  - [ ] DraftOrder
+  - [ ] Order
+  - [ ] OrderRisk
+  - [ ] Refund
+  - [ ] Transaction
+* Plus
+  - [ ] GiftCard
+  - [ ] Multipass
+  - [ ] User
 * Products
   - [ ] Collect
   - [ ] CustomCollection
   - [x] Product
   - [ ] ProductImage
   - [ ] SmartCollection
+* Sales Channel
+  - [ ] Checkout
+  - [ ] CollectionListing
+  - [ ] Payment
+  - [ ] ProductListing
+  - [ ] ResourceFeedback
+* Shipping and Fulfillment
+  - [ ] CarrierService
+  - [ ] Fulfillment
+  - [ ] FulfillmentEvent
+  - [ ] FulfillmentService
+* Store Properties
+  - [ ] Country
+  - [ ] Currency
+  - [ ] Policy
+  - [ ] Province
+  - [ ] ShippingZone
+  - [ ] Shop
+- [ ] TenderTransaction
