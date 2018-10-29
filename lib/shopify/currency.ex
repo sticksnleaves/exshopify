@@ -1,4 +1,8 @@
 defmodule Shopify.Currency do
+  @moduledoc """
+  [https://help.shopify.com/en/api/reference/store_properties/currency](https://help.shopify.com/en/api/reference/store_properties/currency)
+  """
+
   @doc """
   Retrieve a list of currencies.
   """
