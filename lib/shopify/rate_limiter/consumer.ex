@@ -8,7 +8,8 @@ defmodule Shopify.RateLimiter.Consumer do
 
       event = Map.put(event, :attempts, attempts)
 
-      {http_client, http_client_opts} = Keyword.fetch!(event.opts, :http_client)
+      http_client = Keyword.fetch!(event.opts, :http_client)
+      http_client_opts = Keyword.get(event.opts, :http_client_opts, [])
 
       case http_client.request(event.request, http_client_opts) do
         {:ok, %{status_code: 429}} ->

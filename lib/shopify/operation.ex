@@ -11,7 +11,7 @@ defmodule Shopify.Operation do
 
   @spec perform(t, Shopify.session_t(), Shopify.Config.t()) :: Shopify.response_t()
   def perform(operation, session, config) do
-    {http_client, http_client_opts} = config.http_client
+    %{http_client: http_client, http_client_opts: http_client_opts} = config
 
     request = Shopify.Request.new(operation, session, config)
 
