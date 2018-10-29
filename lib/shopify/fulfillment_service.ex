@@ -33,7 +33,7 @@ defmodule Shopify.FulfillmentService do
   def get(fulfillment_service_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/fulfillment_services/#{fulfillment_id}.json"
+      path: "admin/fulfillment_services/#{fulfillment_service_id}.json"
     }
   end
 
