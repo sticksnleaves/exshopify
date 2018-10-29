@@ -217,7 +217,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] Order
   - [x] OrderRisk
   - [x] Refund
-  - [ ] Transaction
+  - [x] Transaction
 * Plus
   - [ ] GiftCard
   - [ ] Multipass
