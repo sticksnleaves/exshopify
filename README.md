@@ -243,7 +243,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] Country
   - [x] Currency
   - [x] Policy
-  - [ ] Province
+  - [x] Province
   - [ ] ShippingZone
   - [ ] Shop
 - [ ] TenderTransaction
