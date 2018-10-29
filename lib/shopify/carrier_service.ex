@@ -1,4 +1,8 @@
 defmodule Shopify.CarrierService do
+  @moduledoc """
+  [https://help.shopify.com/en/api/reference/shipping_and_fulfillment/carrierservice](https://help.shopify.com/en/api/reference/shipping_and_fulfillment/carrierservice)
+  """
+
   @doc """
   Create a carrier service.
   """
