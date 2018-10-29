@@ -223,7 +223,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] Multipass
   - [ ] User
 * Products
-  - [ ] Collect
+  - [x] Collect
   - [ ] CustomCollection
   - [x] Product
   - [ ] ProductImage
