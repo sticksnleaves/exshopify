@@ -1,4 +1,8 @@
 defmodule Shopify.Fulfillment do
+  @moduledoc """
+  [https://help.shopify.com/en/api/reference/shipping_and_fulfillment/fulfillment](https://help.shopify.com/en/api/reference/shipping_and_fulfillment/fulfillment)
+  """
+
   @doc """
   Cancel a fulfillment.
   """
