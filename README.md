@@ -199,7 +199,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
 * Inventory
   - [x] InventoryItem
   - [x] InventoryLevel
-  - [ ] Location
+  - [x] Location
 - [ ] MarketingEvent
 - [ ] Metafield
 * Online Store
