@@ -1,4 +1,8 @@
 defmodule Shopify.Shop do
+  @moduledoc """
+  [https://help.shopify.com/en/api/reference/store_properties/shop](https://help.shopify.com/en/api/reference/store_properties/shop)
+  """
+
   @doc """
   Retrieve the configuration for a shop.
   """
