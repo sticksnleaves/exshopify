@@ -240,7 +240,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] FulfillmentEvent
   - [ ] FulfillmentService
 * Store Properties
-  - [ ] Country
+  - [x] Country
   - [ ] Currency
   - [ ] Policy
   - [ ] Province
