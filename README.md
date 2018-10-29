@@ -212,7 +212,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] ScriptTag
   - [ ] Theme
 * Orders
-  - [ ] AbandonedCheckouts
+  - [x] AbandonedCheckout
   - [ ] DraftOrder
   - [ ] Order
   - [ ] OrderRisk
