@@ -224,7 +224,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] User
 * Products
   - [x] Collect
-  - [ ] CustomCollection
+  - [x] CustomCollection
   - [x] Product
   - [ ] ProductImage
   - [ ] SmartCollection
