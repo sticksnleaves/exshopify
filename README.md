@@ -245,5 +245,5 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] Policy
   - [x] Province
   - [x] ShippingZone
-  - [ ] Shop
+  - [x] Shop
 - [ ] TenderTransaction
