@@ -1,6 +1,7 @@
 defmodule Shopify.RateLimiter.Consumer do
   alias Shopify.RateLimiter
 
+  @spec start_link(RateLimiter.Event.t()) :: {:ok, pid}
   def start_link(event) do
     Task.start_link(fn ->
       attempts = Map.get(event, :attempts) + 1

@@ -13,6 +13,7 @@ defmodule Shopify.RateLimiter do
     Supervisor.start_link(__MODULE__, opts, name: opts[:name])
   end
 
+  @spec make_request(binary | atom, Shopify.Request.t(), any) :: :ok
   def make_request(server, request, opts) do
     partition = Map.fetch!(URI.parse(request.url), :host)
 
