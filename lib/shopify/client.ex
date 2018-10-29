@@ -7,5 +7,6 @@ defmodule Shopify.Client do
   """
 
   @callback request(request :: Shopify.Request.t(), client_opts :: term) ::
-              {:ok, Shopify.Client.Response.t()} | {:error, reason :: binary}
+              {:ok, %{body: binary, headers: [{binary, binary}], status_code: pos_integer}}
+              | {:error, reason :: binary}
 end
