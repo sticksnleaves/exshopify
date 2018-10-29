@@ -226,7 +226,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] Collect
   - [x] CustomCollection
   - [x] Product
-  - [ ] ProductImage
+  - [x] ProductImage
   - [ ] ProductVariant
   - [ ] SmartCollection
 * Sales Channel
