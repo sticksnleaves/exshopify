@@ -213,7 +213,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] Theme
 * Orders
   - [x] AbandonedCheckout
-  - [ ] DraftOrder
+  - [x] DraftOrder
   - [ ] Order
   - [ ] OrderRisk
   - [ ] Refund
