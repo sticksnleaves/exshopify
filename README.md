@@ -242,7 +242,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
 * Store Properties
   - [x] Country
   - [x] Currency
-  - [ ] Policy
+  - [x] Policy
   - [ ] Province
   - [ ] ShippingZone
   - [ ] Shop
