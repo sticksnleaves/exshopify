@@ -241,7 +241,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [ ] FulfillmentService
 * Store Properties
   - [x] Country
-  - [ ] Currency
+  - [x] Currency
   - [ ] Policy
   - [ ] Province
   - [ ] ShippingZone
