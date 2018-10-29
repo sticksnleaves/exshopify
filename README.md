@@ -67,10 +67,10 @@ Shopify.Customer.list() |> Shopify.request(session, config)
 ### Configuration Options
 
 * `:host` - HTTP host to make requests to. Defaults to `myshopify.com`.
-* `:http_client` - the HTTP client used to make requests. Takes a tuple
-                   containing the module implementing the client and config to
-                   be passed to the client when making requests. Defaults to
-                   `{Shopify.Client.Hackney, []}`.
+* `:http_client` - the HTTP client used to make requests. Takes a module that
+                   implements the `Shopify.Client` behaviour. Defaults to
+                   `Shopify.Client.Hackney`.
+* `:http_client_opts` - options to be passed to the configured `:http_client`
 * `:json_codec` - the JSON encoder and decoder. Defaults to `Jason`.
 * `:port` - the HTTP port used when making requests
 * `:scheme` - the HTTP scheme used when making requests. Defaults to `https`.
@@ -135,6 +135,39 @@ session = Shopify.new_public_session("johns-apparel")
 %{client_id: "43f41262ce65cd5d4e8a4081649208e3", client_secret: "2240ab28b61f42e6c8bfc0adcbfc5ac2", code: "18djf91ufv0vkr938z7b69v810v710v7"}
 |> Shopify.OAuth.get_access_token()
 |> Shopify.request(session)
+```
+
+## Rate Limiting
+
+You can throttle your requests to the Shopify REST API by using the
+`Shopify.Client.RateLimit` HTTP client.  This client will throttle the requests
+it sends to Shopify in order to stay below the maximum call limit.
+
+`Shopify.Client.RateLimit` acts as a pass through. It only implements the
+rate limiting logic and hands off the responsibility of making an actual HTTP
+request to the HTTP client of your choice.
+
+To use `Shopify.Client.RateLimit` you will need to add `gen_stage` as a
+dependency. You will also need to add `Shopify.RateLimiter` to your supervision
+tree.
+
+When making API requests you will need to specify `Shopify.Client.RateLimit`
+in the request config as `:http_client`. You will then need to specify the
+pass through HTTP client in the `:http_client_opts` config option.
+
+**Example**
+
+```elixir
+config =
+  %Shopify.Config{
+    http_client: Shopify.Client.RateLimit,
+    http_client_opts: [
+      http_client: Shopify.Client.Hackney,
+      http_client_opts: [] # optional
+    ]
+  }
+
+Shopify.Product.list() |> Shopify.request(session, config)
 ```
 
 ## Supported Endpoints
