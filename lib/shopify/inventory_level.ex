@@ -18,7 +18,7 @@ defmodule Shopify.InventoryLevel do
   @doc """
   Connect an inventory item to a location by creating an inventory level.
   """
-  @spec connection(map) :: Shopify.Operation.t()
+  @spec connect(map) :: Shopify.Operation.t()
   def connect(params) do
     %Shopify.Operation{
       http_method: :post,
