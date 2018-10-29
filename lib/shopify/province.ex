@@ -1,4 +1,8 @@
 defmodule Shopify.Province do
+  @moduledoc """
+  [https://help.shopify.com/en/api/reference/store_properties/province](https://help.shopify.com/en/api/reference/store_properties/province)
+  """
+
   @doc """
   Retrieve a count of all provinces.
   """
