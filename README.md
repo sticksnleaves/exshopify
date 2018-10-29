@@ -216,7 +216,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] DraftOrder
   - [x] Order
   - [x] OrderRisk
-  - [ ] Refund
+  - [x] Refund
   - [ ] Transaction
 * Plus
   - [ ] GiftCard
