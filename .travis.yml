@@ -17,7 +17,7 @@ before_script:
   - mix compile
   - travis_wait mix dialyzer --plt
 script:
-  - mix coveralls.travis
+  - mix test
   - mix dialyzer --halt-exit-status
 matrix:
   exclude:
