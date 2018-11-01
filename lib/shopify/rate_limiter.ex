@@ -47,7 +47,7 @@ defmodule Shopify.RateLimiter do
 
   defp ensure_gen_stage_loaded! do
     unless Code.ensure_loaded?(GenStage) do
-      raise Code.LoadError, """
+      raise """
       You are trying to start Shopify.RateLimiter but GenStage is not loaded.
       Make sure you have defined gen_stage as a dependency.
       """
