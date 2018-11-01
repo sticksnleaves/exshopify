@@ -8,6 +8,8 @@ defmodule Shopify.RateLimiter do
   #
 
   def start_link(opts) do
+    ensure_gen_stage_loaded!()
+
     opts = Keyword.put(opts, :name, Keyword.get(opts, :name, __MODULE__))
 
     Supervisor.start_link(__MODULE__, opts, name: opts[:name])
@@ -41,5 +43,14 @@ defmodule Shopify.RateLimiter do
       {RateLimiter.PartitionSupervisor, server: server},
       {RateLimiter.PartitionMonitor, server: server}
     ]
+  end
+
+  defp ensure_gen_stage_loaded! do
+    unless Code.ensure_loaded?(GenStage) do
+      raise Code.LoadError, """
+      You are trying to start Shopify.RateLimiter but GenStage is not loaded.
+      Make sure you have defined gen_stage as a dependency.
+      """
+    end
   end
 end

@@ -1,15 +1,17 @@
-defmodule Shopify.RateLimiter.Event do
-  @type t :: %__MODULE__{
-               attempts: pos_integer,
-               opts: list,
-               owner: pid,
-               producer: pid,
-               request: Shopify.Request.t()
-             }
+if Code.ensure_loaded?(GenStage) do
+  defmodule Shopify.RateLimiter.Event do
+    @type t :: %__MODULE__{
+                 attempts: pos_integer,
+                 opts: list,
+                 owner: pid,
+                 producer: pid,
+                 request: Shopify.Request.t()
+               }
 
-  defstruct attempts: 0,
-            opts: [],
-            owner: nil,
-            producer: nil,
-            request: nil
+    defstruct attempts: 0,
+              opts: [],
+              owner: nil,
+              producer: nil,
+              request: nil
+  end
 end

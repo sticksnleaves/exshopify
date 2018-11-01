@@ -1,147 +1,149 @@
-defmodule Shopify.RateLimiter.Producer do
-  use GenStage
+if Code.ensure_loaded?(GenStage) do
+  defmodule Shopify.RateLimiter.Producer do
+    use GenStage
 
-  alias Shopify.RateLimiter
+    alias Shopify.RateLimiter
 
-  #
-  # client
-  #
+    #
+    # client
+    #
 
-  def name(server, partition) do
-    Module.concat([server, "Producer:#{partition}"])
-  end
+    def name(server, partition) do
+      Module.concat([server, "Producer:#{partition}"])
+    end
 
-  def queue_request(server, partition, request, opts) do
-    name = name(server, partition)
+    def queue_request(server, partition, request, opts) do
+      name = name(server, partition)
 
-    GenStage.call(name, {:queue_request, request, opts}, :infinity)
-  end
+      GenStage.call(name, {:queue_request, request, opts}, :infinity)
+    end
 
-  def reschedule_event(event) do
-    GenServer.cast(event.producer, {:reschedule_event, event})
-  end
+    def reschedule_event(event) do
+      GenStage.cast(event.producer, {:reschedule_event, event})
+    end
 
-  def start_link(opts) do
-    server = Keyword.fetch!(opts, :server)
-    partition = Keyword.fetch!(opts, :partition)
+    def start_link(opts) do
+      server = Keyword.fetch!(opts, :server)
+      partition = Keyword.fetch!(opts, :partition)
 
-    name = name(server, partition)
+      name = name(server, partition)
 
-    GenStage.start_link(__MODULE__, opts, name: name)
-  end
+      GenStage.start_link(__MODULE__, opts, name: name)
+    end
 
-  #
-  # callbacks
-  #
+    #
+    # callbacks
+    #
 
-  def init(opts) do
-    server = Keyword.get(opts, :server)
-    partition = Keyword.get(opts, :partition)
+    def init(opts) do
+      server = Keyword.get(opts, :server)
+      partition = Keyword.get(opts, :partition)
 
-    state = %{
-      capacity: 38,
-      partition: partition,
-      pending_demand: 38,
-      queue: :queue.new(),
-      server: server
-    }
+      state = %{
+        capacity: 38,
+        partition: partition,
+        pending_demand: 38,
+        queue: :queue.new(),
+        server: server
+      }
 
-    schedule_cooldown()
+      schedule_cooldown()
 
-    {:producer, state}
-  end
+      {:producer, state}
+    end
 
-  def handle_call({:queue_request, request, opts}, from, state) do
-    RateLimiter.PartitionMonitor.keep_partition_alive(state.server, state.partition)
+    def handle_call({:queue_request, request, opts}, from, state) do
+      RateLimiter.PartitionMonitor.keep_partition_alive(state.server, state.partition)
 
-    event = %RateLimiter.Event{
-              producer: self(),
-              opts: opts,
-              owner: from,
-              request: request
-            }
+      event = %RateLimiter.Event{
+                producer: self(),
+                opts: opts,
+                owner: from,
+                request: request
+              }
 
-    state = Map.put(state, :queue, :queue.in(event, state.queue))
+      state = Map.put(state, :queue, :queue.in(event, state.queue))
 
-    process_demand(state)
-  end
+      process_demand(state)
+    end
 
-  def handle_cast({:reschedule_event, event}, state) do
-    state = Map.put(state, :queue, :queue.in(event, state.queue))
+    def handle_cast({:reschedule_event, event}, state) do
+      state = Map.put(state, :queue, :queue.in(event, state.queue))
 
-    {:noreply, [], state}
-  end
+      {:noreply, [], state}
+    end
 
-  def handle_demand(demand, state) do
-    {:noreply, [], Map.put(state, :pending_demand, demand)}
-  end
+    def handle_demand(demand, state) do
+      {:noreply, [], Map.put(state, :pending_demand, demand)}
+    end
 
-  def handle_info(:cooldown, state) do
-    schedule_cooldown()
+    def handle_info(:cooldown, state) do
+      schedule_cooldown()
 
-    capacity =
-      if state.capacity > 37 do
-        39
+      capacity =
+        if state.capacity > 37 do
+          39
+        else
+          state.capacity + 2
+        end
+
+      state = Map.put(state, :capacity, capacity)
+
+      process_demand(state)
+    end
+
+    #
+    # private
+    #
+
+    defp amount_to_dispatch(demand, capacity) do
+      if demand > capacity do
+        capacity
       else
-        state.capacity + 2
+        demand
       end
-
-    state = Map.put(state, :capacity, capacity)
-
-    process_demand(state)
-  end
-
-  #
-  # private
-  #
-
-  defp amount_to_dispatch(demand, capacity) do
-    if demand > capacity do
-      capacity
-    else
-      demand
     end
-  end
 
-  defp collect_events_to_dispatch(queue, 0, acc) do
-    {Enum.reverse(acc), queue}
-  end
-
-  defp collect_events_to_dispatch(queue, amount_to_dispatch, acc) do
-    case :queue.out(queue) do
-      {{:value, event}, queue} ->
-        collect_events_to_dispatch(queue, amount_to_dispatch - 1, [event | acc])
-      {:empty, queue} ->
-        collect_events_to_dispatch(queue, 0, acc)
+    defp collect_events_to_dispatch(queue, 0, acc) do
+      {Enum.reverse(acc), queue}
     end
-  end
 
-  defp process_demand(state) do
-    %{
-      capacity: capacity,
-      partition: partition,
-      pending_demand: pending_demand,
-      queue: queue,
-      server: server
-    } = state
+    defp collect_events_to_dispatch(queue, amount_to_dispatch, acc) do
+      case :queue.out(queue) do
+        {{:value, event}, queue} ->
+          collect_events_to_dispatch(queue, amount_to_dispatch - 1, [event | acc])
+        {:empty, queue} ->
+          collect_events_to_dispatch(queue, 0, acc)
+      end
+    end
 
-    amount_possible_to_dispatch = amount_to_dispatch(:queue.len(queue), capacity)
-    amount_to_dispatch = amount_to_dispatch(pending_demand, amount_possible_to_dispatch)
+    defp process_demand(state) do
+      %{
+        capacity: capacity,
+        partition: partition,
+        pending_demand: pending_demand,
+        queue: queue,
+        server: server
+      } = state
 
-    {to_dispatch, remaining} = collect_events_to_dispatch(queue, amount_to_dispatch, [])
+      amount_possible_to_dispatch = amount_to_dispatch(:queue.len(queue), capacity)
+      amount_to_dispatch = amount_to_dispatch(pending_demand, amount_possible_to_dispatch)
 
-    if length(to_dispatch) > 0, do: RateLimiter.PartitionMonitor.keep_partition_alive(server, partition)
+      {to_dispatch, remaining} = collect_events_to_dispatch(queue, amount_to_dispatch, [])
 
-    state =
-      state
-      |> Map.put(:capacity, capacity - amount_to_dispatch)
-      |> Map.put(:pending_demand, pending_demand - amount_to_dispatch)
-      |> Map.put(:queue, remaining)
+      if length(to_dispatch) > 0, do: RateLimiter.PartitionMonitor.keep_partition_alive(server, partition)
 
-    {:noreply, to_dispatch, state}
-  end
+      state =
+        state
+        |> Map.put(:capacity, capacity - amount_to_dispatch)
+        |> Map.put(:pending_demand, pending_demand - amount_to_dispatch)
+        |> Map.put(:queue, remaining)
 
-  defp schedule_cooldown do
-    Process.send_after(self(), :cooldown, 1000)
+      {:noreply, to_dispatch, state}
+    end
+
+    defp schedule_cooldown do
+      Process.send_after(self(), :cooldown, 1000)
+    end
   end
 end

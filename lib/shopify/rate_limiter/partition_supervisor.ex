@@ -1,35 +1,37 @@
-defmodule Shopify.RateLimiter.PartitionSupervisor do
-  use DynamicSupervisor
+if Code.ensure_loaded?(GenStage) do
+  defmodule Shopify.RateLimiter.PartitionSupervisor do
+    use DynamicSupervisor
 
-  #
-  # client
-  #
+    #
+    # client
+    #
 
-  def start_child(spec) do
-    DynamicSupervisor.start_child(__MODULE__, spec)
-  end
+    def start_child(spec) do
+      DynamicSupervisor.start_child(__MODULE__, spec)
+    end
 
-  def start_link(opts) do
-    server = Keyword.fetch!(opts, :server)
+    def start_link(opts) do
+      server = Keyword.fetch!(opts, :server)
 
-    name = name(server)
+      name = name(server)
 
-    DynamicSupervisor.start_link(__MODULE__, :ok, name: name)
-  end
+      DynamicSupervisor.start_link(__MODULE__, :ok, name: name)
+    end
 
-  #
-  # callbacks
-  #
+    #
+    # callbacks
+    #
 
-  def init(:ok) do
-    DynamicSupervisor.init(strategy: :one_for_one)
-  end
+    def init(:ok) do
+      DynamicSupervisor.init(strategy: :one_for_one)
+    end
 
-  #
-  # private
-  #
+    #
+    # private
+    #
 
-  defp name(server) do
-    Module.concat([server, PartitionSupervisor])
+    defp name(server) do
+      Module.concat([server, PartitionSupervisor])
+    end
   end
 end
