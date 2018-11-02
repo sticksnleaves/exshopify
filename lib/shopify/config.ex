@@ -14,4 +14,14 @@ defmodule Shopify.Config do
             json_codec: Jason,
             port: nil,
             scheme: "https"
+
+  @spec new(map) :: t
+  def new(overrides \\ %{}) do
+    config =
+      Application.get_all_env(:exshopify)
+      |> Enum.into(%{})
+      |> Map.merge(overrides)
+
+    struct(__MODULE__, config)
+  end
 end
