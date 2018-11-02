@@ -4,10 +4,10 @@ defmodule Shopify.Shop do
   """
 
   @doc """
-  Retrieve the configuration for a shop.
+  Retrieve the shop associated with the provided access token.
   """
-  @spec get_config(map) :: Shopify.Operation.t()
-  def get_config(params \\ %{}) do
+  @spec get(map) :: Shopify.Operation.t()
+  def get(params \\ %{}) do
     %Shopify.Operation{
       http_method: :get,
       params: params,
