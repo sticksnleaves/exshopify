@@ -15,19 +15,19 @@ defmodule Shopify.Request do
 
   def new(operation, session, config) do
     %__MODULE__{
-      body: decode_body(operation, config),
+      body: encode_body(operation, config),
       headers: build_headers(session),
       method: operation.http_method,
       url: build_url(operation, session, config)
     }
   end
 
-  defp decode_body(%{http_method: :get}, _config) do
+  defp encode_body(%{http_method: :get}, _config) do
     ""
   end
 
-  defp decode_body(%{params: params}, config) do
-    case config.json_codec.decode(params) do
+  defp encode_body(%{params: params}, config) do
+    case config.json_codec.encode(params) do
       {:ok, body} ->
         body
       {:error, _reason} ->
