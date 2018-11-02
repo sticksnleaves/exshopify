@@ -28,19 +28,9 @@ defmodule Shopify do
 
   @doc """
   Make a request to the Shopify API.
-
-  This function is similar to `request/3` but will use the default config.
   """
-  @spec request(Shopify.Operation.t(), session_t) :: response_t
-  def request(operation, session) do
-    request(operation, session, %Shopify.Config{})
-  end
-
-  @doc """
-  Make a request to the Shopify API.
-  """
-  @spec request(Shopify.Operation.t(), session_t, Shopify.Config.t()) :: response_t
-  def request(operation, session, config) do
-    Shopify.Operation.perform(operation, session, config)
+  @spec request(Shopify.Operation.t(), session_t, map) :: response_t
+  def request(operation, session, config \\ %{}) do
+    Shopify.Operation.perform(operation, session, Shopify.Config.new(config))
   end
 end
