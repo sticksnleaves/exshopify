@@ -21,7 +21,11 @@ defmodule Shopify.MixProject do
         tool: ExCoveralls
       ],
       xref: [
-        exclude: [Shopify.Client.Hackney]
+        exclude: [
+          Shopify.Client.Hackney,
+          Shopify.RateLimiter.Partition,
+          Shopify.RateLimiter.Producer
+        ]
       ]
     ]
   end
@@ -34,7 +38,6 @@ defmodule Shopify.MixProject do
 
   defp deps do
     [
-      {:gen_stage, "~> 0.14", optional: true},
       {:hackney, "~> 1.14", optional: true},
       {:jason, "~> 1.1", optional: true},
       # dev
