@@ -4,6 +4,21 @@ defmodule Shopify do
   @type session_t :: Shopify.Session.Private.t() | Shopify.Session.Public.t()
 
   @doc """
+  Parses the shop slug from a shop domain.
+
+  ## Example
+
+      $> Shopify.get_slug_from_shop("johns-apparel.myshopify.com")
+      #> "johns-apparel"
+  """
+  @spec get_slug_from_shop(binary) :: binary
+  def get_slug_from_shop(shop) do
+    shop
+    |> String.split(".")
+    |> List.first()
+  end
+
+  @doc """
   Create a session for making requests to a single store.
   """
   @spec new_private_session(binary, binary, binary) :: Shopify.Session.Private.t()
