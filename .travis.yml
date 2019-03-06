@@ -19,3 +19,7 @@ before_script:
 script:
   - mix test
   - mix dialyzer --halt-exit-status
+matrix:
+  exclude:
+    - elixir: 1.8.1
+      otp_release: 19.3
