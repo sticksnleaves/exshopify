@@ -11,7 +11,7 @@ Elixir client for the Shopify REST API.
 ```elixir
 def deps do
   [
-    {:exshopify, "~> 0.8.0"},
+    {:exshopify, "~> 0.8"},
     {:hackney, "~> 1.15"},
     {:jason, "~> 1.1"},
     # only required when rate limiting
