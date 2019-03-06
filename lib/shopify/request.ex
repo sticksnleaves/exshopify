@@ -39,8 +39,10 @@ defmodule Shopify.Request do
     [{"x-shopify-access-token", access_token}] ++ @default_headers
   end
 
-  defp build_headers(_session) do
-    @default_headers
+  defp build_headers(%Shopify.Session.Private{ api_key: api_key, password: password }) do
+    token = Base.encode64("#{api_key}:#{password}")
+
+    [{"authorization", "Basic #{token}"}] ++ @default_headers
   end
 
   defp build_url(operation, session, config) do
