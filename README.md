@@ -14,7 +14,7 @@ def deps do
     {:exshopify, "~> 0.8.0"},
     {:hackney, "~> 1.15"},
     {:jason, "~> 1.1"},
-    # only require when rate limiting
+    # only required when rate limiting
     {:gen_stage, "~> 0.14"}
   ]
 end
