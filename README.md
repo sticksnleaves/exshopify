@@ -270,7 +270,18 @@ token = Shopify.Multipass.get_token(customer_data, multipass_secret)
   - [x] InventoryLevel
   - [x] Location
 - [ ] MarketingEvent
-- [ ] Metafield
+* Metafield
+  - [ ] Article
+  - [ ] Blog
+  - [ ] CustomCollection and SmartCollection
+  - [x] Customer
+  - [ ] Draft Order
+  - [ ] Order
+  - [ ] Page
+  - [ ] Product
+  - [ ] Product Variant
+  - [ ] Product Image
+  - [ ] Shop
 * Online Store
   - [ ] Asset
   - [ ] Blog

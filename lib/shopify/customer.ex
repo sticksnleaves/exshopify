@@ -40,6 +40,32 @@ defmodule Shopify.Customer do
   end
 
   @doc """
+  Create a metafield for a customer.
+
+  ## Examples
+
+    iex> session = Shopify.new_private_session("mystore", "xxx...xxx", "yyy...yyy")
+    iex> data = %{
+    ...>   metafield: %{
+    ...>     namespace: "inventory",
+    ...>     key: "points",
+    ...>     value: 25,
+    ...>     value_type: "integer"
+    ...>   }
+    ...> }
+    iex> Shopify.Customer.create_customer_metafield("12345", data) |> Shopify.request(session)
+    {:ok, %Shopify.Response{}}
+  """
+  @spec create_customer_metafield(binary, map) :: Shopify.Operation.t()
+  def create_customer_metafield(customer_id, params) do
+    %Shopify.Operation{
+      http_method: :post,
+      params: params,
+      path: "admin/customers/#{customer_id}/metafields.json"
+    }
+  end
+
+  @doc """
   Delete a customer.
 
   Note that a customer cannot be deleted if they have existing orders.
@@ -49,6 +75,20 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :delete,
       path: "admin/customers/#{customer_id}.json"
+    }
+  end
+
+  @doc """
+  Delete a single customer metafield
+
+  ## Examples
+    iex> Shopify.Customer.delete_customer_metafield("12345", "67890") |> Shopify.request(session)
+  """
+  @spec delete_customer_metafield(binary, binary) :: Shopify.Operation.t()
+  def delete_customer_metafield(customer_id, metafield_id) do
+    %Shopify.Operation{
+      http_method: :delete,
+      path: "admin/customers/#{customer_id}/metafields/#{metafield_id}}.json"
     }
   end
 
@@ -64,7 +104,29 @@ defmodule Shopify.Customer do
   end
 
   @doc """
-  Retrieve all orders belonging to a customers.
+  Retrieve a single customer metafield
+  """
+  @spec get_customer_metafield(binary, binary) :: Shopify.Operation.t()
+  def get_customer_metafield(customer_id, metafield_id) do
+    %Shopify.Operation{
+      http_method: :get,
+      path: "admin/customers/#{customer_id}/metafields/#{metafield_id}}.json"
+    }
+  end
+
+  @doc """
+  Retrieve all metafields belonging to a customer.
+  """
+  @spec get_metafields(binary) :: Shopify.Operation.t()
+  def get_metafields(customer_id) do
+    %Shopify.Operation{
+      http_method: :get,
+      path: "admin/customers/#{customer_id}/metafields.json"
+    }
+  end
+
+  @doc """
+  Retrieve all orders belonging to a customer.
   """
   @spec get_orders(binary) :: Shopify.Operation.t()
   def get_orders(customer_id) do
@@ -112,6 +174,28 @@ defmodule Shopify.Customer do
 
   @doc """
   Update a customer.
+
+  ## Examples
+      iex> session = Shopify.new_private_session("my-store", "xxxxx", "yyyyy")
+      iex> Shopify.Customer.update("12345", %{customer: %{first_name: "Tester"}) |> Shopify.request(session)
+      {:ok, %Shopify.Response{}}
+
+      # Add a metafield to an existing customer
+      iex> data = %{
+      ...>   customer: %{
+      ...>     id: 1092505370733,
+      ...>     metafields: [
+      ...>       %{
+      ...>         key: "my_key",
+      ...>         value: "abc",
+      ...>         value_type: "string",
+      ...>         namespace: "my_group"
+      ...>       }
+      ...>     ]
+      ...>   }
+      ...> }
+      ...> Shopify.Customer.update("12345", %{customer: %{first_name: "Tester"}) |> Shopify.request(session)
+    {:ok, %Shopify.Response{}}
   """
   @spec update(binary, map) :: Shopify.Operation.t()
   def update(customer_id, params) do
@@ -119,6 +203,17 @@ defmodule Shopify.Customer do
       http_method: :put,
       params: params,
       path: "admin/customers/#{customer_id}.json"
+    }
+  end
+
+  @doc """
+  Updates a single customer metafield
+  """
+  @spec update_customer_metafield(binary, binary) :: Shopify.Operation.t()
+  def update_customer_metafield(customer_id, metafield_id) do
+    %Shopify.Operation{
+      http_method: :put,
+      path: "admin/customers/#{customer_id}/metafields/#{metafield_id}}.json"
     }
   end
 end
