@@ -17,12 +17,12 @@ defmodule Shopify.Multipass do
   Get the full URL for the Multipass signin.
   """
   @spec get_url(binary, map, binary, map) :: binary
-  def get_url(shop_name, customer_data, multipass_secret, config \\ %{}) do
-    config = Shopify.Config.new(config)
+  def get_url(shop_name, customer_data, multipass_secret, config_opts \\ %{}) do
+    config = Shopify.Config.new(config_opts)
 
     %URI{
       host: "#{shop_name}.#{config.host}",
-      path: "/account/login/multipass/#{get_token(customer_data, multipass_secret)}",
+      path: "/account/login/multipass/#{get_token(customer_data, multipass_secret, config_opts)}",
       port: config.port,
       scheme: config.scheme
     }
@@ -33,11 +33,12 @@ defmodule Shopify.Multipass do
   Calculates the Shopify Multipass token: an encrypted and signed message containing the customer data to be used for
   the Multipass SSO.
   """
-  @spec get_token(map, binary) :: binary
-  def get_token(customer_data, multipass_secret) do
+  @spec get_token(map, binary, map) :: binary
+  def get_token(customer_data, multipass_secret, config_opts \\ %{}) do
+    config = Shopify.Config.new(config_opts)
     {encryption_key, signature_key} = get_keys(multipass_secret)
 
-    Jason.encode!(customer_data)
+    config.json_codec.encode!(customer_data)
     |> encrypt(encryption_key)
     |> sign(signature_key)
     |> Base.url_encode64(case: :lower)

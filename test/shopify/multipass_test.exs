@@ -35,7 +35,7 @@ defmodule Shopify.MultipassTest do
     end
   end
 
-  describe "get_token/2" do
+  describe "get_token/3" do
     test "returns token binary with valid input" do
       customer_data = %{
         email: "something@test.shopify.com",
