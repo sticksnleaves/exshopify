@@ -11,7 +11,11 @@ defmodule Shopify.MultipassTest do
 
   describe "get_url/4" do
     test "token is appended" do
-      customer_data = %{email: "something@test.shopify.com", created_at: "2019-03-07T20:29:42.177390Z"}
+      customer_data = %{
+        email: "something@test.shopify.com",
+        created_at: "2019-03-07T20:29:42.177390Z"
+      }
+
       secret = "1234567890abcdef1234567890abcdef"
       url = Multipass.get_url("myteststore", customer_data, secret)
       info = URI.parse(url)
@@ -19,7 +23,11 @@ defmodule Shopify.MultipassTest do
     end
 
     test "supports fully customized domains" do
-      customer_data = %{email: "something@test.shopify.com", created_at: "2019-03-07T20:29:42.177390Z"}
+      customer_data = %{
+        email: "something@test.shopify.com",
+        created_at: "2019-03-07T20:29:42.177390Z"
+      }
+
       secret = "1234567890abcdef1234567890abcdef"
       url = Multipass.get_url("myteststore", customer_data, secret, %{host: "com"})
       info = URI.parse(url)
@@ -29,9 +37,14 @@ defmodule Shopify.MultipassTest do
 
   describe "get_token/2" do
     test "returns token binary with valid input" do
-      customer_data = %{email: "something@test.shopify.com", created_at: "2019-03-07T19:31:23+00:00"}
+      customer_data = %{
+        email: "something@test.shopify.com",
+        created_at: "2019-03-07T19:31:23+00:00"
+      }
+
       secret = "1234567890abcdef1234567890abcdef"
       token = Multipass.get_token(customer_data, secret)
+
       # The message changes because random IVs are generated, but the message length remains the same
       assert byte_size(token) == 172
     end
@@ -47,9 +60,14 @@ defmodule Shopify.MultipassTest do
 
   describe "encrypt/3" do
     test "encrypted message byte-size is a multiple of the block size" do
-      block_size = 16 # The :crypto.block_encrypt/4 function will only allow specific block sizes
+      # The :crypto.block_encrypt/4 function will only allow specific block sizes
+      block_size = 16
       encryption_key = :crypto.strong_rand_bytes(block_size)
-      assert rem(byte_size(Multipass.encrypt("Howdy partner", encryption_key, block_size)), block_size) == 0
+
+      assert rem(
+               byte_size(Multipass.encrypt("Howdy partner", encryption_key, block_size)),
+               block_size
+             ) == 0
     end
   end
 
@@ -57,7 +75,9 @@ defmodule Shopify.MultipassTest do
     test "signature is appended to message" do
       signature_key = :crypto.strong_rand_bytes(16)
       cipher_text = "1234567890abcdef1234567890abcdef"
-      assert "1234567890abcdef1234567890abcdef" <> _signature = Multipass.sign(cipher_text, signature_key)
+
+      assert "1234567890abcdef1234567890abcdef" <> _signature =
+               Multipass.sign(cipher_text, signature_key)
     end
   end
 

@@ -19,6 +19,7 @@ defmodule Shopify.Multipass do
   @spec get_url(binary, map, binary, map) :: binary
   def get_url(shop_name, customer_data, multipass_secret, config \\ %{}) do
     config = Shopify.Config.new(config)
+
     %URI{
       host: "#{shop_name}.#{config.host}",
       path: "/account/login/multipass/#{get_token(customer_data, multipass_secret)}",
@@ -35,6 +36,7 @@ defmodule Shopify.Multipass do
   @spec get_token(map, binary) :: binary
   def get_token(customer_data, multipass_secret) do
     {encryption_key, signature_key} = get_keys(multipass_secret)
+
     Jason.encode!(customer_data)
     |> encrypt(encryption_key)
     |> sign(signature_key)
@@ -59,12 +61,14 @@ defmodule Shopify.Multipass do
   @spec encrypt(binary, binary, integer) :: binary
   def encrypt(message, encryption_key, block_size \\ @block_size) do
     initialization_vector = :crypto.strong_rand_bytes(block_size)
-    initialization_vector <> :crypto.block_encrypt(
-      :aes_cbc128,
-      encryption_key,
-      initialization_vector,
-      pad(message, block_size)
-    )
+
+    initialization_vector <>
+      :crypto.block_encrypt(
+        :aes_cbc128,
+        encryption_key,
+        initialization_vector,
+        pad(message, block_size)
+      )
   end
 
   @doc ~S"""
@@ -84,8 +88,9 @@ defmodule Shopify.Multipass do
   def get_keys(multipass_secret, block_size \\ @block_size) do
     key_material = :crypto.hash(:sha256, multipass_secret)
     # Split the key into 2 binaries each containing exactly 16 bytes
-    <<encryption_key :: binary - size(block_size), signature_key :: binary - size(block_size)>> = key_material
+    <<encryption_key::binary-size(block_size), signature_key::binary-size(block_size)>> =
+      key_material
+
     {encryption_key, signature_key}
   end
-
 end
