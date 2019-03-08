@@ -24,3 +24,7 @@ exshopify-*.tar
 
 # Ignore macOS directory config.
 .DS_Store
+
+# IDEs
+.idea
+*.iml

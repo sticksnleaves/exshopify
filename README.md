@@ -27,9 +27,7 @@ use a different HTTP client or JSON codec please see
 
 ## Making Requests
 
-Making requests to the API is done using the `Shopify.request/3` function. You
-pass an operation, a session (more on sessions below) and an optional
-config as arguments.
+Making requests to the API is done using the `Shopify.request/3` function. Its arguments are an operation, a session (more on sessions below) and an optional config.
 
 An operation is a struct that describes the HTTP request to be executed. You can
 create an operation manually but typically you would use one of the resource
@@ -56,7 +54,8 @@ Opening issues and PR's for unsupported endpoints is always appreciated.
 
 ## Configuration
 
-When making a request you can pass an optional config as the third argument.
+When making a request you can pass an optional `%Shopify.Config{}` struct as the 
+third argument.
 
 **Example**
 
@@ -90,13 +89,17 @@ of only a single store.
 session contains all the information necessary to make requests to the Shopify
 API as either a public app or a private app.
 
+Mutipass sessions are a special use case: they are used to create a token that 
+is used to support a single-sign-on (SSO) operation that lets your app 
+authenticate a user and then redirect them to the Shopify store.
+
 **Additional Reading**
 
 * [Authentication - Public apps](https://help.shopify.com/en/api/getting-started/authentication/public-authentication)
 * [Authentication - Private apps](https://help.shopify.com/en/api/getting-started/authentication/private-authentication)
 * [Authentication - OAuth](https://help.shopify.com/en/api/getting-started/authentication/oauth)
 
-## Private Sessions
+### Private Sessions
 
 You can make API requests as a private app using a private session. A private
 session can be created using the `Shopify.new_private_session/3` function. This
@@ -108,7 +111,7 @@ function takes shop name, api key and password as arguments.
 session = Shopify.new_private_session("johns-apparel", "4478eb7ac138a136852babd861956c19", "3e5a6edec71eab039422c6444d02659d")
 ```
 
-## Public Sessions
+### Public Sessions
 
 You can make API requests as a public app using a public session. Public
 sessions are also used when obtaining an OAuth access token. You can create a
@@ -121,7 +124,7 @@ function takes a shop name and an optional access token as arguments.
 session = Shopify.new_public_session("johns-apparel", "f85632530bf277ec9ac6f649fc327f17")
 ```
 
-## OAuth
+### OAuth
 
 For a detailed explanation of the Shopify OAuth authorization process please
 see the [Shopify OAuth documentation](https://help.shopify.com/en/api/getting-started/authentication/oauth).
@@ -138,6 +141,7 @@ session = Shopify.new_public_session("johns-apparel")
 |> Shopify.OAuth.get_access_token()
 |> Shopify.request(session)
 ```
+
 
 ## Rate Limiting
 
@@ -172,6 +176,69 @@ config =
 Shopify.Product.list() |> Shopify.request(session, config)
 ```
 
+## Multipass
+
+The [Multipass](https://help.shopify.com/en/api/reference/plus/multipass) 
+feature is available only to Shopify Plus customers: use it when you want your 
+non-Shopify website to handle login/authentication. This allows your website to
+be the single source of truth for authentication; you can then pass your 
+customer data to Shopify via an encrypted token and Shopify will upsert the 
+customer data and log the user will be logged into your Shopify store.
+
+Note: the Multipass feature is only available to Shopify Plus plans.
+
+To use this feature, you will need your Multipass secret (a 32 character value 
+that gets  created when you enable Multipass within your store's checkout 
+settings).
+
+At a minimum, you must provide the customer's `email` and a `created_at`
+datetime in ISO8601 format. The time must be current: the tokens generated for
+Multipass logins are valid for only a short period of time.
+
+### Examples
+
+Given the following customer data and multipass secret:
+
+```elixir
+# From your Shopify Checkout Settings:
+multipass_secret = "1234567890abcdef1234567890abcdef"
+
+customer_data = %{
+  email: "some-customer@your-app.tld",
+  created_at: DateTime.to_iso8601(Timex.now())
+}
+```
+
+#### Get the Sign-in Url
+```elixir
+url = Multipass.get_url("myteststore", customer_data, multipass_secret)
+
+# Redirect to:
+# "https://myteststore.myshopify.com/account/login/multipass/f88EnlbFeWADw...8hlT6vevRH0Dtk=" 
+```
+
+#### Use a fully custom domain
+
+If your Shopify shop is hosted on a custom domain, provide a map specifying the `host:` key and the TLD:
+
+```elixir
+url = Multipass.get_url("realstore", customer_data, multipass_secret, %{host: "com"})
+
+# Redirect to
+# "https://realstore.com/account/login/multipass/f88EnlbFeWADw...8hlT6vevRH0Dtk="
+```
+
+#### Get the Token
+
+If desired, you can grab only the token and assemble the URL yourself:
+
+```elixir
+token = Shopify.Multipass.get_token(customer_data, multipass_secret)
+
+# Assemble your own login URL, e.g.
+"https://your-store.myshopify.com/account/login/multipass/#{token}" 
+```
+
 ## Supported Endpoints
 
 * Shopify Payments
@@ -203,7 +270,18 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] InventoryLevel
   - [x] Location
 - [ ] MarketingEvent
-- [ ] Metafield
+* Metafield
+  - [ ] Article
+  - [ ] Blog
+  - [ ] CustomCollection and SmartCollection
+  - [x] Customer
+  - [ ] Draft Order
+  - [ ] Order
+  - [ ] Page
+  - [ ] Product
+  - [ ] Product Variant
+  - [ ] Product Image
+  - [ ] Shop
 * Online Store
   - [ ] Asset
   - [ ] Blog
@@ -222,7 +300,7 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] Transaction
 * Plus
   - [ ] GiftCard
-  - [ ] Multipass
+  - [x] Multipass
   - [ ] User
 * Products
   - [x] Collect
