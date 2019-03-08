@@ -327,3 +327,10 @@ Shopify.Product.list() |> Shopify.request(session, config)
   - [x] ShippingZone
   - [x] Shop
 - [ ] TenderTransaction
+
+## Contributors
+
+A special thanks to all of our contributors!
+
+* [@anthonator](https://github.com/anthonator)
+* [@fireproofsocks](https://github.com/fireproofsocks)
