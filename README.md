@@ -62,7 +62,7 @@ third argument.
 **Example**
 
 ```elixir
-config = %Shopify.Config{http_client: {MyHttpClient, []}}
+config = %Shopify.Config{http_client: MyHttpClient}
 
 Shopify.Customer.list() |> Shopify.request(session, config)
 ```
