@@ -56,13 +56,13 @@ Opening issues and PR's for unsupported endpoints is always appreciated.
 
 ## Configuration
 
-When making a request you can pass an optional `%Shopify.Config{}` struct as the
-third argument.
+When making a request you can pass an optional map as the third argument to
+provide config per request.
 
 **Example**
 
 ```elixir
-config = %Shopify.Config{http_client: MyHttpClient}
+config = %{http_client: MyHttpClient}
 
 Shopify.Customer.list() |> Shopify.request(session, config)
 ```
