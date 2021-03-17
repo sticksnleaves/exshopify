@@ -48,7 +48,7 @@ defmodule Shopify.Request do
   defp build_url(operation, session, config) do
     %URI{
       host: "#{session.shop_name}.#{config.host}",
-      path: "/#{operation.path}",
+      path: "#{config.path}/#{config.version}#{operation.path}",
       port: config.port,
       scheme: config.scheme
     }
