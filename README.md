@@ -49,7 +49,7 @@ manually.
 **Example**
 
 ```elixir
-%Shopify.Operation{http_method: :get, path: "admin/customers.json"} |> Shopify.request(session)
+%Shopify.Operation{http_method: :get, path: "/customers.json"} |> Shopify.request(session)
 ```
 
 Opening issues and PR's for unsupported endpoints is always appreciated.
