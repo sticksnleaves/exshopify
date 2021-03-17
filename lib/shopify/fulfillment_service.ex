@@ -11,7 +11,7 @@ defmodule Shopify.FulfillmentService do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/fulfillment_services.json"
+      path: "/fulfillment_services.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.FulfillmentService do
   def delete(fulfillment_service_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/fulfillment_services/#{fulfillment_service_id}.json"
+      path: "/fulfillment_services/#{fulfillment_service_id}.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.FulfillmentService do
   def get(fulfillment_service_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/fulfillment_services/#{fulfillment_service_id}.json"
+      path: "/fulfillment_services/#{fulfillment_service_id}.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.FulfillmentService do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/fulfillment_services.json"
+      path: "/fulfillment_services.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.FulfillmentService do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/fulfillment_services/#{fulfillment_service_id}.json"
+      path: "/fulfillment_services/#{fulfillment_service_id}.json"
     }
   end
 end

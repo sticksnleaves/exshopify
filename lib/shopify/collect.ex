@@ -11,7 +11,7 @@ defmodule Shopify.Collect do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/collects.json"
+      path: "/collects.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.Collect do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/collects/count.json"
+      path: "/collects/count.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Collect do
   def get(collect_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/collects/#{collect_id}.json"
+      path: "/collects/#{collect_id}.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.Collect do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/collects.json"
+      path: "/collects.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.Collect do
   def remove_product(collect_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/collects/#{collect_id}.json"
+      path: "/collects/#{collect_id}.json"
     }
   end
 end

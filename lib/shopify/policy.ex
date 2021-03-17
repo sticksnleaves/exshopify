@@ -10,7 +10,7 @@ defmodule Shopify.Policy do
   def list do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/policies.json"
+      path: "/policies.json"
     }
   end
 end

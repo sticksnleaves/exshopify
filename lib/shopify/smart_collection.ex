@@ -11,7 +11,7 @@ defmodule Shopify.SmartCollection do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/smart_collections/count.json"
+      path: "/smart_collections/count.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.SmartCollection do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/smart_collections/#{smart_collection_id}.json"
+      path: "/smart_collections/#{smart_collection_id}.json"
     }
   end
 
@@ -58,7 +58,7 @@ defmodule Shopify.SmartCollection do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/smart_collections.json"
+      path: "/smart_collections.json"
     }
   end
 
@@ -70,7 +70,7 @@ defmodule Shopify.SmartCollection do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/smart_collections/#{smart_collection_id}.json"
+      path: "/smart_collections/#{smart_collection_id}.json"
     }
   end
 
@@ -82,7 +82,7 @@ defmodule Shopify.SmartCollection do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/smart_collections/#{smart_collection_id}/order.json"
+      path: "/smart_collections/#{smart_collection_id}/order.json"
     }
   end
 end

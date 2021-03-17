@@ -11,7 +11,7 @@ defmodule Shopify.Refund do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/refunds/calculate.json"
+      path: "/orders/#{order_id}/refunds/calculate.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.Refund do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/refunds.json"
+      path: "/orders/#{order_id}/refunds.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Refund do
   def get(order_id, refund_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/refunds/#{refund_id}.json"
+      path: "/orders/#{order_id}/refunds/#{refund_id}.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.Refund do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders/#{order_id}/refunds.json"
+      path: "/orders/#{order_id}/refunds.json"
     }
   end
 end

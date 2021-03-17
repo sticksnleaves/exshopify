@@ -11,7 +11,7 @@ defmodule Shopify.CustomCollection do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/custom_collections/count.json"
+      path: "/custom_collections/count.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.CustomCollection do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/custom_collections.json"
+      path: "/custom_collections.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.CustomCollection do
   def get(custom_collection_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/custom_collections/#{custom_collection_id}.json"
+      path: "/custom_collections/#{custom_collection_id}.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.CustomCollection do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/custom_collections.json"
+      path: "/custom_collections.json"
     }
   end
 
@@ -58,7 +58,7 @@ defmodule Shopify.CustomCollection do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/custom_collections/#{custom_collection_id}.json"
+      path: "/custom_collections/#{custom_collection_id}.json"
     }
   end
 end

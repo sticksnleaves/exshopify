@@ -11,7 +11,7 @@ defmodule Shopify.Order do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/cancel.json"
+      path: "/orders/#{order_id}/cancel.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.Order do
   def close(order_id) do
     %Shopify.Operation{
       http_method: :post,
-      path: "admin/orders/#{order_id}/close.json"
+      path: "/orders/#{order_id}/close.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Order do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders/count.json"
+      path: "/orders/count.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.Order do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders.json"
+      path: "/orders.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.Order do
   def delete(order_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/orders/#{order_id}.json"
+      path: "/orders/#{order_id}.json"
     }
   end
 
@@ -68,7 +68,7 @@ defmodule Shopify.Order do
   def get(order_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}.json"
+      path: "/orders/#{order_id}.json"
     }
   end
 
@@ -80,7 +80,7 @@ defmodule Shopify.Order do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders.json"
+      path: "/orders.json"
     }
   end
 
@@ -91,7 +91,7 @@ defmodule Shopify.Order do
   def open(order_id) do
     %Shopify.Operation{
       http_method: :post,
-      path: "admin/orders/#{order_id}.json"
+      path: "/orders/#{order_id}.json"
     }
   end
 
@@ -103,7 +103,7 @@ defmodule Shopify.Order do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/orders/#{order_id}.json"
+      path: "/orders/#{order_id}.json"
     }
   end
 end

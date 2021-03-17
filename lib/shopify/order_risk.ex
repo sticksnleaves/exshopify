@@ -11,7 +11,7 @@ defmodule Shopify.OrderRisk do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/risks.json"
+      path: "/orders/#{order_id}/risks.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.OrderRisk do
   def delete(order_id, risk_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/orders/#{order_id}/risks/#{risk_id}.json"
+      path: "/orders/#{order_id}/risks/#{risk_id}.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.OrderRisk do
   def get(order_id, risk_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/risks/#{risk_id}.json"
+      path: "/orders/#{order_id}/risks/#{risk_id}.json"
     }
   end
 
@@ -44,7 +44,7 @@ defmodule Shopify.OrderRisk do
   def list(order_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/risks.json"
+      path: "/orders/#{order_id}/risks.json"
     }
   end
 
@@ -56,7 +56,7 @@ defmodule Shopify.OrderRisk do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/orders/#{order_id}/risks/#{risk_id}.json"
+      path: "/orders/#{order_id}/risks/#{risk_id}.json"
     }
   end
 end

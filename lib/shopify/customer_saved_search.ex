@@ -11,7 +11,7 @@ defmodule Shopify.CustomerSavedSearch do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customer_saved_searches/count.json"
+      path: "/customer_saved_searches/count.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.CustomerSavedSearch do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/customer_saved_searches.json"
+      path: "/customer_saved_searches.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.CustomerSavedSearch do
   def delete(customer_saved_search_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/customer_saved_searches/#{customer_saved_search_id}.json"
+      path: "/customer_saved_searches/#{customer_saved_search_id}.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.CustomerSavedSearch do
   def get(customer_saved_search_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/customer_saved_searches/#{customer_saved_search_id}.json"
+      path: "/customer_saved_searches/#{customer_saved_search_id}.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.CustomerSavedSearch do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customer_saved_searches/#{customer_saved_search_id}/customers.json"
+      path: "/customer_saved_searches/#{customer_saved_search_id}/customers.json"
     }
   end
 
@@ -69,7 +69,7 @@ defmodule Shopify.CustomerSavedSearch do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customer_saved_searches.json"
+      path: "/customer_saved_searches.json"
     }
   end
 
@@ -81,7 +81,7 @@ defmodule Shopify.CustomerSavedSearch do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/customer_saved_searches/#{customer_saved_search_id}.json"
+      path: "/customer_saved_searches/#{customer_saved_search_id}.json"
     }
   end
 end

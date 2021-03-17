@@ -11,7 +11,7 @@ defmodule Shopify.FulfillmentEvent do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/events.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/events.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.FulfillmentEvent do
   def delete(order_id, fulfillment_id, event_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/events/#{event_id}.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/events/#{event_id}.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.FulfillmentEvent do
   def get(order_id, fulfillment_id, event_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/events/#{event_id}.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/events/#{event_id}.json"
     }
   end
 
@@ -44,7 +44,7 @@ defmodule Shopify.FulfillmentEvent do
   def list(order_id, fulfillment_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/events.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/events.json"
     }
   end
 end

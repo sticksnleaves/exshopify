@@ -11,7 +11,7 @@ defmodule Shopify.Shop do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/shop.json"
+      path: "/shop.json"
     }
   end
 end

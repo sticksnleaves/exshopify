@@ -11,7 +11,7 @@ defmodule Shopify.Product do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/products/count.json"
+      path: "/products/count.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.Product do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/products.json"
+      path: "/products.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Product do
   def delete(product_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/products/#{product_id}.json"
+      path: "/products/#{product_id}.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.Product do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/products/#{product_id}.json"
+      path: "/products/#{product_id}.json"
     }
   end
 
@@ -58,7 +58,7 @@ defmodule Shopify.Product do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/products.json"
+      path: "/products.json"
     }
   end
 
@@ -70,7 +70,7 @@ defmodule Shopify.Product do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/products/#{product_id}.json"
+      path: "/products/#{product_id}.json"
     }
   end
 end

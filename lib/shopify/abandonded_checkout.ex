@@ -11,7 +11,7 @@ defmodule Shopify.AbandonedCheckouts do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/checkouts/count.json"
+      path: "/checkouts/count.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.AbandonedCheckouts do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/checkouts.json"
+      path: "/checkouts.json"
     }
   end
 end

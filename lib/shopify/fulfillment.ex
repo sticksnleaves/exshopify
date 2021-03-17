@@ -10,7 +10,7 @@ defmodule Shopify.Fulfillment do
   def cancel(order_id, fulfillment_id) do
     %Shopify.Operation{
       http_method: :post,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/cancel.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/cancel.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.Fulfillment do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders/#{order_id}/fulfillments/count.json"
+      path: "/orders/#{order_id}/fulfillments/count.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Fulfillment do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/fulfillments.json"
+      path: "/orders/#{order_id}/fulfillments.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.Fulfillment do
   def get(order_id, fulfillment_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.Fulfillment do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders/#{order_id}/fulfillments.json"
+      path: "/orders/#{order_id}/fulfillments.json"
     }
   end
 
@@ -68,7 +68,7 @@ defmodule Shopify.Fulfillment do
   def mark_as_complete(order_id, fulfillment_id) do
     %Shopify.Operation{
       http_method: :post,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/complete.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/complete.json"
     }
   end
 
@@ -79,7 +79,7 @@ defmodule Shopify.Fulfillment do
   def mark_as_open(order_id, fulfillment_id) do
     %Shopify.Operation{
       http_method: :post,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}/open.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}/open.json"
     }
   end
 
@@ -91,7 +91,7 @@ defmodule Shopify.Fulfillment do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/orders/#{order_id}/fulfillments/#{fulfillment_id}.json"
+      path: "/orders/#{order_id}/fulfillments/#{fulfillment_id}.json"
     }
   end
 end

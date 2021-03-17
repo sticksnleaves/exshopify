@@ -11,7 +11,7 @@ defmodule Shopify.InventoryLevel do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/inventory_levels/adjust.json"
+      path: "/inventory_levels/adjust.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.InventoryLevel do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/inventory_levels/connect.json"
+      path: "/inventory_levels/connect.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.InventoryLevel do
     %Shopify.Operation{
       http_method: :delete,
       params: params,
-      path: "admin/inventory_levels.json"
+      path: "/inventory_levels.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.InventoryLevel do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/inventory_levels.json"
+      path: "/inventory_levels.json"
     }
   end
 
@@ -58,7 +58,7 @@ defmodule Shopify.InventoryLevel do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/inventory_levels/set.json"
+      path: "/inventory_levels/set.json"
     }
   end
 end

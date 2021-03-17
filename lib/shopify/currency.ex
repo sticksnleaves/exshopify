@@ -10,7 +10,7 @@ defmodule Shopify.Currency do
   def list do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/currencies.json"
+      path: "/currencies.json"
     }
   end
 end

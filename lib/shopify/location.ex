@@ -10,7 +10,7 @@ defmodule Shopify.Location do
   def count do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/locations/count.json"
+      path: "/locations/count.json"
     }
   end
 
@@ -21,7 +21,7 @@ defmodule Shopify.Location do
   def get(location_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/locations/#{location_id}.json"
+      path: "/locations/#{location_id}.json"
     }
   end
 
@@ -32,7 +32,7 @@ defmodule Shopify.Location do
   def get_inventory_levels(location_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/locations/#{location_id}/inventory_levels.json"
+      path: "/locations/#{location_id}/inventory_levels.json"
     }
   end
 
@@ -43,7 +43,7 @@ defmodule Shopify.Location do
   def list do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/locations.json"
+      path: "/locations.json"
     }
   end
 end

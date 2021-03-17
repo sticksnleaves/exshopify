@@ -10,7 +10,7 @@ defmodule Shopify.Transaction do
   def count(order_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/orders/#{order_id}/transactions/count.json"
+      path: "/orders/#{order_id}/transactions/count.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.Transaction do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/orders/#{order_id}/transactions.json"
+      path: "/orders/#{order_id}/transactions.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Transaction do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders/#{order_id}/transactions/#{transaction_id}.json"
+      path: "/orders/#{order_id}/transactions/#{transaction_id}.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.Transaction do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/orders/#{order_id}/transactions.json"
+      path: "/orders/#{order_id}/transactions.json"
     }
   end
 end

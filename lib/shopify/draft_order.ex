@@ -11,7 +11,7 @@ defmodule Shopify.DraftOrder do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/draft_orders/#{draft_order_id}/complete.json"
+      path: "/draft_orders/#{draft_order_id}/complete.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.DraftOrder do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/draft_orders/count.json"
+      path: "/draft_orders/count.json"
     }
   end
 
@@ -35,7 +35,7 @@ defmodule Shopify.DraftOrder do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/draft_orders.json"
+      path: "/draft_orders.json"
     }
   end
 
@@ -46,7 +46,7 @@ defmodule Shopify.DraftOrder do
   def delete(draft_order_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/draft_orders/#{draft_order_id}.json"
+      path: "/draft_orders/#{draft_order_id}.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.DraftOrder do
   def get(draft_order_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/draft_orders/#{draft_order_id}.json"
+      path: "/draft_orders/#{draft_order_id}.json"
     }
   end
 
@@ -69,7 +69,7 @@ defmodule Shopify.DraftOrder do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/draft_orders.json"
+      path: "/draft_orders.json"
     }
   end
 
@@ -81,7 +81,7 @@ defmodule Shopify.DraftOrder do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/draft_orders/#{draft_order_id}/send_invoice.json"
+      path: "/draft_orders/#{draft_order_id}/send_invoice.json"
     }
   end
 
@@ -93,7 +93,7 @@ defmodule Shopify.DraftOrder do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/draft_orders/#{draft_order_id}.json"
+      path: "/draft_orders/#{draft_order_id}.json"
     }
   end
 end

@@ -11,7 +11,7 @@ defmodule Shopify.OAuth do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/oauth/access_token"
+      path: "/oauth/access_token"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.OAuth do
   def revoke_access_token do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/api_permissions/current.json"
+      path: "/api_permissions/current.json"
     }
   end
 end

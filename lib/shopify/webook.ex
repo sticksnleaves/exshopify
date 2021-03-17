@@ -11,7 +11,7 @@ defmodule Shopify.Webhook do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/webhooks/count.json"
+      path: "/webhooks/count.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.Webhook do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/webhooks.json"
+      path: "/webhooks.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.Webhook do
   def delete(webhook_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/webhooks/#{webhook_id}.json"
+      path: "/webhooks/#{webhook_id}.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.Webhook do
   def get(webhook_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/webhooks/#{webhook_id}.json"
+      path: "/webhooks/#{webhook_id}.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.Webhook do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/webhooks.json"
+      path: "/webhooks.json"
     }
   end
 
@@ -69,7 +69,7 @@ defmodule Shopify.Webhook do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/webhooks/#{webhook_id}.json"
+      path: "/webhooks/#{webhook_id}.json"
     }
   end
 end

@@ -11,7 +11,7 @@ defmodule Shopify.CustomerAddress do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/customers/#{customer_id}/set.json"
+      path: "/customers/#{customer_id}/set.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.CustomerAddress do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/customers/#{customer_id}/addresses.json"
+      path: "/customers/#{customer_id}/addresses.json"
     }
   end
 
@@ -34,7 +34,7 @@ defmodule Shopify.CustomerAddress do
   def delete(customer_id, address_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/customers/#{customer_id}/addresses/#{address_id}.json"
+      path: "/customers/#{customer_id}/addresses/#{address_id}.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.CustomerAddress do
   def get(customer_id, address_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/customers/#{customer_id}/addresses/#{address_id}.json"
+      path: "/customers/#{customer_id}/addresses/#{address_id}.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.CustomerAddress do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customers/#{customer_id}/addresses.json"
+      path: "/customers/#{customer_id}/addresses.json"
     }
   end
 
@@ -68,7 +68,7 @@ defmodule Shopify.CustomerAddress do
   def set_default(customer_id, address_id) do
     %Shopify.Operation{
       http_method: :put,
-      path: "admin/customers/#{customer_id}/addresses/#{address_id}/default.json"
+      path: "/customers/#{customer_id}/addresses/#{address_id}/default.json"
     }
   end
 
@@ -80,7 +80,7 @@ defmodule Shopify.CustomerAddress do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/customers/#{customer_id}/addresses/#{address_id}.json"
+      path: "/customers/#{customer_id}/addresses/#{address_id}.json"
     }
   end
 end

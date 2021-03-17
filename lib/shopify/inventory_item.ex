@@ -10,7 +10,7 @@ defmodule Shopify.InventoryItem do
   def get(inventory_item_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/inventory_items/#{inventory_item_id}.json"
+      path: "/inventory_items/#{inventory_item_id}.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.InventoryItem do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/inventory_items.json"
+      path: "/inventory_items.json"
     }
   end
 
@@ -35,7 +35,7 @@ defmodule Shopify.InventoryItem do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/inventory_items/#{inventory_item_id}.json"
+      path: "/inventory_items/#{inventory_item_id}.json"
     }
   end
 end

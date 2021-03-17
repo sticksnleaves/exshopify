@@ -10,7 +10,7 @@ defmodule Shopify.Province do
   def count(country_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/countries/#{country_id}/provinces/count.json"
+      path: "/countries/#{country_id}/provinces/count.json"
     }
   end
 
@@ -21,7 +21,7 @@ defmodule Shopify.Province do
   def get(country_id, province_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/countries/#{country_id}/provinces/#{province_id}.json"
+      path: "/countries/#{country_id}/provinces/#{province_id}.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.Province do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/countries/#{country_id}/provinces.json"
+      path: "/countries/#{country_id}/provinces.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.Province do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/countries/#{country_id}/provinces/#{province_id}.json"
+      path: "/countries/#{country_id}/provinces/#{province_id}.json"
     }
   end
 end

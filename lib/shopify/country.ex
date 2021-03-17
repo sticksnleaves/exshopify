@@ -10,7 +10,7 @@ defmodule Shopify.Country do
   def count do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/countries/count.json"
+      path: "/countries/count.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.Country do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/countries.json"
+      path: "/countries.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.Country do
   def delete(country_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/countries/#{country_id}.json"
+      path: "/countries/#{country_id}.json"
     }
   end
 
@@ -44,7 +44,7 @@ defmodule Shopify.Country do
   def get(country_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/countries/#{country_id}.json"
+      path: "/countries/#{country_id}.json"
     }
   end
 
@@ -56,7 +56,7 @@ defmodule Shopify.Country do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/countries.json"
+      path: "/countries.json"
     }
   end
 
@@ -68,7 +68,7 @@ defmodule Shopify.Country do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/countries/#{country_id}.json"
+      path: "/countries/#{country_id}.json"
     }
   end
 end

@@ -11,7 +11,7 @@ defmodule Shopify.ProductImage do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/products/#{product_id}/images.json"
+      path: "/products/#{product_id}/images.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.ProductImage do
   def delete(product_id, image_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/products/#{product_id}/images/#{image_id}.json"
+      path: "/products/#{product_id}/images/#{image_id}.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.ProductImage do
   def get(product_id, image_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/products/#{product_id}/images/#{image_id}.json"
+      path: "/products/#{product_id}/images/#{image_id}.json"
     }
   end
 
@@ -45,7 +45,7 @@ defmodule Shopify.ProductImage do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/products/#{product_id}/images.json"
+      path: "/products/#{product_id}/images.json"
     }
   end
 
@@ -57,7 +57,7 @@ defmodule Shopify.ProductImage do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/products/#{product_id}/images/#{image_id}.json"
+      path: "/products/#{product_id}/images/#{image_id}.json"
     }
   end
 end

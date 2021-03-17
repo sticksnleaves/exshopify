@@ -11,7 +11,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customers/count.json"
+      path: "/customers/count.json"
     }
   end
 
@@ -23,7 +23,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/customers.json"
+      path: "/customers.json"
     }
   end
 
@@ -35,7 +35,7 @@ defmodule Shopify.Customer do
   def create_account_activation_url(customer_id) do
     %Shopify.Operation{
       http_method: :post,
-      path: "admin/customers/#{customer_id}/account_activation_url.json"
+      path: "/customers/#{customer_id}/account_activation_url.json"
     }
   end
 
@@ -60,7 +60,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/customers/#{customer_id}/metafields.json"
+      path: "/customers/#{customer_id}/metafields.json"
     }
   end
 
@@ -73,7 +73,7 @@ defmodule Shopify.Customer do
   def delete(customer_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/customers/#{customer_id}.json"
+      path: "/customers/#{customer_id}.json"
     }
   end
 
@@ -87,7 +87,7 @@ defmodule Shopify.Customer do
   def delete_metafield(customer_id, metafield_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/customers/#{customer_id}/metafields/#{metafield_id}}.json"
+      path: "/customers/#{customer_id}/metafields/#{metafield_id}}.json"
     }
   end
 
@@ -98,7 +98,7 @@ defmodule Shopify.Customer do
   def get(customer_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/customers/#{customer_id}.json"
+      path: "/customers/#{customer_id}.json"
     }
   end
 
@@ -109,7 +109,7 @@ defmodule Shopify.Customer do
   def get_metafield(customer_id, metafield_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/customers/#{customer_id}/metafields/#{metafield_id}}.json"
+      path: "/customers/#{customer_id}/metafields/#{metafield_id}}.json"
     }
   end
 
@@ -120,7 +120,7 @@ defmodule Shopify.Customer do
   def get_metafields(customer_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/customers/#{customer_id}/metafields.json"
+      path: "/customers/#{customer_id}/metafields.json"
     }
   end
 
@@ -131,7 +131,7 @@ defmodule Shopify.Customer do
   def get_orders(customer_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/customers/#{customer_id}.json"
+      path: "/customers/#{customer_id}.json"
     }
   end
 
@@ -143,7 +143,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customers.json"
+      path: "/customers.json"
     }
   end
 
@@ -155,7 +155,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/customers/search.json"
+      path: "/customers/search.json"
     }
   end
 
@@ -167,7 +167,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/customers/#{customer_id}/send_invite.json"
+      path: "/customers/#{customer_id}/send_invite.json"
     }
   end
 
@@ -200,7 +200,7 @@ defmodule Shopify.Customer do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/customers/#{customer_id}.json"
+      path: "/customers/#{customer_id}.json"
     }
   end
 
@@ -211,7 +211,7 @@ defmodule Shopify.Customer do
   def update_metafield(customer_id, metafield_id) do
     %Shopify.Operation{
       http_method: :put,
-      path: "admin/customers/#{customer_id}/metafields/#{metafield_id}}.json"
+      path: "/customers/#{customer_id}/metafields/#{metafield_id}}.json"
     }
   end
 end

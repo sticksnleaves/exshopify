@@ -11,7 +11,7 @@ defmodule Shopify.ShippingZone do
     %Shopify.Operation{
       http_method: :get,
       params: params,
-      path: "admin/shipping_zones.json"
+      path: "/shipping_zones.json"
     }
   end
 end

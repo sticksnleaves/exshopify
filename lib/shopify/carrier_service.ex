@@ -11,7 +11,7 @@ defmodule Shopify.CarrierService do
     %Shopify.Operation{
       http_method: :post,
       params: params,
-      path: "admin/carrier_services.json"
+      path: "/carrier_services.json"
     }
   end
 
@@ -22,7 +22,7 @@ defmodule Shopify.CarrierService do
   def delete(carrier_service_id) do
     %Shopify.Operation{
       http_method: :delete,
-      path: "admin/carrier_services/#{carrier_service_id}.json"
+      path: "/carrier_services/#{carrier_service_id}.json"
     }
   end
 
@@ -33,7 +33,7 @@ defmodule Shopify.CarrierService do
   def get(carrier_service_id) do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/carrier_services/#{carrier_service_id}.json"
+      path: "/carrier_services/#{carrier_service_id}.json"
     }
   end
 
@@ -44,7 +44,7 @@ defmodule Shopify.CarrierService do
   def list do
     %Shopify.Operation{
       http_method: :get,
-      path: "admin/carrier_services.json"
+      path: "/carrier_services.json"
     }
   end
 
@@ -56,7 +56,7 @@ defmodule Shopify.CarrierService do
     %Shopify.Operation{
       http_method: :put,
       params: params,
-      path: "admin/carrier_services/#{carrier_service_id}.json"
+      path: "/carrier_services/#{carrier_service_id}.json"
     }
   end
 end
