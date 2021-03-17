@@ -4,7 +4,6 @@ defmodule Shopify.Config do
                http_client: module,
                http_client_opts: any,
                json_codec: module,
-               path: binary,
                port: pos_integer | nil,
                scheme: binary,
                version: binary
@@ -14,7 +13,6 @@ defmodule Shopify.Config do
             http_client: Shopify.Client.Hackney,
             http_client_opts: [],
             json_codec: Jason,
-            path: "/admin/api",
             port: nil,
             scheme: "https",
             version: nil
