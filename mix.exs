@@ -4,7 +4,7 @@ defmodule Shopify.MixProject do
   def project do
     [
       app: :exshopify,
-      version: "0.10.0",
+      version: "0.10.1",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
