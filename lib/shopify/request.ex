@@ -54,16 +54,13 @@ defmodule Shopify.Request do
     |> put_path(operation, config)
     |> put_query(operation)
     |> URI.to_string()
-    |> IO.inspect()
   end
 
   defp put_path(uri, operation, %{ version: version } = config) when not is_nil(version) do
-    IO.inspect config
     Map.put(uri, :path, "/admin/api/#{config.version}#{operation.path}")
   end
 
   defp put_path(uri, operation, config) do
-    IO.inspect config
     Map.put(uri, :path, "/admin#{operation.path}")
   end
 
