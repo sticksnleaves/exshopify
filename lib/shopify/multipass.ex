@@ -77,7 +77,7 @@ defmodule Shopify.Multipass do
   """
   @spec sign(binary, binary) :: binary
   def sign(cipher_text, signature_key) do
-    signature = :crypto.hmac(:sha256, signature_key, cipher_text)
+    signature = :crypto.mac(:hmac, :sha256, signature_key, cipher_text)
     cipher_text <> signature
   end
 

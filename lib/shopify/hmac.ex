@@ -58,7 +58,7 @@ defmodule Shopify.HMAC do
   end
 
   defp compute_digest(message, shared_secret) do
-    :crypto.hmac(:sha256, shared_secret, message)
+    :crypto.mac(:hmac, :sha256, shared_secret, message)
     |> Base.encode16
     |> String.downcase
   end
