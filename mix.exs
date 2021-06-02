@@ -5,7 +5,7 @@ defmodule Shopify.MixProject do
     [
       app: :exshopify,
       version: "0.10.1",
-      elixir: "~> 1.9",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: [plt_add_apps: [:gen_stage, :hackney]],
