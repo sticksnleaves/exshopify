@@ -64,11 +64,12 @@ defmodule Shopify.Multipass do
     initialization_vector = :crypto.strong_rand_bytes(block_size)
 
     initialization_vector <>
-      :crypto.block_encrypt(
-        :aes_cbc128,
+      :crypto.crypto_one_time(
+        :aes_128_cbc,
         encryption_key,
         initialization_vector,
-        pad(message, block_size)
+        pad(message, block_size),
+        true
       )
   end
 
